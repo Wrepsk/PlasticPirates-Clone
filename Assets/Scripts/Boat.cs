@@ -5,7 +5,9 @@ using WaterSystem.Physics;
 
 public class Boat : MonoBehaviour
 {
-    public float speed = 5.0f; // 5 m/s
+    public float defSpeed = 5.0f; // 5 m/s
+    private float speed;
+    public float boostMultipliar = 4f;
     public float rotationSpeed = 90.0f; // 90 deg/s
 
     Transform rotatorTransform;
@@ -21,6 +23,7 @@ public class Boat : MonoBehaviour
         // the first child under it.
 
         rotatorTransform = transform.GetChild(0);
+        speed = defSpeed;
     }
 
     // Update is called once per frame
@@ -32,6 +35,13 @@ public class Boat : MonoBehaviour
         transform.position += rotatorTransform.rotation * new Vector3(verticalInput * speed * Time.deltaTime , 0, 0);
 
         rotatorTransform.Rotate(0, horizontalInput * rotationSpeed * Time.deltaTime, 0);
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = defSpeed * boostMultipliar;
+        }
+        else
+            speed = defSpeed;
 
         // TODO: Add collision logic.
     }
