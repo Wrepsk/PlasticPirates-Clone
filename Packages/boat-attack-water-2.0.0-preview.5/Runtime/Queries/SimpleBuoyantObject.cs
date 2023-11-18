@@ -12,7 +12,7 @@ namespace WaterSystem.Physics
             QueryCount = 1;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             var t = transform;
             var vec  = t.position;
