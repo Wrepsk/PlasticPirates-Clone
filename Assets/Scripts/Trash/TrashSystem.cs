@@ -14,10 +14,10 @@ public class TrashSystem : MonoBehaviour
     }
 
     void Start() {
-        GenerateBulkTrashAt(new Vector3(0, 0, 0), 9, 3);
+        GenerateBulkTrashWithinRadius(new Vector3(0, 0, 0), 9, 3);
     }
 
-    public void GenerateBulkTrashAt(Vector3 location, float radius, float gap) {
+    public void GenerateBulkTrashWithinRadius(Vector3 location, float radius, float gap) {
         for (float radi = 0; radi <= radius; radi += gap) {
             float perimeter = 2 * Mathf.PI * radi;
 

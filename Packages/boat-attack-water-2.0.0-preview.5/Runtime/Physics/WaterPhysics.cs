@@ -250,6 +250,16 @@ namespace WaterSystem.Physics
             var keys = QueryRegistry.Keys.ToArray();
             foreach (var key in keys)
             {
+                continue;
+                // CRUCIAL!!!
+                // the two-line code is normally included within this package
+                // i added the continue statement because the code
+                // below causes jittery and glitchy behavior on
+                // SimpleBuoyantObjects. i am not sure why
+                // it happens or why this code here exists, but
+                // it needs to be skipped for the game to run smoothly
+                // - ahmet hakan candar
+
                 if (QueryRegistry[key].x < min) continue;
                 QueryRegistry[key] -= size;
             }
