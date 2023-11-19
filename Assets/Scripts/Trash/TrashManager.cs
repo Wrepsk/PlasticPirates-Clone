@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrashSystem : MonoBehaviour
+public class TrashManager : MonoBehaviour
 {
-    public static TrashSystem instance;
+    public static TrashManager instance;
 
     public GameObject trashPrefab; // assigned in editor
 
