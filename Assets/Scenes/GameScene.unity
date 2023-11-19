@@ -724,7 +724,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900162924}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 10
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1006,6 +1006,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrashSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 6899966383291868961, guid: 55a35b27c6d82409f8ed157bf32ea8c3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6899966383291868961, guid: 55a35b27c6d82409f8ed157bf32ea8c3,
         type: 3}
