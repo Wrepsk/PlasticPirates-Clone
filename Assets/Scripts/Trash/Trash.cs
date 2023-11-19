@@ -16,7 +16,12 @@ public class Trash : MonoBehaviour
         
         
 
-        if (collision.gameObject.tag == "Player") Destroy(gameObject);
+        if (collision.gameObject.tag == "Player") OnTrashCollected();
 
+    }
+
+    void OnTrashCollected() {
+        StatsManager.instance.CollectedTrash += 1;
+        Destroy(gameObject);
     }
 }
