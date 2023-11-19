@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3354690528476721859}
   - component: {fileID: 6899966383291868961}
   m_Layer: 0
-  m_Name: TrashSystem
+  m_Name: TrashManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
