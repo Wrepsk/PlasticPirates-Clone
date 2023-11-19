@@ -1,14 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
-public class StatsManager : MonoBehaviour
+public class StatsManager : MonoBehaviour, INotifyPropertyChanged
 {
     public static StatsManager instance;
 
-    public int CollectedTrash { get; set; } = 0;
+    public event PropertyChangedEventHandler PropertyChanged;
 
     void Awake() {
         instance = this;
     }
+
+    private int _collectedTrash;
+
+    public int CollectedTrash { 
+        get { return _collectedTrash; }
+        set {
+            _collectedTrash = value;
+            OnPropertyChanged(nameof(CollectedTrash));
+        }
+    }
+
+    protected virtual void OnPropertyChanged(string propertyName) {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
 }
