@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class TrashManager : MonoBehaviour
 {
+    public int trashGroupAmount = 10;
+
     public static TrashManager instance;
 
     public GameObject trashPrefab; // assigned in editor
@@ -13,7 +15,7 @@ public class TrashManager : MonoBehaviour
     void Start() {
         // SpawnBulkTrashWithinRadius(new Vector2(0, 0), 9, 3);
 
-        SpawnRandomTrashWithinArea(new Vector2(0, 0), new Vector2(250, 250));
+        SpawnRandomTrashWithinArea(new Vector2(0, 0), new Vector2(250, 250), trashGroupAmount);
     }
 
     public void SpawnRandomTrashWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int trashPerGroup = 10, float groupRadius = 10/*,  float trashRadius = 2 */) {
