@@ -10,7 +10,7 @@ public class Harpoon : Equipment
     private Vector3 grapplePoint;
     private SpringJoint joint;
     private bool harpoonShot, lineReached, hookedToBack;
-    private int elapsedFrames = 0;
+    private float elapsedFrames = 0;
     private Vector3 pos;
     private Transform currentlyHarpoonedGameObject;
 
@@ -51,7 +51,7 @@ public class Harpoon : Equipment
             return;
 
         float interpolationRatio = (float)elapsedFrames / 45;
-        elapsedFrames = (elapsedFrames + 1) % (45 + 1);
+        elapsedFrames = ((elapsedFrames + (200 * Time.deltaTime)) % (45 + 1));
 
         Vector3 startPosition = ropePoint.position;
         Vector3 endPosition = currentlyHarpoonedGameObject.position;
@@ -107,6 +107,7 @@ public class Harpoon : Equipment
         Destroy(joint);
         lineReached = false;
         hookedToBack = false;
+        elapsedFrames = 0;
         currentlyHarpoonedGameObject = null;
         harpoonShot = false;
     }
