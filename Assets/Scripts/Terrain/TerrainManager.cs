@@ -7,6 +7,7 @@ public class TerrainManager : MonoBehaviour
     public static TerrainManager instance;
 
     public GameObject[] terrainTypes; // This is set in the editor
+    
     public GameObject terrainsParent; // This is set in the editor
 
     void Awake()
@@ -28,8 +29,8 @@ public class TerrainManager : MonoBehaviour
 
     public void GenerateTerrainAt(int2 gridPosition, int terrainType) 
     {
-        // Grid (0, 0) -> [-64, -64] -- [64, 64]
-        // Grid (1, 0) -> [64, -64] -- [192, 64]
+        // Grid (0, 0)  ->  [-64, -64] -- [ 64, 64]
+        // Grid (1, 0)  ->  [ 64, -64] -- [192, 64]
 
         int gridX = gridPosition.x;
         int gridY = gridPosition.y;
