@@ -8,17 +8,20 @@ public class TrashManager : MonoBehaviour
 
     public GameObject trashPrefab; // assigned in editor
 
-    void Awake() {
+    void Awake() 
+    {
         instance = this;
     }
 
-    void Start() {
+    void Start() 
+    {
         // SpawnBulkTrashWithinRadius(new Vector2(0, 0), 9, 3);
 
-        SpawnRandomTrashWithinArea(new Vector2(0, 0), new Vector2(250, 250), trashGroupAmount);
+        // SpawnRandomTrashWithinArea(new Vector2(0, 0), new Vector2(250, 250), trashGroupAmount);
     }
 
-    public void SpawnRandomTrashWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int trashPerGroup = 10, float groupRadius = 10/*,  float trashRadius = 2 */) {
+    public void SpawnRandomTrashWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int trashPerGroup = 10, float groupRadius = 10/*,  float trashRadius = 2 */) 
+    {
         for (int i = 0; i < groupAmount; i ++) {
             float centerX = UnityEngine.Random.Range(0f, size.x);
             float centerY = UnityEngine.Random.Range(0f, size.y);
@@ -52,7 +55,8 @@ public class TrashManager : MonoBehaviour
         }
     }
 
-    public void SpawnBulkTrashWithinRadius(Vector2 location, float radius, float gap) {
+    public void SpawnBulkTrashWithinRadius(Vector2 location, float radius, float gap) 
+    {
         for (float radi = 0; radi <= radius; radi += gap) {
             float perimeter = 2 * Mathf.PI * radi;
 
@@ -66,7 +70,8 @@ public class TrashManager : MonoBehaviour
         }
     }
 
-    public GameObject SpawnSingleTrashAt(Vector2 location) {
+    public GameObject SpawnSingleTrashAt(Vector2 location) 
+    {
         Debug.Log(location);
 
         float scale = UnityEngine.Random.Range(0.5f, 1.0f);
@@ -84,7 +89,8 @@ public class TrashManager : MonoBehaviour
         return trashObject;
     }
 
-    public void RemoveAllTrash() {
+    public void RemoveAllTrash() 
+    {
         Trash[] allTrash = FindObjectsOfType<Trash>();
 
         foreach (Trash trash in allTrash)
