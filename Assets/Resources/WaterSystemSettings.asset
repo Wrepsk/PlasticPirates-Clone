@@ -15,7 +15,7 @@ MonoBehaviour:
   defaultQuality:
     geometrySettings:
       geometryType: 0
-      density: 1
+      density: 0.5
       maxDivisions: 5
     reflectionSettings:
       reflectionType: 2
