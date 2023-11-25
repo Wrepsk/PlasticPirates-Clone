@@ -37,14 +37,26 @@ public class TerrainManager : MonoBehaviour
         int gridX = gridPosition.x;
         int gridY = gridPosition.y;
 
-        float terrainPosX = gridX * 128 - 64;
-        float terrainPosY = gridY * 128 - 64;
+        float terrainPosX = gridX * 128;
+        float terrainPosY = gridY * 128;
+
+        GameObject anchorParent = new GameObject();
+        anchorParent.transform.position = new Vector3(terrainPosX, -10, terrainPosY);
+        anchorParent.transform.parent = terrainsParent.transform;
+        anchorParent.name = string.Format("Terrain {0} ({1}, {2})", terrainType, gridX, gridY);
 
         GameObject terrainPrefab = terrainTypes[terrainType];
 
-        GameObject liveTerrain = Instantiate(terrainPrefab, new Vector3(terrainPosX, -10, terrainPosY), Quaternion.identity);
-        liveTerrain.name = string.Format("Terrain ({0}, {1})", gridX, gridY);
-        liveTerrain.transform.parent = terrainsParent.transform;
+        GameObject liveTerrain = Instantiate(terrainPrefab, new Vector3(), Quaternion.identity);
+        liveTerrain.transform.parent = anchorParent.transform;
+        liveTerrain.name = string.Format("TerrainModel {0} ({1}, {2})", terrainType, gridX, gridY);
+        liveTerrain.transform.localPosition = new Vector3(-64, 0, -64);
+
+        // anchorParent.transform.eulerAngles = new Vector3(0, rotationQuad * 90, 0);
+        // ....
+        // turns out you can _not_ rotate terrains in Unity
+        // Wtf ?
+
     }
 
     
