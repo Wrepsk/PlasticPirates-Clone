@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainTypes:
-  - {fileID: 5771480100121267157, guid: 2a856be5138871ac980285595a9d37dd, type: 3}
-  - {fileID: 9057741308490860096, guid: e4408460ba649e42ab035b3314df4dd8, type: 3}
-  - {fileID: 3156068414757157280, guid: 5f1b0991db1c66de28841d5ef6a3c916, type: 3}
-  - {fileID: 3156068414757157280, guid: a889413fdc7c3746e809c6c60f3cc34c, type: 3}
-  - {fileID: 3156068414757157280, guid: 0820c728dfe5900419edc054e67f5e15, type: 3}
+  - {fileID: 4976672634390663262, guid: eb2e6bd0336bae1a6a423e37ccff7755, type: 3}
+  - {fileID: 919765854397732518, guid: 29a2a4c6bd464e493a1fed3965c25bf0, type: 3}
+  - {fileID: 1598397324628452197, guid: b9efd73cd5b69b4298d3d693227711ef, type: 3}
+  - {fileID: 5329125818445713539, guid: 19e8fd608a2fd64188b01fa2dedbf36e, type: 3}
+  - {fileID: 6945867245371922847, guid: e451bf1c5da7f0b5ebe62480b996de77, type: 3}
+  - {fileID: 2000362455138483062, guid: db04c68bcf31978f396284dbb4956f19, type: 3}
+  - {fileID: 540507833180756910, guid: c824a42baf5838fb59329cf4a4187ecf, type: 3}
   terrainsParent: {fileID: 0}
