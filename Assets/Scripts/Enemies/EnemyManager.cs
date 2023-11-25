@@ -17,13 +17,10 @@ public class EnemyManager : MonoBehaviour
     }
 
     void Start() {
-        SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), enemyGroupAmount);
+        SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
     }
 
     public void SpawnRandomEnemyWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int enemyPerGroup = 1, float groupRadius = 10) {
-        groupAmount = nEnemyGroups;
-        enemyPerGroup = sizeEnemyGroups;
-        groupRadius = radiusEnemyGroups;
         for (int i = 0; i < groupAmount; i ++) {
             float centerX = UnityEngine.Random.Range(0f, size.x);
             float centerY = UnityEngine.Random.Range(0f, size.y);
@@ -87,7 +84,7 @@ public class EnemyManager : MonoBehaviour
 
         return enemyObject;
     }
-
+    /*
     public void RemoveAllEnemy() {
         Enemy[] allEnemy = FindObjectsOfType<Enemy>();
 
@@ -97,4 +94,5 @@ public class EnemyManager : MonoBehaviour
         }
 
     }
+    */
 }
