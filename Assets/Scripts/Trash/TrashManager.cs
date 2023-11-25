@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class TrashManager : MonoBehaviour
 {
-    public int trashGroupAmount = 10;
-
     public static TrashManager instance;
 
     public GameObject trashPrefab; // assigned in editor
@@ -42,12 +40,20 @@ public class TrashManager : MonoBehaviour
 
                 Vector2 spawnPosition = center - size / 2 + new Vector2(trashX, trashY);
 
-                float terrainHeightAtLocation = Terrain.activeTerrain.SampleHeight(new Vector3(spawnPosition.x, 0, spawnPosition.y));
-                if (terrainHeightAtLocation > 18) {
-                    Debug.Log("Trash within island, skipping");
-                } else {
-                    Debug.Log(terrainHeightAtLocation);
-                }
+                //  -- TODO: Optimise this --
+                Terrain currentTerrain = TerrainManager.instance
+                    .GetClosestCurrentTerrain(new Vector3(spawnPosition.x, 0, spawnPosition.y));
+
+                float terrainHeightAtLocation = currentTerrain
+                    .SampleHeight(new Vector3(spawnPosition.x, 0, spawnPosition.y));
+
+                Debug.Log(spawnPosition + " " + terrainHeightAtLocation + " " + currentTerrain.name);
+
+                if (terrainHeightAtLocation > 10) {
+                    Debug.Log("Trash within island, skipping: " + terrainHeightAtLocation);
+                    continue;
+                } 
+                // --------------------------
 
                 SpawnSingleTrashAt(spawnPosition);
             }

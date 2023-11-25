@@ -48,3 +48,6 @@ MonoBehaviour:
   - {fileID: 5771480100121267157, guid: 2a856be5138871ac980285595a9d37dd, type: 3}
   - {fileID: 9057741308490860096, guid: e4408460ba649e42ab035b3314df4dd8, type: 3}
   - {fileID: 3156068414757157280, guid: 5f1b0991db1c66de28841d5ef6a3c916, type: 3}
+  - {fileID: 3156068414757157280, guid: a889413fdc7c3746e809c6c60f3cc34c, type: 3}
+  - {fileID: 3156068414757157280, guid: 0820c728dfe5900419edc054e67f5e15, type: 3}
+  terrainsParent: {fileID: 0}

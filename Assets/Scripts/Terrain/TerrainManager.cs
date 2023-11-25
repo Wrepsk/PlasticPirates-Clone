@@ -25,6 +25,8 @@ public class TerrainManager : MonoBehaviour
                 GenerateTerrainAt(new int2(x, y), randomTerrainType);
             }
         }
+
+        TrashManager.instance.SpawnRandomTrashWithinArea(new Vector2(0, 0), new Vector2(392, 392), 50);
     }
 
     public void GenerateTerrainAt(int2 gridPosition, int terrainType) 
@@ -68,6 +70,7 @@ public class TerrainManager : MonoBehaviour
                 terrainIndex = i;
             }
         }
+
         return terrains[terrainIndex];
     }
 
