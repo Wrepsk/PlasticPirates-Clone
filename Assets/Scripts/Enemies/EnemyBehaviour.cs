@@ -10,6 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
     public Vector3 ownPosition;
     private Vector3 playerPos;
     public Vector3 diffVector;
+    public Vector3 directionDiffVec;
 
     Rigidbody rb;
 
@@ -24,15 +25,15 @@ public class EnemyBehaviour : MonoBehaviour
         vectorUpdate();
         transform.eulerAngles = initialDirection;
     }
-    
-    Vector3 vecDiff(Vector3 own, Vector3 play){
-        return own - play;
-    }
 
     private void FixedUpdate()
     {
         vectorUpdate();
-        var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.forward) * -diffVector.z * acceleration + Vector3.Scale(new Vector3(1, 0, 1), transform.right) * -diffVector.x * steeringStrength;
+        Quaternion _lookRotation = Quaternion.LookRotation(directionDiffVec);
+        _lookRotation = RotateQuaternionLeft(_lookRotation, 90);
+        transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, _lookRotation, Time.deltaTime * steeringStrength);
+        
+        var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.forward) * transform.rotation.z * acceleration + Vector3.Scale(new Vector3(1, 0, 1), transform.right) * transform.rotation.x * steeringStrength;
 
         rb.AddForceAtPosition(forceVec, motorPosition.position, ForceMode.Force);
 
@@ -45,10 +46,28 @@ public class EnemyBehaviour : MonoBehaviour
         {
             rb.angularVelocity = rb.angularVelocity.normalized * maxAngularSpeed;
         }
+        
+    }
+
+    Quaternion RotateQuaternionLeft(Quaternion original, float angleDegrees)
+    {
+        // Convert the angle to radians
+        float angleRadians = angleDegrees * Mathf.Deg2Rad;
+
+        // Calculate the rotation quaternion
+        Quaternion rotationQuaternion = Quaternion.Euler(0f, -angleDegrees, 0f);
+
+        // Multiply the original quaternion by the rotation quaternion
+        Quaternion rotatedQuaternion = rotationQuaternion * original;
+
+        return rotatedQuaternion;
     }
     void vectorUpdate(){
+        //Updates posiiton vectors and calculated vectors
         ownPosition = transform.position;
         playerPos = playerObject.transform.position;
-        diffVector = vecDiff(ownPosition, playerPos);
+        diffVector = vecDiff(playerPos, ownPosition);
+        directionDiffVec = diffVector.normalized;
+
     }
 }

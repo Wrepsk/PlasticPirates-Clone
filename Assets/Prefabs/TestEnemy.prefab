@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2549298568812654624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1474010184824828201}
+  m_Layer: 0
+  m_Name: MotorPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1474010184824828201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549298568812654624}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.8310003, y: 0, z: -0.07579422}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9075168095254715222}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2886407805274160615
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,9 +124,9 @@ GameObject:
   m_Component:
   - component: {fileID: 260562142156382626}
   - component: {fileID: 5971848554942083176}
-  - component: {fileID: 4011583673838751038}
   - component: {fileID: 684026152383251614}
   - component: {fileID: 183223682964053546}
+  - component: {fileID: 3735316550200251384}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -132,21 +163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sampleOffset: {x: 0, y: 0, z: 0}
---- !u!114 &4011583673838751038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6478928787076853247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a322cc7791a90fffbba2272c2b233775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defSpeed: 5
-  boostMultipliar: 4
-  rotationSpeed: 90
 --- !u!65 &684026152383251614
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -195,6 +211,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3735316550200251384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6478928787076853247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c306c23d54272d044a67aa691202448e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObject: {fileID: 0}
+  ownPosition: {x: 0, y: 0, z: 0}
+  diffVector: {x: 0, y: 0, z: 0}
+  directionDiffVec: {x: 0, y: 0, z: 0}
+  motorPosition: {fileID: 9075168095254715222}
+  acceleration: 2
+  maxSpeed: 10
+  steeringStrength: 2
+  maxAngularSpeed: 2
 --- !u!1 &8193734773129691521
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,6 +262,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4389859304841398481}
+  - {fileID: 1474010184824828201}
   m_Father: {fileID: 260562142156382626}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
