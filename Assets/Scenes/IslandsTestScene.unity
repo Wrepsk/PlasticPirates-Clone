@@ -1211,12 +1211,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 192, y: 5, z: 192}
+    m_Extent: {x: 448, y: 5, z: 448}
   shape:
     type: 1
     size:
-      x: 384
-      y: 384
+      x: 896
+      y: 896
     range:
       x: 4
       y: 10
@@ -1438,6 +1438,16 @@ PrefabInstance:
       propertyPath: terrainsParent
       value: 
       objectReference: {fileID: 727835723}
+    - target: {fileID: 1751704876179967892, guid: 5651325b6018cb92eb9eb183ab7dfb10,
+        type: 3}
+      propertyPath: terrainDiameter
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751704876179967892, guid: 5651325b6018cb92eb9eb183ab7dfb10,
+        type: 3}
+      propertyPath: debugTerrainOutline
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5186821324627558011, guid: 5651325b6018cb92eb9eb183ab7dfb10,
         type: 3}
       propertyPath: m_LocalPosition.x

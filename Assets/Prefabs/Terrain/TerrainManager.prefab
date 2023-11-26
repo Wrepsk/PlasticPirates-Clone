@@ -47,7 +47,7 @@ MonoBehaviour:
   seed: 0
   autoGenerate: 1
   optimizeTerrains: 1
-  terrainRange: 3
+  terrainDiameter: 3
   terrainTypes:
   - {fileID: 4976672634390663262, guid: eb2e6bd0336bae1a6a423e37ccff7755, type: 3}
   - {fileID: 919765854397732518, guid: 29a2a4c6bd464e493a1fed3965c25bf0, type: 3}
@@ -57,3 +57,6 @@ MonoBehaviour:
   - {fileID: 2000362455138483062, guid: db04c68bcf31978f396284dbb4956f19, type: 3}
   - {fileID: 540507833180756910, guid: c824a42baf5838fb59329cf4a4187ecf, type: 3}
   terrainsParent: {fileID: 0}
+  debugTerrainOutline: 0
+  debugOutlinePrefab: {fileID: 3929679640263724109, guid: d61ecfcd045336ff596ca5fe52749e26,
+    type: 3}

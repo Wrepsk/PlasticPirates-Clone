@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TrashManager : MonoBehaviour
@@ -6,17 +11,91 @@ public class TrashManager : MonoBehaviour
 
     public GameObject trashPrefab; // assigned in editor
 
+
+    [Header("Generation Settings")]
+
+    [Tooltip("Set whether TrashManager will automatically generate trash.")]
+    public bool autoGenerate = true;
+
+
+    [Header("Optimization Settings")]
+
+    [Tooltip("Set trash generation grid diameter.")]
+    public int trashDiameter = 3;
+
+
+    private List<int2> _trashedGrids;
+
     void Awake() 
     {
         instance = this;
+
+        if (trashDiameter % 2 == 0) {
+            throw new Exception("Trash generation grid diameter can not be even!");
+        }
+
+        _trashedGrids = new List<int2>();
     }
 
-    void Start() 
+    public void SpawnTrashWithinPlayerRange()
     {
-        // SpawnBulkTrashWithinRadius(new Vector2(0, 0), 9, 3);
+        int2 playerGrid = TerrainManager.instance.GetPlayerGrid();
 
-        // SpawnRandomTrashWithinArea(new Vector2(0, 0), new Vector2(250, 250), trashGroupAmount);
+        int halve = (trashDiameter - 1) / 2;
+
+        for (int x = -halve; x <= halve; x++) {
+            for (int y = -halve; y <= halve; y++) {
+                SpawnTrashWithinGrid(new int2(x + playerGrid.x, y + playerGrid.y), 5);
+            }
+        }
     }
+
+    public void RemoveAllTrashOutsidePlayerRange()
+    {
+        int2 playerGrid = TerrainManager.instance.GetPlayerGrid();
+
+        foreach (int2 terrainGrid in _trashedGrids.ToList()) {
+            int terrainRange = (trashDiameter - 1) / 2;
+
+            if (Mathf.Abs(terrainGrid.x - playerGrid.x) > terrainRange ||
+                Mathf.Abs(terrainGrid.y - playerGrid.y) > terrainRange) 
+            {
+                RemoveAllTrashWithinGrid(terrainGrid);
+            } 
+        }
+    }
+
+    public bool SpawnTrashWithinGrid(int2 gridPosition, int trashGroupAmount)
+    {
+        if (_trashedGrids.Contains(gridPosition)) return false;
+
+        SpawnRandomTrashWithinArea(
+            new Vector2(gridPosition.x * 128, gridPosition.y * 128), // center of terrain
+            new Vector2(128, 128), // terrain size
+            trashGroupAmount
+        );
+
+        _trashedGrids.Add(gridPosition);
+
+        return true;
+    }
+
+    public bool RemoveAllTrashWithinGrid(int2 gridPosition)
+    {
+        if (!_trashedGrids.Contains(gridPosition)) return false;
+
+        int gridX = gridPosition.x;
+        int gridY = gridPosition.y;
+
+        float terrainPosX = gridX * 128;
+        float terrainPosY = gridY * 128;
+
+        RemoveAllTrashWithinArea(new Vector2(terrainPosX, terrainPosY), new Vector2(128, 128));
+        _trashedGrids.Remove(gridPosition);
+
+        return true;
+    }
+
 
     // IMPORTANT: The area is a rectangle!
     public void SpawnRandomTrashWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int trashPerGroup = 10, float groupRadius = 10/*,  float trashRadius = 2 */) 
