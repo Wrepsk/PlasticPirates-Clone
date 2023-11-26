@@ -24,7 +24,7 @@ public class TerrainManager : MonoBehaviour
     public bool optimizeTerrains = true;
 
     [Tooltip("Set terrain diameter.")]
-    public int terrainDiameter = 3;
+    public int terrainDiameter = 7;
 
 
     [Header("Terrain Settings")]
