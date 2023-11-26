@@ -44,6 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0797d5a5c65cf6ffb9723b44fd697ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seed: 0
+  autoGenerate: 1
+  optimizeTerrains: 1
+  terrainRange: 3
   terrainTypes:
   - {fileID: 4976672634390663262, guid: eb2e6bd0336bae1a6a423e37ccff7755, type: 3}
   - {fileID: 919765854397732518, guid: 29a2a4c6bd464e493a1fed3965c25bf0, type: 3}

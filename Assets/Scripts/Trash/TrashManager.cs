@@ -18,6 +18,7 @@ public class TrashManager : MonoBehaviour
         // SpawnRandomTrashWithinArea(new Vector2(0, 0), new Vector2(250, 250), trashGroupAmount);
     }
 
+    // IMPORTANT: The area is a rectangle!
     public void SpawnRandomTrashWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int trashPerGroup = 10, float groupRadius = 10/*,  float trashRadius = 2 */) 
     {
         for (int i = 0; i < groupAmount; i ++) {
@@ -93,6 +94,26 @@ public class TrashManager : MonoBehaviour
         );
 
         return trashObject;
+    }
+
+    // IMPORTANT: The area is a rectangle!
+    public void RemoveAllTrashWithinArea(Vector2 center, Vector2 size) 
+    {
+        Trash[] allTrash = FindObjectsOfType<Trash>();
+
+        foreach (Trash trash in allTrash)
+        {
+            Vector2 trashLocation = new Vector2(trash.transform.position.x, trash.transform.position.z);
+
+            if (trashLocation.x > center.x + size.x / 2) continue;
+            if (trashLocation.x < center.x - size.x / 2) continue;
+            
+            if (trashLocation.y > center.y + size.y / 2) continue;
+            if (trashLocation.y < center.y - size.y / 2) continue;
+
+            Destroy(trash.gameObject);
+        }
+
     }
 
     public void RemoveAllTrash() 
