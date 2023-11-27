@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3167562599581581095}
   - component: {fileID: 5189617505324415958}
   - component: {fileID: 1680026158536955258}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trash
-  m_TagString: Untagged
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 1618029254640977332}
   - component: {fileID: 3125211001889194972}
   - component: {fileID: 3050899605565912221}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
