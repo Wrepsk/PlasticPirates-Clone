@@ -5,12 +5,10 @@ using UnityEngine;
 public class Cannon : Equipment
 {
 
-    public Transform gunPoint;
-    public LayerMask enemyLayers;
     public float shootingDistance = 1000f;
 
     public GameObject cannonBall;
-    public Transform barell;
+    public Transform barrel;
 
     public float force;
 
@@ -22,12 +20,7 @@ public class Cannon : Equipment
 
     void Shoot()
     {
-        //RaycastHit hit;
-        //if(Physics.Raycast(gunPoint.position, -gunPoint.right, out hit, shootingDistance, enemyLayers))
-        //{
-        //    Debug.Log("Hit the enemy: " + hit.transform.name);
-        //}
-        GameObject bullet = Instantiate(cannonBall, barell.position, barell.rotation);
-        bullet.GetComponent<Rigidbody>().velocity = barell.forward * force * Time.deltaTime;
+        GameObject bullet = Instantiate(cannonBall, barrel.position, barrel.rotation);
+        bullet.GetComponent<Rigidbody>().velocity = barrel.forward * force * Time.deltaTime;
     }
 }
