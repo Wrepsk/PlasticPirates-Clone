@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1127374841164318281}
   - component: {fileID: 2351009767814964142}
   - component: {fileID: 6664578856287383392}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2616403179579671336}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: gunPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3192907550760650862}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Harpoon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4592776779060430588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: hooksPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 8746090548675621227}
   - component: {fileID: 338247375375817146}
   - component: {fileID: 7221558379566852496}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204634992565316029}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Attractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 396552920741754227}
   - component: {fileID: 8340472849306692236}
   - component: {fileID: 7098498279968538781}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 2753926055796913849}
   - component: {fileID: 4687559006311984900}
   - component: {fileID: 220513484827645822}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 4545592983148641342}
   - component: {fileID: 6233850482805146028}
   - component: {fileID: 5546687135566461922}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 3332547742128205621}
   - component: {fileID: 2198488685283814396}
   - component: {fileID: 8887778891982380744}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +685,7 @@ GameObject:
   - component: {fileID: 6425183067699411282}
   - component: {fileID: 2523690913656189961}
   - component: {fileID: 4634579409056623963}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -789,7 +789,7 @@ GameObject:
   - component: {fileID: 2454251023739776858}
   - component: {fileID: 2823395810320607516}
   - component: {fileID: 1632930583071078150}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -874,7 +874,7 @@ GameObject:
   - component: {fileID: 6103744015466898975}
   - component: {fileID: 6853525076907003165}
   - component: {fileID: 412891746458645914}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boat
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -971,7 +971,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1117817131197324625}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1003,7 +1003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8985715164152467724}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EquipmentHorizontalMover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1040,7 +1040,7 @@ GameObject:
   - component: {fileID: 1252960841259065930}
   - component: {fileID: 4512322141212566804}
   - component: {fileID: 664930590657677126}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1121,7 +1121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6852477366852783809}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CannonBarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1153,7 +1153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 500558605482521476}
   - component: {fileID: 6720351558764328313}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CannonItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1204,7 +1204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9207440560183402575}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MagnetGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1240,7 +1240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6385828453611146854}
   - component: {fileID: 186053709983442963}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MachineGunItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1294,7 +1294,7 @@ GameObject:
   - component: {fileID: 3187707463462500629}
   - component: {fileID: 281883591721343919}
   - component: {fileID: 6696464318487807944}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1398,7 +1398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8960315619649765219}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EquipmentVerticalMover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1435,7 +1435,7 @@ GameObject:
   - component: {fileID: 4436211983221344061}
   - component: {fileID: 3455960077181063290}
   - component: {fileID: 1107027028487592270}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HarpoonItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1593,7 +1593,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1248593523383343770}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ropePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1624,7 +1624,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 580873612016090806}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MotorPosition
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -1658,7 +1658,7 @@ GameObject:
   - component: {fileID: 1379664333472086127}
   - component: {fileID: 6799726609969918235}
   - component: {fileID: 8860491831538136849}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1763,7 +1763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 523130009161777659}
   - component: {fileID: 2628870107966001335}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MagnetGunItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}

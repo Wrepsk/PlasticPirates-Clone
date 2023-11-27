@@ -4,7 +4,8 @@ public class Trash : MonoBehaviour
 {
 
     void OnTriggerEnter(Collider collision) {
-        if (collision.gameObject.tag == "Player") OnTrashCollected();
+        // 8 is the layer for player boat colliders
+        if (collision.gameObject.layer == 8) OnTrashCollected();
     }
 
     void OnTrashCollected() {
