@@ -309,8 +309,9 @@ GameObject:
   - component: {fileID: 8206228403754638637}
   - component: {fileID: 565817445751268199}
   - component: {fileID: 8625414702128277078}
+  - component: {fileID: 4734003303687675599}
   m_Layer: 0
-  m_Name: Boat
+  m_Name: LegacyWeaponBoat
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,13 +361,6 @@ MonoBehaviour:
   defSpeed: 5
   boostMultipliar: 4
   rotationSpeed: 90
-  equipmentHorizontalMover: {fileID: 8942030232792674430}
-  equipmentVerticalMover: {fileID: 6715971922474004566}
-  equipments:
-  - {fileID: 6895955321962791653}
-  - {fileID: 7324847201764405824}
-  - {fileID: 8273301351604575267}
-  - {fileID: 8982875367351978178}
 --- !u!65 &565817445751268199
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -415,6 +409,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &4734003303687675599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2329263052206486115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cebeea0782e868439eaf57f319e4eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentHorizontalMover: {fileID: 8942030232792674430}
+  equipmentVerticalMover: {fileID: 6715971922474004566}
+  equipments:
+  - {fileID: 6895955321962791653}
+  - {fileID: 7324847201764405824}
+  - {fileID: 8273301351604575267}
+  - {fileID: 8982875367351978178}
 --- !u!1 &2946965140986197194
 GameObject:
   m_ObjectHideFlags: 0
