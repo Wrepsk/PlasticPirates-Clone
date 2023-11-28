@@ -9,8 +9,8 @@ public class EnemyBehaviour : MonoBehaviour
     private Vector3 initialDirection = new Vector3(1,0,0);
     public Vector3 ownPosition;
     private Vector3 playerPos;
-    public Vector3 diffVector;
-    public Vector3 directionDiffVec;
+    private Vector3 diffVector;
+    private Vector3 directionDiffVec;
 
     Rigidbody rb;
 
@@ -18,7 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] Transform motorPosition;
 
     [Header("Boat Control parameters")]
-    [SerializeField] float acceleration, maxSpeed, steeringStrength, maxAngularSpeed;
+    [SerializeField] float accelerationfwd, maxSpeed, steeringStrength, maxAngularSpeed;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,10 +33,8 @@ public class EnemyBehaviour : MonoBehaviour
         _lookRotation = RotateQuaternionLeft(_lookRotation, 90);
         transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, _lookRotation, Time.deltaTime * steeringStrength);
         
-        var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.forward) * transform.rotation.z * acceleration + Vector3.Scale(new Vector3(1, 0, 1), transform.right) * transform.rotation.x * steeringStrength;
-
-        rb.AddForceAtPosition(forceVec, motorPosition.position, ForceMode.Force);
-
+        moveEnemy(accelerationfwd);
+        
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
@@ -47,6 +45,13 @@ public class EnemyBehaviour : MonoBehaviour
             rb.angularVelocity = rb.angularVelocity.normalized * maxAngularSpeed;
         }
         
+        
+    }
+
+    void moveEnemy(float forwardInput){
+        var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.GetChild(0).right) * forwardInput;
+
+        rb.AddForce(forceVec, ForceMode.Force);
     }
 
     Quaternion RotateQuaternionLeft(Quaternion original, float angleDegrees)
@@ -66,7 +71,7 @@ public class EnemyBehaviour : MonoBehaviour
         //Updates posiiton vectors and calculated vectors
         ownPosition = transform.position;
         playerPos = playerObject.transform.position;
-        diffVector = vecDiff(playerPos, ownPosition);
+        diffVector = playerPos - ownPosition;
         directionDiffVec = diffVector.normalized;
 
     }

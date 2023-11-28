@@ -319,7 +319,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &409109499
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -677,12 +677,37 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 183223682964053546, guid: 4c8fd1830f981df49853e65e5c8d8796,
         type: 3}
+      propertyPath: m_Drag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 183223682964053546, guid: 4c8fd1830f981df49853e65e5c8d8796,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 183223682964053546, guid: 4c8fd1830f981df49853e65e5c8d8796,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 183223682964053546, guid: 4c8fd1830f981df49853e65e5c8d8796,
+        type: 3}
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 183223682964053546, guid: 4c8fd1830f981df49853e65e5c8d8796,
         type: 3}
+      propertyPath: m_ImplicitCom
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 183223682964053546, guid: 4c8fd1830f981df49853e65e5c8d8796,
+        type: 3}
       propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 183223682964053546, guid: 4c8fd1830f981df49853e65e5c8d8796,
+        type: 3}
+      propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 260562142156382626, guid: 4c8fd1830f981df49853e65e5c8d8796,
@@ -737,8 +762,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3735316550200251384, guid: 4c8fd1830f981df49853e65e5c8d8796,
         type: 3}
-      propertyPath: acceleration
+      propertyPath: maxSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735316550200251384, guid: 4c8fd1830f981df49853e65e5c8d8796,
+        type: 3}
+      propertyPath: acceleration
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3735316550200251384, guid: 4c8fd1830f981df49853e65e5c8d8796,
         type: 3}
@@ -747,13 +777,28 @@ PrefabInstance:
       objectReference: {fileID: 409109497}
     - target: {fileID: 3735316550200251384, guid: 4c8fd1830f981df49853e65e5c8d8796,
         type: 3}
+      propertyPath: motorPosition
+      value: 
+      objectReference: {fileID: 1172981073}
+    - target: {fileID: 3735316550200251384, guid: 4c8fd1830f981df49853e65e5c8d8796,
+        type: 3}
+      propertyPath: accelerationfwd
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735316550200251384, guid: 4c8fd1830f981df49853e65e5c8d8796,
+        type: 3}
       propertyPath: maxAngularSpeed
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3735316550200251384, guid: 4c8fd1830f981df49853e65e5c8d8796,
         type: 3}
       propertyPath: steeringStrength
-      value: 10
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735316550200251384, guid: 4c8fd1830f981df49853e65e5c8d8796,
+        type: 3}
+      propertyPath: accelerationright
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6478928787076853247, guid: 4c8fd1830f981df49853e65e5c8d8796,
         type: 3}
@@ -819,6 +864,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1172981073 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1474010184824828201, guid: 4c8fd1830f981df49853e65e5c8d8796,
+    type: 3}
+  m_PrefabInstance: {fileID: 705057439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1439160696
 GameObject:
   m_ObjectHideFlags: 0
