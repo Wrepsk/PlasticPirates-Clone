@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,17 @@ public class Cannon : Equipment
     public Transform barrel;
 
     public float force;
+    long unixTimeLastShot = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
 
 
     public override void Use()
     {
-        Shoot();
+        DateTime currentTime = DateTime.UtcNow;
+        long unixTimeNow = ((DateTimeOffset)currentTime).ToUnixTimeSeconds();
+        if (unixTimeNow - unixTimeLastShot >= 1) {
+            Shoot();
+            unixTimeLastShot = unixTimeNow;
+        }
     }
 
     void Shoot()
