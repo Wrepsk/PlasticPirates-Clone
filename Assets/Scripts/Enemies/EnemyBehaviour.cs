@@ -21,6 +21,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Start()
     {
+        playerObject = GameObject.FindWithTag("Player");
+
         rb = GetComponent<Rigidbody>();
         vectorUpdate();
         transform.eulerAngles = initialDirection;

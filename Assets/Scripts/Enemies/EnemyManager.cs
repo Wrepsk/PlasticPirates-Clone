@@ -20,6 +20,15 @@ public class EnemyManager : MonoBehaviour
         SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
     }
 
+    void Update()
+    {
+        EnemyBehaviour[] enemies = GameObject.FindObjectsOfType<EnemyBehaviour>();
+        if(enemies.Length == 0)
+        {
+            SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
+        }
+    }
+
     public void SpawnRandomEnemyWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int enemyPerGroup = 1, float groupRadius = 10) {
         for (int i = 0; i < groupAmount; i ++) {
             float centerX = UnityEngine.Random.Range(0f, size.x);
