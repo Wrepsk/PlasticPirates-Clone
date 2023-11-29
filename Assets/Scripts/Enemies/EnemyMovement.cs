@@ -58,7 +58,7 @@ public class EnemyMovement : MonoBehaviour
         // if in sight then turn to player
         if (Physics.Raycast(sight, out RaycastHit hit))
         {
-            if (hit.collider.tag == "environment")
+            if (hit.collider.tag == "Environment")
             {
                 Debug.Log("Out of sight!");
             }
