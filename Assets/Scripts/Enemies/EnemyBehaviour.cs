@@ -14,6 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Vector3 directionDiffVec;
     private NavMeshAgent agent;
     Rigidbody rb;
+    public Vector3 destination;
 
 
     [SerializeField] Transform motorPosition;
@@ -23,41 +24,25 @@ public class EnemyBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         vectorUpdate();
         transform.eulerAngles = initialDirection;
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        agent.destination = playerObject.transform.position; 
+        agent = GetComponent<NavMeshAgent>();
+        agent.destination = playerPos; 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         vectorUpdate();
-        agent.destination = playerObject.transform.position; 
-        /*
+        if (Vector3.Distance(destination, playerPos) > 10.0f)
+        {
+            destination = playerPos;
+            agent.destination = destination;
+            
+        }
+        
         Quaternion _lookRotation = Quaternion.LookRotation(directionDiffVec);
         _lookRotation = RotateQuaternionLeft(_lookRotation, 90);
         transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, _lookRotation, Time.deltaTime * 5);
-        */
-        /*
-        moveEnemy(accelerationfwd);
-        
-        if (rb.velocity.magnitude > maxSpeed)
-        {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
-        }
-
-        if(rb.angularVelocity.magnitude > maxAngularSpeed)
-        {
-            rb.angularVelocity = rb.angularVelocity.normalized * maxAngularSpeed;
-        }
-        */
         
     }
-    /*
-    void moveEnemy(float forwardInput){
-        var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.GetChild(0).right) * forwardInput;
-
-        rb.AddForce(forceVec, ForceMode.Force);
-    }
-    */
     
     Quaternion RotateQuaternionLeft(Quaternion original, float angleDegrees)
     {
