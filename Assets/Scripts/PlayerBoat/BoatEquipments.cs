@@ -9,6 +9,7 @@ public class BoatEquipments : MonoBehaviour
 
     [SerializeField] Transform equipmentHorizontalMover;
     [SerializeField] Transform equipmentVerticalMover;
+    [SerializeField] GameObject cam;
     float rotationY;
     float rotationZ;
 
@@ -45,7 +46,8 @@ public class BoatEquipments : MonoBehaviour
         rotationY += 350f * Input.GetAxis("Mouse X") * Time.deltaTime;
         rotationZ -= 350f * Input.GetAxis("Mouse Y") * Time.deltaTime;
 
-        rotationZ = Mathf.Clamp(rotationZ, -45f, 45f);
+        rotationZ = Mathf.Clamp(rotationZ, -15f, 30f);
+
 
         equipmentHorizontalMover.transform.localEulerAngles = new Vector3(0, rotationY, 0);
         equipmentVerticalMover.transform.localEulerAngles = new Vector3(0, 0, rotationZ);
