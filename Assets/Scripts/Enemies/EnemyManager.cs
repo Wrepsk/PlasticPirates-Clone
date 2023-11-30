@@ -17,12 +17,17 @@ public class EnemyManager : MonoBehaviour
     }
 
     void Start() {
-        SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
+        // uhhhh ... comment this for now, since NavMesh is created by TerrainManager atm
+        // and if this function runs before TerrainManager.Start() we're doomed
+        // we can spawn in Update because it is called later
+        // i promise i will fix it with a new GameManager object
+        // v v v
+        // SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
     }
 
     void Update()
     {
-        EnemyBehaviour[] enemies = GameObject.FindObjectsOfType<EnemyBehaviour>();
+        EnemyBehaviour[] enemies = FindObjectsOfType<EnemyBehaviour>();
         if(enemies.Length == 0)
         {
             SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
@@ -47,12 +52,12 @@ public class EnemyManager : MonoBehaviour
 
                 Vector2 spawnPosition = center - size / 2 + new Vector2(enemyX, enemyY);
 
-                float terrainHeightAtLocation = Terrain.activeTerrain.SampleHeight(new Vector3(spawnPosition.x, 0, spawnPosition.y));
-                if (terrainHeightAtLocation > 18) {
-                    Debug.Log("Enemy within island, skipping");
-                } else {
-                    Debug.Log(terrainHeightAtLocation);
-                }
+                // float terrainHeightAtLocation = Terrain.activeTerrain.SampleHeight(new Vector3(spawnPosition.x, 0, spawnPosition.y));
+                // if (terrainHeightAtLocation > 18) {
+                //     Debug.Log("Enemy within island, skipping");
+                // } else {
+                //     Debug.Log(terrainHeightAtLocation);
+                // }
 
                 SpawnSingleEnemyAt(spawnPosition);
             }
