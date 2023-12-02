@@ -6,43 +6,57 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    //Actors and Helpers
     public GameObject playerObject;
-    private Vector3 initialDirection = new Vector3(1,0,0);
+    public NavMeshAgent agent;
+    private bool isAggroed = false;
+    
+    //Movement Helpers
     public Vector3 ownPosition;
+    public Vector3 destination;
+    public float turnspeed = 5.0f;
+    public float aggroRange = 128f;
+
+    //Vector Helpers
     private Vector3 playerPos;
     private Vector3 diffVector;
     private Vector3 directionDiffVec;
-    private NavMeshAgent agent;
-    Rigidbody rb;
-    public Vector3 destination;
+    private Vector3 initialDirection = new Vector3(1,0,0);
 
-
+    //Physics Objects
     [SerializeField] Transform motorPosition;
+    Rigidbody rb;
 
     void Start()
     {
-        playerObject = GameObject.FindWithTag("Player");
-
+        // Finding player object without manually assigning it
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        //init variables
         rb = GetComponent<Rigidbody>();
-        vectorUpdate();
         transform.eulerAngles = initialDirection;
         agent = GetComponent<NavMeshAgent>();
-        agent.destination = playerPos; 
+        vectorUpdate();
+        
     }
 
     private void FixedUpdate()
     {
         vectorUpdate();
-        if (Vector3.Distance(destination, playerPos) > 10.0f)
+        if (Vector3.Distance(destination, playerPos) > 10.0f & isAggroed) 
         {
-            destination = playerPos;
-            agent.destination = destination;
+            agent.destination = playerPos;
             
         }
+        if (diffVector.magnitude < aggroRange)
+        {
+            agent.destination = playerPos;
+            isAggroed = true;
+        }
         
+        //Turns enemy in direction of player by turnspeed
         Quaternion _lookRotation = Quaternion.LookRotation(directionDiffVec);
         _lookRotation = RotateQuaternionLeft(_lookRotation, 90);
-        transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, _lookRotation, Time.deltaTime * 5);
+        transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, _lookRotation, Time.deltaTime * turnspeed);
         
     }
     
@@ -61,7 +75,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
     
     void vectorUpdate(){
-        //Updates posiiton vectors and calculated vectors
+        //Updates posititon vectors and calculated vectors
         ownPosition = transform.position;
         playerPos = playerObject.transform.position;
         diffVector = playerPos - ownPosition;

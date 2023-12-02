@@ -88,13 +88,6 @@ public class EnemyManager : MonoBehaviour
         enemyObject.transform.localScale = new Vector3(scale, scale, scale);
 
         GameObject enemyCube = enemyObject.transform.GetChild(0).gameObject;
-        /*
-        enemyCube.transform.rotation = Quaternion.Euler(
-            UnityEngine.Random.Range(0, 360),
-            UnityEngine.Random.Range(0, 360),
-            UnityEngine.Random.Range(0, 360)
-        );
-        */
 
         return enemyObject;
     }
