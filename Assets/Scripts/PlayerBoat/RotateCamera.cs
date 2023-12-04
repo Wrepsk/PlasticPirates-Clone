@@ -15,6 +15,13 @@ public class RotateCamera : MonoBehaviour
     Vector3 smoothVelocity = Vector3.zero;
     float smoothTime = 0.2f;
 
+
+    private void Start() {
+        
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void Update()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

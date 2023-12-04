@@ -22,8 +22,6 @@ public class BoatEquipments : MonoBehaviour
     void Start()
     {
         EquipEquipment(0);
-        UnityEngine.Cursor.visible = false;
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()

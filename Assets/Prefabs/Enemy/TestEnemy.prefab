@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1474010184824828201}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MotorPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4389859304841398481}
   - component: {fileID: 2591014433325336762}
   - component: {fileID: 6449783467736970565}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,9 +128,9 @@ GameObject:
   - component: {fileID: 183223682964053546}
   - component: {fileID: 3735316550200251384}
   - component: {fileID: 5290763449513836569}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TestEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c306c23d54272d044a67aa691202448e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
   playerObject: {fileID: 0}
   agent: {fileID: 0}
   ownPosition: {x: 0, y: 0, z: 0}
@@ -263,7 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9075168095254715222}
   - component: {fileID: 4324817174259809542}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -6,6 +6,10 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    //Stats
+    public float health = 100;
+
+
     //Actors and Helpers
     public GameObject playerObject;
     public NavMeshAgent agent;
@@ -35,13 +39,13 @@ public class EnemyBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         transform.eulerAngles = initialDirection;
         agent = GetComponent<NavMeshAgent>();
-        vectorUpdate();
+        VectorUpdate();
         
     }
 
     private void FixedUpdate()
     {
-        vectorUpdate();
+        VectorUpdate();
         if (Vector3.Distance(destination, playerPos) > 10.0f & isAggroed) 
         {
             agent.destination = playerPos;
@@ -74,12 +78,24 @@ public class EnemyBehaviour : MonoBehaviour
         return rotatedQuaternion;
     }
     
-    void vectorUpdate(){
+    void VectorUpdate()
+    {
         //Updates posititon vectors and calculated vectors
         ownPosition = transform.position;
         playerPos = playerObject.transform.position;
         diffVector = playerPos - ownPosition;
         directionDiffVec = diffVector.normalized;
 
+    }
+
+    public void DealDamage(float damage)
+    {
+        health = Mathf.Max(0f, health - damage);
+
+        if (health == 0)
+        {
+            Debug.Log(string.Format("Enemy {0} died", name));
+            Destroy(gameObject);
+        }
     }
 }

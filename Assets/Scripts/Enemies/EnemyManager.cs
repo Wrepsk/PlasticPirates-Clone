@@ -30,7 +30,7 @@ public class EnemyManager : MonoBehaviour
         EnemyBehaviour[] enemies = FindObjectsOfType<EnemyBehaviour>();
         if(enemies.Length == 0)
         {
-            SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
+            SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(896, 896), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
         }
     }
 

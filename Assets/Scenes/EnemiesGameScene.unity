@@ -1657,6 +1657,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6478928787076853247, guid: 4c8fd1830f981df49853e65e5c8d8796,
         type: 3}
+    - target: {fileID: 7172434602534895332, guid: 9262b042cd9e76b4c8695ca6c59d1701,
+        type: 3}
+      propertyPath: nEnemyGroups
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172434602534895332, guid: 9262b042cd9e76b4c8695ca6c59d1701,
+        type: 3}
+      propertyPath: sizeEnemyGroups
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

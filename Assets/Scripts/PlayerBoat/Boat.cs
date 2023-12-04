@@ -29,6 +29,7 @@ public class Boat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
 
