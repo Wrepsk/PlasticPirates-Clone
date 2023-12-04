@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
 using UnityEngine.AI;
+using WaterSystem.Physics;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
     public GameObject playerObject;
     public NavMeshAgent agent;
     private bool isAggroed = false;
+    private SimpleBuoyantObject simpleBuoyantObject;
     
     //Movement Helpers
     public Vector3 ownPosition;
@@ -39,12 +41,29 @@ public class EnemyBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         transform.eulerAngles = initialDirection;
         agent = GetComponent<NavMeshAgent>();
+        simpleBuoyantObject = GetComponent<SimpleBuoyantObject>();
         VectorUpdate();
         
     }
 
+    private void Update()
+    {
+        // sinking animation
+        if (health == 0)
+        {
+            agent.enabled = false;
+            simpleBuoyantObject.enabled = false;
+            transform.position -= new Vector3(0, 1 * Time.deltaTime, 0);
+
+            if (transform.position.y < -5) Destroy(gameObject);
+        }
+    }
+
     private void FixedUpdate()
     {
+        if (health == 0) return;
+
+
         VectorUpdate();
         if (Vector3.Distance(destination, playerPos) > 10.0f & isAggroed) 
         {
@@ -91,11 +110,5 @@ public class EnemyBehaviour : MonoBehaviour
     public void DealDamage(float damage)
     {
         health = Mathf.Max(0f, health - damage);
-
-        if (health == 0)
-        {
-            Debug.Log(string.Format("Enemy {0} died", name));
-            Destroy(gameObject);
-        }
     }
 }

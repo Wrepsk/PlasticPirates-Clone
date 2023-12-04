@@ -30,7 +30,7 @@ public class EnemyManager : MonoBehaviour
         EnemyBehaviour[] enemies = FindObjectsOfType<EnemyBehaviour>();
         if(enemies.Length == 0)
         {
-            SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(896, 896), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
+            SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(512, 512), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
         }
     }
 
@@ -84,8 +84,6 @@ public class EnemyManager : MonoBehaviour
 
 
         GameObject enemyObject = Instantiate(enemyPrefab, new Vector3(location.x, 0, location.y), Quaternion.identity);
-
-        GameObject enemyCube = enemyObject.transform.GetChild(0).gameObject;
 
         return enemyObject;
     }
