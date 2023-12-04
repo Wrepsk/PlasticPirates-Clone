@@ -82,10 +82,8 @@ public class EnemyManager : MonoBehaviour
     public GameObject SpawnSingleEnemyAt(Vector2 location) {
         Debug.Log(location);
 
-        float scale = UnityEngine.Random.Range(0.5f, 1.0f);
 
         GameObject enemyObject = Instantiate(enemyPrefab, new Vector3(location.x, 0, location.y), Quaternion.identity);
-        enemyObject.transform.localScale = new Vector3(scale, scale, scale);
 
         GameObject enemyCube = enemyObject.transform.GetChild(0).gameObject;
 
