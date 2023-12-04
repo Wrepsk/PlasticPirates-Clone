@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +19,10 @@ public class BoatMovement : MonoBehaviour
 
         controls.BoatMovement.Move.performed += ctxt => OnMove(ctxt);
         controls.BoatMovement.Enable();
+
+
+        // See Unity Bug at the bottom of this class
+        InvokeRepeating(nameof(TemporarySolutionFixRotation), 0.1f, 0.1f);
     }
 
     private void OnMove(InputAction.CallbackContext ctxt)
@@ -39,6 +39,7 @@ public class BoatMovement : MonoBehaviour
         rb.AddForceAtPosition(forceVec, motorPosition.position, ForceMode.Force);
 
         //rb.AddTorque(Vector3.up * movementInput.x * steeringStrength);
+        
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
@@ -48,5 +49,19 @@ public class BoatMovement : MonoBehaviour
         {
             rb.angularVelocity = rb.angularVelocity.normalized * maxAngularSpeed;
         }
+
     }
+
+
+    // Unity Bug:
+    // Rigidbody3D freeze rotation on X and Z axes
+    // do not work when applying force to the boat.
+    // a temporary workaround is to forcefuly update
+    // the rotation to be 0 on X and Z axes.
+    // the Y axis is independent.
+    private void TemporarySolutionFixRotation()
+    {
+        transform.rotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
+    }
+
 }
