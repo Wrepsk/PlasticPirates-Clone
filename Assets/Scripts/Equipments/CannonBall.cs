@@ -19,6 +19,12 @@ public class CannonBall : MonoBehaviour
     {
         if (other.transform.root.tag == "Player")
             return;
+
+        if (other.transform.root.tag == "Enemy")
+        {
+            other.transform.GetComponent<EnemyBehaviour>().DealDamage(100);
+        }
+
         Instantiate(explosionParticle, transform.position, transform.rotation);
         Destroy(gameObject);
     }

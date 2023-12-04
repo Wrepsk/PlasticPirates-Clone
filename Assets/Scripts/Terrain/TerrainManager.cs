@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.AI.Navigation;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TerrainManager : MonoBehaviour
 {
@@ -61,6 +63,23 @@ public class TerrainManager : MonoBehaviour
         // Below code will later be moved to GameManager
         if (autoGenerate) InvokeRepeating(nameof(GenerateTerrainsWithinPlayerRange), 0, 5);
         if (autoGenerate && optimizeTerrains) InvokeRepeating(nameof(DestroyTerrainsOutsidePlayerRange), 0, 5);
+        Invoke(nameof(GenerateNavMesh), 0);
+    }
+
+    
+    private void GenerateNavMesh()
+    {
+        // NavMeshData nvData = NavMeshBuilder.BuildNavMeshData(NavMesh.GetSettingsByID(1), _createdTerrains.Values.Select(x => new NavMeshBuildSource { shape = NavMeshBuildSourceShape.Terrain, sourceObject = x }).ToList(), new Bounds(), new Vector3(), Quaternion.identity);
+        // GameObject.FindGameObjectWithTag("Environment").GetComponent<NavMeshSurface>().navMeshData = nvData;
+        // EnemyManager.instance.SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), 2, 2, 10);
+
+
+        // ABSOLUTE HACK AHEAD !!! 
+        // i don't know what i'm doing but we need to hurry until the Demo so
+        // we'll fix this once it's done
+        GameObject.FindGameObjectWithTag("Environment").transform.position -= new Vector3(0, 10, 0);
+        GameObject.FindGameObjectWithTag("Environment").GetComponent<NavMeshSurface>().BuildNavMesh();
+        GameObject.FindGameObjectWithTag("Environment").transform.position += new Vector3(0, 10, 0);
     }
 
     public int2 GetPlayerGrid()
