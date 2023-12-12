@@ -15,6 +15,10 @@ public class SingleShotGun : Equipment
 
     private float timeLastShot = -Mathf.Infinity;
 
+    public AudioSource audioSource;
+    public AudioClip shootingSound;
+    public AudioClip[] hitSounds;
+
     public override void Use()
     {
         Shoot();
@@ -26,10 +30,14 @@ public class SingleShotGun : Equipment
 
         timeLastShot = Time.realtimeSinceStartup;
 
+        audioSource.PlayOneShot(shootingSound);
+
         RaycastHit hit;
         if(Physics.Raycast(gunPoint.position, -gunPoint.right, out hit, shootingDistance, enemyLayers))
         {
             Debug.Log("Hit the enemy: " + hit.transform.name);
+            AudioClip randomClip = hitSounds[Random.Range(0, hitSounds.Length)];
+            audioSource.PlayOneShot(randomClip);
 
             hit.transform.GetComponent<EnemyBehaviour>().DealDamage(damage);
         }

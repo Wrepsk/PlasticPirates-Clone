@@ -19,6 +19,9 @@ public class Harpoon : Equipment
     public LayerMask grappableLayers;
     public float maxHarpoonDistance = 50f;
 
+    public AudioSource audioSource;
+    public AudioClip audioClip;
+
 
     private void Update()
     {
@@ -79,6 +82,7 @@ public class Harpoon : Equipment
         RaycastHit hit;
         if (Physics.Raycast(ropePoint.position, -ropePoint.right, out hit, maxHarpoonDistance, grappableLayers))
         {
+            audioSource.PlayOneShot(audioClip);
             currentlyHarpoonedGameObject = hit.transform;
             Debug.Log("Harpoon hit " + hit.transform.name);
             grapplePoint = hit.point;

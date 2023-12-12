@@ -14,6 +14,9 @@ public class Cannon : Equipment
     public float force;
     long unixTimeLastShot = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
 
+    public AudioSource audioSource;
+    public AudioClip audioClip;
+
 
     public override void Use()
     {
@@ -27,6 +30,7 @@ public class Cannon : Equipment
 
     void Shoot()
     {
+        audioSource.PlayOneShot(audioClip);
         GameObject bullet = Instantiate(cannonBall, barrel.position, barrel.rotation);
         bullet.GetComponent<Rigidbody>().velocity = barrel.forward * force * Time.deltaTime;
     }
