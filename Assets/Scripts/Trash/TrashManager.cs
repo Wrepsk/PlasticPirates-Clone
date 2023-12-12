@@ -26,11 +26,12 @@ public class TrashManager : MonoBehaviour
 
     private List<int2> _trashedGrids;
 
-    void Awake() 
+    void Awake()
     {
         instance = this;
 
-        if (trashDiameter % 2 == 0) {
+        if (trashDiameter % 2 == 0)
+        {
             throw new Exception("Trash generation grid diameter can not be even!");
         }
 
@@ -43,8 +44,10 @@ public class TrashManager : MonoBehaviour
 
         int halve = (trashDiameter - 1) / 2;
 
-        for (int x = -halve; x <= halve; x++) {
-            for (int y = -halve; y <= halve; y++) {
+        for (int x = -halve; x <= halve; x++)
+        {
+            for (int y = -halve; y <= halve; y++)
+            {
                 SpawnTrashWithinGrid(new int2(x + playerGrid.x, y + playerGrid.y), 5);
             }
         }
@@ -54,14 +57,15 @@ public class TrashManager : MonoBehaviour
     {
         int2 playerGrid = TerrainManager.instance.GetPlayerGrid();
 
-        foreach (int2 terrainGrid in _trashedGrids.ToList()) {
+        foreach (int2 terrainGrid in _trashedGrids.ToList())
+        {
             int terrainRange = (trashDiameter - 1) / 2;
 
             if (Mathf.Abs(terrainGrid.x - playerGrid.x) > terrainRange ||
-                Mathf.Abs(terrainGrid.y - playerGrid.y) > terrainRange) 
+                Mathf.Abs(terrainGrid.y - playerGrid.y) > terrainRange)
             {
                 RemoveAllTrashWithinGrid(terrainGrid);
-            } 
+            }
         }
     }
 
@@ -98,13 +102,15 @@ public class TrashManager : MonoBehaviour
 
 
     // IMPORTANT: The area is a rectangle!
-    public void SpawnRandomTrashWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int trashPerGroup = 10, float groupRadius = 10/*,  float trashRadius = 2 */) 
+    public void SpawnRandomTrashWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int trashPerGroup = 10, float groupRadius = 10/*,  float trashRadius = 2 */)
     {
-        for (int i = 0; i < groupAmount; i ++) {
+        for (int i = 0; i < groupAmount; i++)
+        {
             float centerX = UnityEngine.Random.Range(0f, size.x);
             float centerY = UnityEngine.Random.Range(0f, size.y);
 
-            for (int j = 0; j < trashPerGroup; j++) {
+            for (int j = 0; j < trashPerGroup; j++)
+            {
                 float offsetX = UnityEngine.Random.Range(-groupRadius / 2, groupRadius / 2);
                 float offsetY = UnityEngine.Random.Range(-groupRadius / 2, groupRadius / 2);
 
@@ -113,26 +119,38 @@ public class TrashManager : MonoBehaviour
 
                 // trashX += UnityEngine.Random.Range(-trashRadius / 2, trashRadius / 2);
                 // trashY += UnityEngine.Random.Range(-trashRadius / 2, trashRadius / 2);
-                
-                
+
+
                 trashX = Mathf.Clamp(trashX, 0, size.x);
                 trashY = Mathf.Clamp(trashY, 0, size.y);
 
                 Vector2 spawnPosition = center - size / 2 + new Vector2(trashX, trashY);
 
                 //  -- TODO: Optimise this --
-                Terrain currentTerrain = TerrainManager.instance
-                    .GetClosestCurrentTerrain(new Vector3(spawnPosition.x, 0, spawnPosition.y));
+                Terrain currentTerrain;
+
+                // Only use TerrainManager if it is actually in the scene
+                if (TerrainManager.instance != null)
+                {
+                    currentTerrain = TerrainManager.instance
+                        .GetClosestCurrentTerrain(new Vector3(spawnPosition.x, 0, spawnPosition.y));
+                }
+                // Else default to activeTerrain
+                else
+                {
+                    currentTerrain = Terrain.activeTerrain;
+                }
 
                 float terrainHeightAtLocation = currentTerrain
                     .SampleHeight(new Vector3(spawnPosition.x, 0, spawnPosition.y));
 
                 Debug.Log(spawnPosition + " " + terrainHeightAtLocation + " " + currentTerrain.name);
 
-                if (terrainHeightAtLocation > 10) {
+                if (terrainHeightAtLocation > -currentTerrain.transform.position.y)
+                {
                     Debug.Log("Trash within island, skipping: " + terrainHeightAtLocation);
                     continue;
-                } 
+                }
                 // --------------------------
 
                 SpawnSingleTrashAt(spawnPosition);
@@ -141,22 +159,24 @@ public class TrashManager : MonoBehaviour
         }
     }
 
-    public void SpawnBulkTrashWithinRadius(Vector2 location, float radius, float gap) 
+    public void SpawnBulkTrashWithinRadius(Vector2 location, float radius, float gap)
     {
-        for (float radi = 0; radi <= radius; radi += gap) {
+        for (float radi = 0; radi <= radius; radi += gap)
+        {
             float perimeter = 2 * Mathf.PI * radi;
 
-            for (float i = 0; i < perimeter; i += gap) {
-                float angle = ( i / perimeter ) * 360; // angle in degrees
+            for (float i = 0; i < perimeter; i += gap)
+            {
+                float angle = (i / perimeter) * 360; // angle in degrees
 
                 Vector2 displacement = Quaternion.Euler(0, 0, angle) * new Vector2(radi, 0);
 
                 GameObject trashObject = SpawnSingleTrashAt(location + displacement);
-            } 
+            }
         }
     }
 
-    public GameObject SpawnSingleTrashAt(Vector2 location) 
+    public GameObject SpawnSingleTrashAt(Vector2 location)
     {
         Debug.Log(location);
 
@@ -176,7 +196,7 @@ public class TrashManager : MonoBehaviour
     }
 
     // IMPORTANT: The area is a rectangle!
-    public void RemoveAllTrashWithinArea(Vector2 center, Vector2 size) 
+    public void RemoveAllTrashWithinArea(Vector2 center, Vector2 size)
     {
         Trash[] allTrash = FindObjectsOfType<Trash>();
 
@@ -186,7 +206,7 @@ public class TrashManager : MonoBehaviour
 
             if (trashLocation.x > center.x + size.x / 2) continue;
             if (trashLocation.x < center.x - size.x / 2) continue;
-            
+
             if (trashLocation.y > center.y + size.y / 2) continue;
             if (trashLocation.y < center.y - size.y / 2) continue;
 
@@ -195,7 +215,7 @@ public class TrashManager : MonoBehaviour
 
     }
 
-    public void RemoveAllTrash() 
+    public void RemoveAllTrash()
     {
         Trash[] allTrash = FindObjectsOfType<Trash>();
 
