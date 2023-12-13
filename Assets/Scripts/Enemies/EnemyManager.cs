@@ -7,6 +7,7 @@ public class EnemyManager : MonoBehaviour
     public int nEnemyGroups = 10;
     public int sizeEnemyGroups = 1;
     public int radiusEnemyGroups = 10;
+    public int nrEnemies = 0;
 
     public static EnemyManager instance;
 
@@ -22,15 +23,17 @@ public class EnemyManager : MonoBehaviour
         // we can spawn in Update because it is called later
         // i promise i will fix it with a new GameManager object
         // v v v
-        // SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
+        SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
+        nrEnemies = nrEnemies + sizeEnemyGroups * nEnemyGroups;
     }
 
     void Update()
     {
-        EnemyBehaviour[] enemies = FindObjectsOfType<EnemyBehaviour>();
-        if(enemies.Length == 0)
+        
+        if(nrEnemies == 0)
         {
             SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(512, 512), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
+            nrEnemies = nrEnemies + sizeEnemyGroups * nEnemyGroups;
         }
     }
 
