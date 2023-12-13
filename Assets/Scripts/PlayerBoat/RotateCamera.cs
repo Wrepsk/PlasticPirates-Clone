@@ -16,11 +16,6 @@ public class RotateCamera : MonoBehaviour
     float smoothTime = 0.2f;
 
 
-    private void Start() {
-        
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
 
     private void Update()
     {
