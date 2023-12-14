@@ -37,7 +37,7 @@ public class SingleShotGun : Equipment
         {
             Debug.Log("Hit the enemy: " + hit.transform.name);
             AudioClip randomClip = hitSounds[Random.Range(0, hitSounds.Length)];
-            audioSource.PlayOneShot(randomClip);
+            audioSource.PlayOneShot(randomClip, 0.8f);
 
             hit.transform.GetComponent<EnemyBehaviour>().DealDamage(damage);
         }
