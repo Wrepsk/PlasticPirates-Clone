@@ -12,11 +12,12 @@ public class BoatMovement : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip idleClip;
     public AudioClip accClip;
-    public AudioClip loopClip;
+    public AudioClip fullPowerClip;
     public AudioClip stopClip;
     private Boolean idle;
-    private Boolean acc;
-    private Boolean loop;
+    private Boolean fullPower;
+    private Boolean invokedIdle;
+    private Boolean invokedFullPower;
 
 
     [SerializeField] Transform motorPosition;
@@ -35,8 +36,8 @@ public class BoatMovement : MonoBehaviour
         audioSource.clip = idleClip;
         audioSource.loop = true;
         idle = true;
-        acc = false;
-        loop = false;
+        fullPower = false;
+        invokedIdle = false;
 
         // Start playing the loop
         audioSource.Play();
@@ -51,23 +52,48 @@ public class BoatMovement : MonoBehaviour
         float horizontalInput = ctxt.ReadValue<Vector2>().x;
         float verticalInput = ctxt.ReadValue<Vector2>().y;
 
-        if (idle) {
-            audioSource.Stop();
-            idle = false;
-        }
-        if (!acc)
-        {
-            acc = true;
-            audioSource.PlayOneShot(accClip);
-        }
-
         if (Mathf.Approximately(horizontalInput, 0f) && Mathf.Approximately(verticalInput, 0f))
         {
-            idle = true;
-            acc = false;
-            loop = false;
-            audioSource.Stop();
-            audioSource.PlayOneShot(stopClip);
+            if (fullPower)
+            {
+                idle = true;
+                fullPower = false;
+                audioSource.Stop();
+                audioSource.PlayOneShot(stopClip);
+                float delay = stopClip.length;
+                if (!invokedIdle)
+                {
+                    Invoke("PlayIdle", delay);
+                    invokedIdle = true;
+                }
+                else
+                {
+                    CancelInvoke("PlayIdle");
+                    Invoke("PlayIdle", delay);
+                }
+            }
+        }
+        else
+        {
+            if (idle)
+            {
+                idle = false;
+                fullPower = true;
+                audioSource.Stop();
+                audioSource.PlayOneShot(accClip);
+                float delay = accClip.length;
+                if (!invokedFullPower)
+                {
+                    Invoke("PlayFullPower", delay);
+                    invokedFullPower = true;
+                }
+                else
+                {
+                    CancelInvoke("PlayFullPower");
+                    Invoke("PlayFullPower", delay);
+                }
+            }
+
         }
 
         movementInput = ctxt.ReadValue<Vector2>().normalized;
@@ -105,15 +131,12 @@ public class BoatMovement : MonoBehaviour
     private void TemporarySolutionFixRotation()
     {
         transform.rotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
+    }
 
-        if (acc && !audioSource.isPlaying && !loop)
-        {
-            loop = true;
-            audioSource.clip = loopClip;
-            audioSource.loop = true;
-            audioSource.Play();
-        }
-        else if(idle && !audioSource.isPlaying && !loop)
+    private void PlayIdle()
+    {
+        invokedIdle = false;
+        if (idle)
         {
             audioSource.clip = idleClip;
             audioSource.loop = true;
@@ -121,4 +144,14 @@ public class BoatMovement : MonoBehaviour
         }
     }
 
+    private void PlayFullPower()
+    {
+        invokedFullPower = false;
+        if (fullPower)
+        {
+            audioSource.clip = fullPowerClip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+    }
 }

@@ -3057,6 +3057,11 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 637045148142999263}
+    - target: {fileID: 6853525076907003165, guid: 946c682f32d0b123b939588e25e711f1,
+        type: 3}
+      propertyPath: fullPowerClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0440ee4bb721295449a37022f082382b, type: 3}
     - target: {fileID: 7611857156907563400, guid: 946c682f32d0b123b939588e25e711f1,
         type: 3}
       propertyPath: m_Layer
