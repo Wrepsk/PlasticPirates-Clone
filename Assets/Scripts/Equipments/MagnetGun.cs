@@ -17,7 +17,9 @@ public class MagnetGun : Equipment
     {
         if (!audioSource.isPlaying)
         {
-            audioSource.PlayOneShot(audioClip);
+            audioSource.clip = audioClip;
+            audioSource.loop = true;
+            audioSource.Play();
         }
         AttractTrash();
     }

@@ -2917,6 +2917,16 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 227092792}
+    - target: {fileID: 412891746458645914, guid: 946c682f32d0b123b939588e25e711f1,
+        type: 3}
+      propertyPath: MagnetGun
+      value: 
+      objectReference: {fileID: 6864724840095414199}
+    - target: {fileID: 412891746458645914, guid: 946c682f32d0b123b939588e25e711f1,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 6864724840095414194}
     - target: {fileID: 492602238585548603, guid: 946c682f32d0b123b939588e25e711f1,
         type: 3}
       propertyPath: m_Layer
@@ -2936,7 +2946,7 @@ PrefabInstance:
         type: 3}
       propertyPath: audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 9a635f5272a943d4699f889bb8917684, type: 3}
+      objectReference: {fileID: 8300000, guid: a3611ecd680cb884abdfefb6c6b4ccb6, type: 3}
     - target: {fileID: 2628870107966001335, guid: 946c682f32d0b123b939588e25e711f1,
         type: 3}
       propertyPath: audioSource
@@ -3265,6 +3275,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6864724840095414191}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6864724840095414199 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2628870107966001335, guid: 946c682f32d0b123b939588e25e711f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 6864724840095414191}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f558e67da949f4699e2544cb8d84cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8409620092913704728
 PrefabInstance:
   m_ObjectHideFlags: 0
