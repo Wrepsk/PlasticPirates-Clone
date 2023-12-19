@@ -1,14 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Unity.VisualScripting;
 using UnityEngine.AI;
 using WaterSystem.Physics;
 
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : Damagable
 {
     //Stats
-    public float health = 100;
+    
 
 
     //Actors and Helpers
@@ -18,7 +15,6 @@ public class EnemyBehaviour : MonoBehaviour
     private SimpleBuoyantObject simpleBuoyantObject;
     
     //Movement Helpers
-    public Vector3 ownPosition;
     public Vector3 destination;
     public float turnspeed = 5.0f;
     public float aggroRange = 128f;
@@ -83,20 +79,6 @@ public class EnemyBehaviour : MonoBehaviour
         
     }
     
-    Quaternion RotateQuaternionLeft(Quaternion original, float angleDegrees)
-    {
-        // Convert the angle to radians
-        float angleRadians = angleDegrees * Mathf.Deg2Rad;
-
-        // Calculate the rotation quaternion
-        Quaternion rotationQuaternion = Quaternion.Euler(0f, -angleDegrees, 0f);
-
-        // Multiply the original quaternion by the rotation quaternion
-        Quaternion rotatedQuaternion = rotationQuaternion * original;
-
-        return rotatedQuaternion;
-    }
-    
     void VectorUpdate()
     {
         //Updates posititon vectors and calculated vectors
@@ -107,8 +89,4 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
-    public void DealDamage(float damage)
-    {
-        health = Mathf.Max(0f, health - damage);
-    }
 }
