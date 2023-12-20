@@ -225,9 +225,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  maxHealth: 100
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  ownPosition: {x: 0, y: 0, z: 0}
   playerObject: {fileID: 0}
   agent: {fileID: 0}
-  ownPosition: {x: 0, y: 0, z: 0}
   destination: {x: 0, y: 0, z: 0}
   turnspeed: 5
   aggroRange: 128

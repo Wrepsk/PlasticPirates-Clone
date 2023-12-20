@@ -1,4 +1,7 @@
+using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.Events;
 using WaterSystem.Physics;
 
 public class Damagable : MonoBehaviour
@@ -7,34 +10,29 @@ public class Damagable : MonoBehaviour
     public float health = 100;
     public float maxHealth = 100;
 
-
     //Actors and Helpers
-    private SimpleBuoyantObject simpleBuoyantObject;
+    public UnityEvent onDeath = new UnityEvent();
+    public bool isDead = false;
+    //public SimpleBuoyantObject simpleBuoyantObject;
     
     //Movement Helpers
     public Vector3 ownPosition;
 
     //Vector Helpers
-    private Vector3 initialDirection = new Vector3(1,0,0);
+    protected Vector3 initialDirection = new Vector3(1,0,0);
 
     void Start()
     {
         transform.eulerAngles = initialDirection;
         
-        simpleBuoyantObject = GetComponent<SimpleBuoyantObject>();
+        //simpleBuoyantObject = GetComponent<SimpleBuoyantObject>();
         
     }
 
     private void Update()
     {
-        // sinking animation
-        if (health == 0)
-        {
-            simpleBuoyantObject.enabled = false;
-            transform.position -= new Vector3(0, 1 * Time.deltaTime, 0);
-
-            if (transform.position.y < -5) Destroy(gameObject);
-        }
+        //checking if ded
+        if (!isDead) checkIfDead();
     }
     
     public Quaternion RotateQuaternionLeft(Quaternion original, float angleDegrees)
@@ -53,15 +51,30 @@ public class Damagable : MonoBehaviour
     public void DealDamage(float damage)
     {
         health = Mathf.Max(0f, health - damage);
+        Debug.Log("health left: " + health);
     }
 
-    public void setHealth(float newHealth)
+    public void deathAnimation()
     {
-        health = newHealth;
+        transform.position -= new Vector3(0, 1 * Time.deltaTime, 0);
+
+        if (transform.position.y < -5) Destroy(gameObject);
+    }
+    public void checkIfDead()
+    {
+        if (health == 0 | health < 0)
+        {
+            onDeath.Invoke();
+            isDead = true;
+            //simpleBuoyantObject.enabled = false;
+            
+        }
     }
 
-    public float getHealth()
-    {
-        return health;
-    }
+    //getters and setters
+    public float getHealth() { return health; }
+    public void setHealth(float newHealth) {health = newHealth;}
+
+    public float getMaxHealth() { return maxHealth; }
+    public void setMaxHealth(float newMaxHealth) {maxHealth = newMaxHealth;}
 }

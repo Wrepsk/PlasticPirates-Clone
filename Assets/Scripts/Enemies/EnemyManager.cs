@@ -8,6 +8,7 @@ public class EnemyManager : MonoBehaviour
     public int sizeEnemyGroups = 1;
     public int radiusEnemyGroups = 10;
     public int nrEnemies = 0;
+    private int desiredNrEnemies;
 
     public static EnemyManager instance;
 
@@ -23,8 +24,10 @@ public class EnemyManager : MonoBehaviour
         // we can spawn in Update because it is called later
         // i promise i will fix it with a new GameManager object
         // v v v
+        desiredNrEnemies = nrEnemies + sizeEnemyGroups * nEnemyGroups;
+        Debug.Log(desiredNrEnemies);
         SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
-        nrEnemies = nrEnemies + sizeEnemyGroups * nEnemyGroups;
+        //nrEnemies = nrEnemies + sizeEnemyGroups * nEnemyGroups;
     }
 
     void Update()
@@ -33,7 +36,12 @@ public class EnemyManager : MonoBehaviour
         if(nrEnemies == 0)
         {
             SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(512, 512), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
-            nrEnemies = nrEnemies + sizeEnemyGroups * nEnemyGroups;
+            //nrEnemies = nrEnemies + sizeEnemyGroups * nEnemyGroups;
+
+        }
+        else if(nrEnemies < desiredNrEnemies)
+        {
+            SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(512, 512), 1, 1, radiusEnemyGroups);
         }
     }
 
@@ -82,12 +90,18 @@ public class EnemyManager : MonoBehaviour
         }
     }
 */
+    void reduceNrEnemies()
+    {
+        nrEnemies -= 1;
+
+    }
     public GameObject SpawnSingleEnemyAt(Vector2 location) {
         Debug.Log(location);
 
 
         GameObject enemyObject = Instantiate(enemyPrefab, new Vector3(location.x, 0, location.y), Quaternion.identity);
-
+        enemyObject.GetComponent<EnemyBehaviour>().onDeath.AddListener(reduceNrEnemies);
+        nrEnemies += 1;
         return enemyObject;
     }
     /*

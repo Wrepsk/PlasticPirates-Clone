@@ -1,18 +1,14 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using WaterSystem.Physics;
 
 public class EnemyBehaviour : Damagable
 {
-    //Stats
-    
-
-
     //Actors and Helpers
     public GameObject playerObject;
     public NavMeshAgent agent;
     private bool isAggroed = false;
-    private SimpleBuoyantObject simpleBuoyantObject;
     
     //Movement Helpers
     public Vector3 destination;
@@ -23,41 +19,39 @@ public class EnemyBehaviour : Damagable
     private Vector3 playerPos;
     private Vector3 diffVector;
     private Vector3 directionDiffVec;
-    private Vector3 initialDirection = new Vector3(1,0,0);
-
+    
+    
     //Physics Objects
     [SerializeField] Transform motorPosition;
     Rigidbody rb;
 
+    void deathDisable()
+    {
+        agent.enabled = false;
+    }
+
     void Start()
     {
+        
         // Finding player object without manually assigning it
         playerObject = GameObject.FindGameObjectWithTag("Player");
         //init variables
         rb = GetComponent<Rigidbody>();
         transform.eulerAngles = initialDirection;
         agent = GetComponent<NavMeshAgent>();
-        simpleBuoyantObject = GetComponent<SimpleBuoyantObject>();
+        onDeath.AddListener(deathDisable);
         VectorUpdate();
         
     }
 
-    private void Update()
-    {
-        // sinking animation
-        if (health == 0)
-        {
-            agent.enabled = false;
-            simpleBuoyantObject.enabled = false;
-            transform.position -= new Vector3(0, 1 * Time.deltaTime, 0);
-
-            if (transform.position.y < -5) Destroy(gameObject);
-        }
-    }
 
     private void FixedUpdate()
     {
-        if (health == 0) return;
+        if (isDead) 
+        {
+            deathAnimation();
+            return;
+        }
 
 
         VectorUpdate();
