@@ -5,10 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UpgradeButton : MonoBehaviour
+public class UpgradeMenu : MonoBehaviour
 {
     [SerializeField] TMP_Text descText;
     [SerializeField] TMP_Text costText;
+    [SerializeField] GameObject descArea;
+
+    public Button selectedUpgradeButton;
 
     System.Reflection.FieldInfo stat;
     string statName;
@@ -18,7 +21,7 @@ public class UpgradeButton : MonoBehaviour
     
     public void StatName(string _statName)
     {
-         stat = PlayerStats.instance.GetType().GetField(_statName);
+        stat = PlayerStats.instance.GetType().GetField(_statName);
         statName = _statName;
     }
     public void NewValue(int _newValue)
@@ -34,12 +37,23 @@ public class UpgradeButton : MonoBehaviour
     {
         description = _description;
         descText.text = description;
+        descArea.SetActive(true);
     }
 
     public void ChangeValueOfStat()
     {
-        Debug.Log("Changing value");
-        Debug.Log(statName);
-        stat.SetValue(PlayerStats.instance, newValue);
+        if(selectedUpgradeButton != null)
+        {
+            if(StatsManager.instance.CollectedTrash >= cost)
+            {
+                Debug.Log("Changing value");
+                Debug.Log(statName);
+                StatsManager.instance.CollectedTrash -= cost;
+                stat.SetValue(PlayerStats.instance, newValue);
+                selectedUpgradeButton.interactable = false;
+                selectedUpgradeButton.GetComponent<UpgradeButton>().isPurchased = true;
+                selectedUpgradeButton = null;
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ public class HUD : MonoBehaviour
 {
     Text collectedTrash;
     [SerializeField] GameObject upgradeMenu;
+    [SerializeField] BoatMovement boat;
 
     void Start() {
         Transform panel = transform.Find("Canvas/Panel");
@@ -18,11 +19,14 @@ public class HUD : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab))
+        if(boat.inUpgradeIsland)
         {
-            upgradeMenu.SetActive(!upgradeMenu.activeInHierarchy);
-            Cursor.visible = !Cursor.visible;
-            Cursor.lockState = (Cursor.lockState == CursorLockMode.Locked) ? CursorLockMode.None : CursorLockMode.Locked;
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                upgradeMenu.SetActive(!upgradeMenu.activeInHierarchy);
+                Cursor.visible = !Cursor.visible;
+                Cursor.lockState = (Cursor.lockState == CursorLockMode.Locked) ? CursorLockMode.None : CursorLockMode.Locked;
+            }
         }
     }
 

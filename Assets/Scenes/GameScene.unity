@@ -649,12 +649,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ef201af7057f5fb393b4b2c2f105e49, type: 3}
---- !u!1 &900752362 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3208908070756074240, guid: e787c88fc60ed94f28b28faef6f26cb7,
+--- !u!114 &853093798 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6853525076907003165, guid: 946c682f32d0b123b939588e25e711f1,
     type: 3}
-  m_PrefabInstance: {fileID: 1421638435}
+  m_PrefabInstance: {fileID: 6864724840095414191}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a8577e8323bf445b67b2f3c67a5bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1076373546
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,11 +796,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3208908070756074240, guid: e787c88fc60ed94f28b28faef6f26cb7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5289512619904229493, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -847,9 +848,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6947272297880675087, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
-      propertyPath: upgradeMenu
+      propertyPath: boat
       value: 
-      objectReference: {fileID: 900752362}
+      objectReference: {fileID: 853093798}
     - target: {fileID: 7386198400862318157, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: m_Name
@@ -1336,6 +1337,11 @@ PrefabInstance:
     - target: {fileID: 3677111010196202427, guid: 946c682f32d0b123b939588e25e711f1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6853525076907003165, guid: 946c682f32d0b123b939588e25e711f1,
+        type: 3}
+      propertyPath: inUpgradeIsland
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
