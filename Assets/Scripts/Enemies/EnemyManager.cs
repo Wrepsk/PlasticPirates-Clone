@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public int nEnemyGroups = 10;
-    public int sizeEnemyGroups = 1;
-    public int radiusEnemyGroups = 10;
-    public int nrEnemies = 0;
-    private int desiredNrEnemies;
+    // Define size of Waves
+    public int enemyGroupCount = 3;
+    public int enemyGroupSize = 2;
+    public int enemyGroupRadius = 10;
+
+    // Counters
+    public int desiredEnemyCount = 3; // should be set by difficulty
+    public int desiredWaveCounter = 6; // should be set by difficulty
+    public int enemyCount = 0;
+    public int waveCounter = 6; // After you kill x amount of enemies, a big wave will spawn
 
     public static EnemyManager instance;
 
@@ -19,30 +24,25 @@ public class EnemyManager : MonoBehaviour
     }
 
     void Start() {
-        // uhhhh ... comment this for now, since NavMesh is created by TerrainManager atm
-        // and if this function runs before TerrainManager.Start() we're doomed
-        // we can spawn in Update because it is called later
-        // i promise i will fix it with a new GameManager object
-        // v v v
-        desiredNrEnemies = nrEnemies + sizeEnemyGroups * nEnemyGroups;
-        Debug.Log(desiredNrEnemies);
-        SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
-        //nrEnemies = nrEnemies + sizeEnemyGroups * nEnemyGroups;
+        // Spawn initial Wave
+        SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), enemyGroupCount, enemyGroupSize, enemyGroupRadius);
     }
 
     void Update()
     {
-        
-        if(nrEnemies == 0)
+        // Spawn enemies one by one outside of Waves
+        if(enemyCount < desiredEnemyCount)
         {
-            SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(512, 512), nEnemyGroups, sizeEnemyGroups, radiusEnemyGroups);
-            //nrEnemies = nrEnemies + sizeEnemyGroups * nEnemyGroups;
+            SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(512, 512), 1, 1, enemyGroupRadius);
+        }
 
-        }
-        else if(nrEnemies < desiredNrEnemies)
+        // When waveCounter hits 0, spawn Wave
+        if (waveCounter == 0)
         {
-            SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(512, 512), 1, 1, radiusEnemyGroups);
+            waveCounter = desiredWaveCounter;
+            SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), enemyGroupCount, enemyGroupSize, enemyGroupRadius);
         }
+
     }
 
     public void SpawnRandomEnemyWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int enemyPerGroup = 1, float groupRadius = 10) {
@@ -75,6 +75,7 @@ public class EnemyManager : MonoBehaviour
 
         }
     }
+
 /*
     public void SpawnBulkEnemyWithinRadius(Vector2 location, float radius, float gap) {
         for (float radi = 0; radi <= radius; radi += gap) {
@@ -90,20 +91,23 @@ public class EnemyManager : MonoBehaviour
         }
     }
 */
-    void reduceNrEnemies()
+    void ReduceEnemyCount()
     {
-        nrEnemies -= 1;
+        enemyCount -= 1;
+        waveCounter -= 1;
 
     }
+
     public GameObject SpawnSingleEnemyAt(Vector2 location) {
         Debug.Log(location);
 
-
         GameObject enemyObject = Instantiate(enemyPrefab, new Vector3(location.x, 0, location.y), Quaternion.identity);
-        enemyObject.GetComponent<EnemyBehaviour>().onDeath.AddListener(reduceNrEnemies);
-        nrEnemies += 1;
+        enemyObject.GetComponent<EnemyBehaviour>().onDeath.AddListener(ReduceEnemyCount);
+        enemyCount += 1;
+
         return enemyObject;
     }
+
     /*
     public void RemoveAllEnemy() {
         Enemy[] allEnemy = FindObjectsOfType<Enemy>();
