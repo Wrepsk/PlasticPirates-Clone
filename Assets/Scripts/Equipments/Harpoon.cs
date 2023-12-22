@@ -115,4 +115,6 @@ public class Harpoon : Equipment
         currentlyHarpoonedGameObject = null;
         harpoonShot = false;
     }
+
+    public override void StopUsing(){}
 }

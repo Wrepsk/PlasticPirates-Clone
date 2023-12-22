@@ -46,4 +46,9 @@ public class MagnetGun : Equipment
     void DrawRect(Rect rect)
     {
     }
+
+    public override void StopUsing() 
+    { 
+        audioSource.Stop();
+    }
 }

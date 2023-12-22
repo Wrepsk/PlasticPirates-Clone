@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,6 @@ public class BoatEquipments : MonoBehaviour
     float rotationZ;
 
     [SerializeField] Equipment[] equipments;
-    public Equipment MagnetGun;
-    public AudioSource audioSource;
     int equipmentIndex;
     int previousEquipmentIndex = -1;
 
@@ -34,12 +33,15 @@ public class BoatEquipments : MonoBehaviour
         if(equipments[equipmentIndex] != null)
         {
             if (equipments[equipmentIndex].equipmentInfo.isAutomatic && Input.GetMouseButton(0))
+            {
                 equipments[equipmentIndex].Use();
+            }
             else if (Input.GetMouseButtonDown(0))
+            {
                 equipments[equipmentIndex].Use();
-            else if (equipments[equipmentIndex] == MagnetGun && audioSource.isPlaying)
-                audioSource.Stop();
-
+            }
+            else if (equipments[equipmentIndex].equipmentInfo.isAutomatic && Input.GetMouseButtonUp(0))
+                equipments[equipmentIndex].StopUsing();
         }
 
     }

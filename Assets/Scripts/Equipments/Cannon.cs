@@ -34,4 +34,6 @@ public class Cannon : Equipment
         GameObject bullet = Instantiate(cannonBall, barrel.position, barrel.rotation);
         bullet.GetComponent<Rigidbody>().velocity = barrel.forward * force * Time.deltaTime;
     }
+
+    public override void StopUsing(){}
 }

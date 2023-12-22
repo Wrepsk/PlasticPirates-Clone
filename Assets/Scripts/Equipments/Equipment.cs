@@ -8,4 +8,6 @@ public abstract class Equipment : MonoBehaviour
     public GameObject equipmentGameObject;
 
     public abstract void Use();
+
+    public abstract void StopUsing();
 }

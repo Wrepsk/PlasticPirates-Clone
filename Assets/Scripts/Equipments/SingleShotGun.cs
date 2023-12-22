@@ -19,6 +19,9 @@ public class SingleShotGun : Equipment
     public AudioClip shootingSound;
     public AudioClip[] hitSounds;
 
+    public ParticleSystem bulltetsDropping;
+    public ParticleSystem shootingAnimation;
+
     public override void Use()
     {
         Shoot();
@@ -31,6 +34,8 @@ public class SingleShotGun : Equipment
         timeLastShot = Time.realtimeSinceStartup;
 
         audioSource.PlayOneShot(shootingSound);
+        bulltetsDropping.Play();
+        shootingAnimation.Play();
 
         RaycastHit hit;
         if(Physics.Raycast(gunPoint.position, -gunPoint.right, out hit, shootingDistance, enemyLayers))
@@ -41,5 +46,11 @@ public class SingleShotGun : Equipment
 
             hit.transform.GetComponent<EnemyBehaviour>().DealDamage(damage);
         }
+    }
+
+    public override void StopUsing()
+    {
+        bulltetsDropping.Stop();
+        shootingAnimation.Stop();
     }
 }
