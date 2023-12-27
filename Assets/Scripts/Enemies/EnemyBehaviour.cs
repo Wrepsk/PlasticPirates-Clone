@@ -10,7 +10,6 @@ public class EnemyBehaviour : MonoBehaviour
     //Stats
     public float health = 100;
 
-
     //Actors and Helpers
     public GameObject playerObject;
     public NavMeshAgent agent;
@@ -33,6 +32,20 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] Transform motorPosition;
     Rigidbody rb;
 
+    //Smoke/Fire/Bubbles Animations
+    public ParticleSystem SmokeParticles;
+    public ParticleSystem FireParticles;
+    public ParticleSystem Bubbles;
+    private float sixtyPercentHealth;
+    private float thirtyPercentHealth;
+    private bool onFire;
+    private bool smoking;
+    private bool alive;
+    //Sounds
+    public AudioSource audioSource;
+    public AudioClip fireSound;
+    public AudioClip bubbleSound;
+
     void Start()
     {
         // Finding player object without manually assigning it
@@ -43,7 +56,12 @@ public class EnemyBehaviour : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         simpleBuoyantObject = GetComponent<SimpleBuoyantObject>();
         VectorUpdate();
-        
+
+        sixtyPercentHealth = health * 0.6f;
+        thirtyPercentHealth = health * 0.3f;
+        onFire = false;
+        smoking = false;
+        alive = true;
     }
 
     private void Update()
@@ -51,11 +69,42 @@ public class EnemyBehaviour : MonoBehaviour
         // sinking animation
         if (health == 0)
         {
+            if (alive)
+            {
+                if (!FireParticles.isPlaying)
+                {
+                    FireParticles.Play();
+                    audioSource.clip = fireSound;
+                    audioSource.volume = 0.8f;
+                    audioSource.loop = true;
+                    audioSource.Play();
+                }
+                Invoke("stopFireAndSmoke", 0.7f);
+                Invoke("startBubbles", 1.35f);
+                alive = false;
+            }
+            
             agent.enabled = false;
             simpleBuoyantObject.enabled = false;
             transform.position -= new Vector3(0, 1 * Time.deltaTime, 0);
 
             if (transform.position.y < -5) Destroy(gameObject);
+        }
+        else if (health <= thirtyPercentHealth && !onFire)
+        {
+            SmokeParticles.Stop();
+            FireParticles.Play();
+            onFire = true;
+            audioSource.volume = 0.65f;
+        }
+        else if (health <= sixtyPercentHealth && !smoking)
+        {
+            SmokeParticles.Play();
+            smoking = true;
+            audioSource.clip = fireSound;
+            audioSource.loop = true;
+            audioSource.volume = 0.3f;
+            audioSource.Play();
         }
     }
 
@@ -110,5 +159,19 @@ public class EnemyBehaviour : MonoBehaviour
     public void DealDamage(float damage)
     {
         health = Mathf.Max(0f, health - damage);
+    }
+
+    private void stopFireAndSmoke()
+    {
+        audioSource.Stop();
+        FireParticles.Stop();
+        SmokeParticles.Stop();
+    }
+
+    private void startBubbles()
+    {
+        audioSource.volume = 1f;
+        audioSource.PlayOneShot(bubbleSound);
+        Bubbles.Play();
     }
 }
