@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Cannon : Equipment
@@ -13,13 +14,16 @@ public class Cannon : Equipment
 
     public float force;
     long unixTimeLastShot = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
+    
 
-
+    private void Start(){
+        equipmentInfo.cooldown = 5;
+    }
     public override void Use()
     {
         DateTime currentTime = DateTime.UtcNow;
         long unixTimeNow = ((DateTimeOffset)currentTime).ToUnixTimeSeconds();
-        if (unixTimeNow - unixTimeLastShot >= 1) {
+        if (unixTimeNow - unixTimeLastShot >= equipmentInfo.cooldown) {
             Shoot();
             unixTimeLastShot = unixTimeNow;
         }

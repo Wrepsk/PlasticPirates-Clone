@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18029143, g: 0.22572419, b: 0.30693057, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -973,6 +973,12 @@ Transform:
   - {fileID: 321850835}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 10.524, y: 0, z: 0}
+--- !u!1 &503169648 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3077803628271586635, guid: 946c682f32d0b123b939588e25e711f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 6864724840095414191}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &535598381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2068,7 +2074,7 @@ GameObject:
   - component: {fileID: 2121316869}
   m_Layer: 0
   m_Name: Ocean
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2208,6 +2214,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6864724840095414191}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &637045148142999263
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503169648}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6864724840095414191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2323,7 +2350,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 227092797}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3077803628271586635, guid: 946c682f32d0b123b939588e25e711f1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 637045148142999263}
   m_SourcePrefab: {fileID: 100100000, guid: 946c682f32d0b123b939588e25e711f1, type: 3}
 --- !u!1001 &8409620092913704728
 PrefabInstance:

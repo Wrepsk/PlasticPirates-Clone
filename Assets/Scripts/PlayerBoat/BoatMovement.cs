@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BoatMovement : MonoBehaviour
+public class BoatMovement : Damagable
 {
     PlayerControls controls;
     public Vector2 movementInput;

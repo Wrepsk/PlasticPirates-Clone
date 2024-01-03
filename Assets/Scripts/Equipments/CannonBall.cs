@@ -18,14 +18,14 @@ public class CannonBall : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.root.tag == "Player")
-            return;
+            other.transform.GetComponent<BoatMovement>().DealDamage(100);
 
         if (other.transform.root.tag == "Enemy")
         {
             other.transform.GetComponent<EnemyBehaviour>().DealDamage(100);
         }
 
-        Instantiate(explosionParticle, transform.position, transform.rotation);
+        //Instantiate(explosionParticle, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

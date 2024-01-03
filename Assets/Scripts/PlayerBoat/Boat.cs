@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using WaterSystem.Physics;
 
-public class Boat : MonoBehaviour
+public class Boat : Damagable
 {
-    public float defSpeed = 5.0f; // 5 m/s
     private float speed;
     public float boostMultipliar = 4f;
     public float rotationSpeed = 90.0f; // 90 deg/s
