@@ -61,11 +61,13 @@ public class BoatMovement : MonoBehaviour
                 idle = true;
                 fullPower = false;
 
-                if (audioSource != null && stopClip != null)
+                if (audioSource != null)
                 {
                     audioSource.Stop();
-                    audioSource.PlayOneShot(stopClip);
-                    float delay = stopClip.length;
+
+                    if (stopClip != null) audioSource.PlayOneShot(stopClip);
+                    float delay = stopClip != null ? stopClip.length : 0f;
+
                     if (!invokedIdle)
                     {
                         Invoke("PlayIdle", delay);

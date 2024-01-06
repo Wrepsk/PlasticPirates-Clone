@@ -1312,10 +1312,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementInput: {x: 0, y: 0}
   audioSource: {fileID: 8226011301528252935}
-  idleClip: {fileID: 8300000, guid: 6ff64376798ad454cbcbf83d0d9b302b, type: 3}
-  accClip: {fileID: 8300000, guid: 8ca4e77bfee396c448a894823508e0e2, type: 3}
-  fullPowerClip: {fileID: 8300000, guid: 0440ee4bb721295449a37022f082382b, type: 3}
-  stopClip: {fileID: 8300000, guid: 4fc45a7b30d6c994b91cf2685e922fb4, type: 3}
+  idleClip: {fileID: 8300000, guid: 791edf6037255784fa52e0063d8d414f, type: 3}
+  accClip: {fileID: 8300000, guid: 221bab098552ebb4db09e13ff53c44e3, type: 3}
+  fullPowerClip: {fileID: 8300000, guid: c7586d1303b2a364b9a0a9c1a2c607b1, type: 3}
+  stopClip: {fileID: 8300000, guid: 5c40a2dc7a8c3d449b1799ef2ee7f458, type: 3}
   motorPosition: {fileID: 129322659809120638}
   acceleration: 100
   maxSpeed: 100
