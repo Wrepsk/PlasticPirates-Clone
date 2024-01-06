@@ -13,6 +13,9 @@ public class SingleShotGun : Equipment
 
     public AudioClip[] hitSounds;
 
+    public ParticleSystem bulltetsDropping;
+    public ParticleSystem shootingAnimation;
+
     public override void Use()
     {
         Shoot();
@@ -20,15 +23,27 @@ public class SingleShotGun : Equipment
 
     void Shoot()
     {
+        if (bulltetsDropping != null && !bulltetsDropping.isPlaying) bulltetsDropping.Play();
+        if (shootingAnimation != null && !shootingAnimation.isPlaying) shootingAnimation.Play();
 
         RaycastHit hit;
         if(Physics.Raycast(gunPoint.position, -gunPoint.right, out hit, shootingDistance, enemyLayers))
         {
             Debug.Log("Hit the enemy: " + hit.transform.name);
-            AudioClip randomClip = hitSounds[Random.Range(0, hitSounds.Length)];
-            audioSource.PlayOneShot(randomClip);
 
             hit.transform.GetComponent<EnemyBehaviour>().DealDamage(damage);
+
+            if (hitSounds.Length > 0 && audioSource != null)
+            {
+                AudioClip randomClip = hitSounds[Random.Range(0, hitSounds.Length)];
+                audioSource.PlayOneShot(randomClip, 0.8f);
+            }
         }
+    }
+
+    public override void StopUse()
+    {
+        if (bulltetsDropping != null) bulltetsDropping.Stop();
+        if (shootingAnimation != null) shootingAnimation.Stop();
     }
 }

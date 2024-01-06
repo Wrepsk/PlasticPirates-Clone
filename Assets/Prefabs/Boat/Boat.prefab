@@ -938,6 +938,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementInput: {x: 0, y: 0}
+  audioSource: {fileID: 0}
+  idleClip: {fileID: 0}
+  accClip: {fileID: 0}
+  fullPowerClip: {fileID: 0}
+  stopClip: {fileID: 0}
   motorPosition: {fileID: 580873612016090806}
   acceleration: 100
   maxSpeed: 100
@@ -1295,6 +1300,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7265226cb29d5d04187dfba5b98fe697, type: 3}
   - {fileID: 8300000, guid: 8f2c99ce2624ae241a747c4baa6963d3, type: 3}
   - {fileID: 8300000, guid: 41c2b11beb928cb429a6ba61847c59fa, type: 3}
+  bulltetsDropping: {fileID: 0}
+  shootingAnimation: {fileID: 0}
 --- !u!1 &5323017588441344724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1637,7 +1644,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -1914,7 +1921,7 @@ MonoBehaviour:
   equipmentInfo: {fileID: 11400000, guid: 5eceabc67268fcb498a998e385bb0c50, type: 2}
   equipmentGameObject: {fileID: 4763366078560534807}
   audioSource: {fileID: 405464122467767063}
-  audioClip: {fileID: 8300000, guid: 9a635f5272a943d4699f889bb8917684, type: 3}
+  audioClip: {fileID: 8300000, guid: a3611ecd680cb884abdfefb6c6b4ccb6, type: 3}
   cooldown: 0
   attractor: {fileID: 204634992565316029}
   boat: {fileID: 3677111010196202427}

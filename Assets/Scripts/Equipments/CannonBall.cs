@@ -27,7 +27,7 @@ public class CannonBall : MonoBehaviour
             other.transform.GetComponent<EnemyBehaviour>().DealDamage(100);
         }
 
-        audioSource.PlayOneShot(audioClip);
+        audioSource?.PlayOneShot(audioClip);
 
         Instantiate(explosionParticle, transform.position, transform.rotation);
         Destroy(gameObject);

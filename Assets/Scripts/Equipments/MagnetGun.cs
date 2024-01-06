@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class MagnetGun : Equipment
@@ -39,7 +36,9 @@ public class MagnetGun : Equipment
     {
         Gizmos.DrawWireCube(new Vector3(attractor.position.x, attractor.position.y, attractor.position.z), new Vector3(sizeOfCollider.x * 2, sizeOfCollider.y * 2, sizeOfCollider.z * 2));
     }
-    void DrawRect(Rect rect)
-    {
+
+    public override void StopUse() 
+    { 
+        audioSource?.Stop();
     }
 }

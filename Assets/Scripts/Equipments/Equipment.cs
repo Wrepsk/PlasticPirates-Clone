@@ -16,6 +16,7 @@ public abstract class Equipment : MonoBehaviour
     private float _timeLastUsed = -Mathf.Infinity;
 
     public abstract void Use();
+    public virtual void StopUse() { }
 
     public void BaseUse()
     {
@@ -30,4 +31,10 @@ public abstract class Equipment : MonoBehaviour
 
         Use();
     }
+
+    public void BaseStopUse()
+    {
+        StopUse();
+    }
+
 }
