@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Cannon : Equipment
@@ -12,25 +13,14 @@ public class Cannon : Equipment
     public Transform barrel;
 
     public float force;
-    long unixTimeLastShot = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
-
-    public AudioSource audioSource;
-    public AudioClip audioClip;
-
 
     public override void Use()
     {
-        DateTime currentTime = DateTime.UtcNow;
-        long unixTimeNow = ((DateTimeOffset)currentTime).ToUnixTimeSeconds();
-        if (unixTimeNow - unixTimeLastShot >= 1) {
-            Shoot();
-            unixTimeLastShot = unixTimeNow;
-        }
+       Shoot();
     }
 
     void Shoot()
     {
-        audioSource.PlayOneShot(audioClip);
         GameObject bullet = Instantiate(cannonBall, barrel.position, barrel.rotation);
         bullet.GetComponent<Rigidbody>().velocity = barrel.forward * force * Time.deltaTime;
     }

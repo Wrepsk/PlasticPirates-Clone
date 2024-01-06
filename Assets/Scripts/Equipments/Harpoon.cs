@@ -19,9 +19,10 @@ public class Harpoon : Equipment
     public LayerMask grappableLayers;
     public float maxHarpoonDistance = 50f;
 
-    public AudioSource audioSource;
-    public AudioClip audioClip;
-
+    private void Awake()
+    {
+        disableAutoPlay = true;    
+    }
 
     private void Update()
     {

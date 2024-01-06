@@ -32,9 +32,9 @@ public class BoatEquipments : MonoBehaviour
         if(equipments[equipmentIndex] != null)
         {
             if (equipments[equipmentIndex].equipmentInfo.isAutomatic && Input.GetMouseButton(0))
-                equipments[equipmentIndex].Use();
+                equipments[equipmentIndex].BaseUse();
             else if(Input.GetMouseButtonDown(0))
-                    equipments[equipmentIndex].Use();
+                    equipments[equipmentIndex].BaseUse();
         }
 
     }

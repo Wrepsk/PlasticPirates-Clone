@@ -10,7 +10,6 @@ public class CannonBall : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip audioClip;
 
-
     private void Update()
     {
         cannonLifetime -= Time.deltaTime;

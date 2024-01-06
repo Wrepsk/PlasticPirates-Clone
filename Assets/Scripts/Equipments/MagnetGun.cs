@@ -10,15 +10,13 @@ public class MagnetGun : Equipment
     public Vector3 sizeOfCollider = new Vector3();
     public float attractionStrenght = 5f;
 
-    public AudioSource audioSource;
-    public AudioClip audioClip;
+    private void Awake()
+    {
+        suppressLastAudio = false;
+    }
 
     public override void Use()
     {
-        if (!audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(audioClip);
-        }
         AttractTrash();
     }
 

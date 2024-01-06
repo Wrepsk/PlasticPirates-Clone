@@ -9,14 +9,8 @@ public class SingleShotGun : Equipment
     public LayerMask enemyLayers;
 
     public float shootingDistance = 1000f; // 1000 meter range
-    public float cooldown = 0.35f; // 0.35 seconds
     public float damage = 20f; // deals 20 hp
 
-
-    private float timeLastShot = -Mathf.Infinity;
-
-    public AudioSource audioSource;
-    public AudioClip shootingSound;
     public AudioClip[] hitSounds;
 
     public override void Use()
@@ -26,11 +20,6 @@ public class SingleShotGun : Equipment
 
     void Shoot()
     {
-        if (Time.realtimeSinceStartup - timeLastShot < cooldown) return;
-
-        timeLastShot = Time.realtimeSinceStartup;
-
-        audioSource.PlayOneShot(shootingSound);
 
         RaycastHit hit;
         if(Physics.Raycast(gunPoint.position, -gunPoint.right, out hit, shootingDistance, enemyLayers))
