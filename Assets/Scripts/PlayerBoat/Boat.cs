@@ -46,4 +46,5 @@ public class Boat : MonoBehaviour
 
         // TODO: Add collision logic.
     }
+
 }

@@ -8,6 +8,7 @@ public class BoatMovement : MonoBehaviour
     public Vector2 movementInput;
     Rigidbody rb;
 
+    public bool inUpgradeIsland;
     public AudioSource audioSource;
     public AudioClip idleClip;
     public AudioClip accClip;
@@ -143,6 +144,22 @@ public class BoatMovement : MonoBehaviour
     private void TemporarySolutionFixRotation()
     {
         transform.rotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "UpgradeIsland")
+        {
+            inUpgradeIsland = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "UpgradeIsland")
+        {
+            inUpgradeIsland = false;
+        }
     }
 
     private void PlayIdle()
