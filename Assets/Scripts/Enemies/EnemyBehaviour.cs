@@ -8,15 +8,15 @@ using WaterSystem.Physics;
 public class EnemyBehaviour : MonoBehaviour
 {
     //Stats
-    public float health = 100;
-
+    public float MaxHealth { get; } = 100;
+    public float Health { get; private set; }
 
     //Actors and Helpers
     public GameObject playerObject;
     public NavMeshAgent agent;
     private bool isAggroed = false;
     private SimpleBuoyantObject simpleBuoyantObject;
-    
+
     //Movement Helpers
     public Vector3 ownPosition;
     public Vector3 destination;
@@ -27,11 +27,24 @@ public class EnemyBehaviour : MonoBehaviour
     private Vector3 playerPos;
     private Vector3 diffVector;
     private Vector3 directionDiffVec;
-    private Vector3 initialDirection = new Vector3(1,0,0);
+    private Vector3 initialDirection = new Vector3(1, 0, 0);
 
     //Physics Objects
     [SerializeField] Transform motorPosition;
     Rigidbody rb;
+
+    //Smoke/Fire/Bubbles Animations
+    public ParticleSystem smokeParticles;
+    public ParticleSystem fireParticles;
+    public ParticleSystem bubbles;
+    private bool onFire;
+    private bool smoking;
+    private bool alive;
+
+    //Sounds
+    public AudioSource audioSource;
+    public AudioClip fireSound;
+    public AudioClip bubbleSound;
 
     void Start()
     {
@@ -43,46 +56,65 @@ public class EnemyBehaviour : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         simpleBuoyantObject = GetComponent<SimpleBuoyantObject>();
         VectorUpdate();
-        
+
+        onFire = false;
+        smoking = false;
+        alive = true;
+        Health = MaxHealth;
     }
 
     private void Update()
     {
+
+        float sixtyPercentHealth = MaxHealth * 0.6f;
+        float thirtyPercentHealth = MaxHealth * 0.3f;
+
         // sinking animation
-        if (health == 0)
+        if (Health == 0)
         {
+            if (alive) StartDeathVisuals();
+
+            alive = false;
             agent.enabled = false;
             simpleBuoyantObject.enabled = false;
             transform.position -= new Vector3(0, 1 * Time.deltaTime, 0);
 
             if (transform.position.y < -5) Destroy(gameObject);
         }
+        else if (Health <= thirtyPercentHealth && !onFire)
+        {
+            StartFireVisuals();
+        }
+        else if (Health <= sixtyPercentHealth && !smoking)
+        {
+            StartSmokeVisuals();
+        }
     }
 
     private void FixedUpdate()
     {
-        if (health == 0) return;
+        if (Health == 0) return;
 
 
         VectorUpdate();
-        if (Vector3.Distance(destination, playerPos) > 10.0f & isAggroed) 
+        if (Vector3.Distance(destination, playerPos) > 10.0f & isAggroed)
         {
             agent.destination = playerPos;
-            
+
         }
         if (diffVector.magnitude < aggroRange)
         {
             agent.destination = playerPos;
             isAggroed = true;
         }
-        
+
         //Turns enemy in direction of player by turnspeed
         Quaternion _lookRotation = Quaternion.LookRotation(directionDiffVec);
         _lookRotation = RotateQuaternionLeft(_lookRotation, 90);
         transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, _lookRotation, Time.deltaTime * turnspeed);
-        
+
     }
-    
+
     Quaternion RotateQuaternionLeft(Quaternion original, float angleDegrees)
     {
         // Convert the angle to radians
@@ -96,7 +128,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         return rotatedQuaternion;
     }
-    
+
     void VectorUpdate()
     {
         //Updates posititon vectors and calculated vectors
@@ -109,6 +141,60 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void DealDamage(float damage)
     {
-        health = Mathf.Max(0f, health - damage);
+        Health = Mathf.Max(0f, Health - damage);
+    }
+
+
+    // Visuals
+
+    private void StopFireAndSmoke()
+    {
+        if (audioSource != null) audioSource.Stop();
+        if (fireParticles != null) fireParticles?.Stop();
+        if (smokeParticles != null) smokeParticles?.Stop();
+    }
+
+    private void StartBubbles()
+    {
+        if (audioSource != null) audioSource.volume = 1f;
+        if (audioSource != null) audioSource.PlayOneShot(bubbleSound);
+        if (bubbles != null) bubbles.Play();
+    }
+
+    private void StartDeathVisuals()
+    {
+        if (fireParticles != null && !fireParticles.isPlaying)
+        {
+            fireParticles.Play();
+            audioSource.clip = fireSound;
+            audioSource.volume = 0.8f;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+
+        Invoke(nameof(StopFireAndSmoke), 0.7f);
+        Invoke(nameof(StartBubbles), 1.35f);
+    }
+
+    private void StartFireVisuals()
+    {
+        if (smokeParticles != null) smokeParticles.Stop();
+        if (fireParticles != null) fireParticles.Play();
+        onFire = true;
+        if (audioSource != null) audioSource.volume = 0.65f;
+    }
+
+    private void StartSmokeVisuals()
+    {
+        if (smokeParticles != null) smokeParticles.Play();
+        smoking = true;
+        
+        if (audioSource != null)
+        {
+            audioSource.clip = fireSound;
+            audioSource.loop = true;
+            audioSource.volume = 0.3f;
+            audioSource.Play();
+        }
     }
 }
