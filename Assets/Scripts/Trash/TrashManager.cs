@@ -1,208 +1,202 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Rendering;
+
+public class Trash 
+{
+    public TrashManager manager;
+    public int meshType;
+    public LinkedListNode<Trash> node;
+    public Vector3 position;
+    public Quaternion rotation;
+    public GameObject gameObject;
+    public float xPhase;
+    public float zPhase;
+
+    public void Materialize()
+    {
+        Assert.IsNull(gameObject); 
+        gameObject = GameObject.Instantiate(manager.prefab, position, rotation, manager.transform);
+        gameObject.GetComponent<TrashBehaviour>().trash = this;
+        GameObject mesh = GameObject.Instantiate(manager.meshPrefabs[meshType], gameObject.transform);
+    }
+
+    public void Dematerialize()
+    {
+        Assert.IsNotNull(gameObject);
+
+        position = gameObject.transform.position;
+        rotation = gameObject.transform.rotation;
+
+        GameObject.Destroy(gameObject);
+        gameObject = null;
+    }
+
+    public bool IsMaterialized()
+    {
+        return gameObject != null;
+    }
+
+    public void UpdateBuoyancy()
+    {
+        xPhase += Time.deltaTime * manager.xFrequency;
+        if (xPhase > 32*Mathf.PI)
+            xPhase = xPhase-32*Mathf.PI;
+        
+        zPhase += Time.deltaTime * manager.zFrequency;
+        if (zPhase > 32*Mathf.PI)
+            zPhase = zPhase-32*Mathf.PI;
+    }
+
+    public Vector3 GetBuoyancy()
+    {
+        return new Vector3(
+            0.0f,
+            manager.yRange * Mathf.Sin((xPhase + zPhase) / 2),
+            0.0f
+        );
+    }
+
+    public Quaternion GetBuoyancyRotation()
+    {
+        return Quaternion.Euler(
+            Mathf.Sin(xPhase) * manager.xDegreeRange,
+            0.0f,
+            Mathf.Sin(manager.zPhaseOffset+zPhase) * manager.zDegreeRange
+        );
+    }
+}
 
 public class TrashManager : MonoBehaviour
 {
     public static TrashManager instance;
 
-    public GameObject trashPrefab; // assigned in editor
+    [Header("General")]
+    public GameObject prefab;
+    public GameObject[] meshPrefabs;
 
+    [Header("LOD")]
+    public float lodRange = 500.0f;
+    public float lodSlack = 100.0f;
 
-    [Header("Generation Settings")]
+    [Header("Buoyancy")]
+    public float buoyancyRandomness = 1.0f;
+    public float buoyancySpatialScaling = 0.25f;
+    public float xFrequency = 2.8f;
+    public float zFrequency = 3.3f;
+    public float xDegreeRange = 5.0f;
+    public float zDegreeRange = 2.0f;
+    public float zPhaseOffset = 1.5f;
+    public float yRange = 0.25f;
 
-    [Tooltip("Set whether TrashManager will automatically generate trash.")]
-    public bool autoGenerate = true;
+    private Mesh[] meshes;
+    private Material[] materials;
 
+    private LinkedList<Trash> trashList = new LinkedList<Trash>();
 
-    [Header("Optimization Settings")]
+    public Trash CreateTrash(Vector3 position)
+    {
+        Trash trash = new Trash();
+        trash.manager = this;
+        trash.position = position;
+        trash.rotation = Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f);
+        trash.meshType = Random.Range(0, meshPrefabs.Length);
+        trash.xPhase = trash.position.x * buoyancySpatialScaling + Random.Range(0.0f, buoyancyRandomness);
+        trash.zPhase = trash.position.z * buoyancySpatialScaling + Random.Range(0.0f, buoyancyRandomness);
+        AddTrash(trash);
+        return trash;
+    }
 
-    [Tooltip("Set trash generation grid diameter.")]
-    public int trashDiameter = 3;
+    public void CollectTrash(Trash trash)
+    {
+        StatsManager.instance.CollectedTrash += 1;
+        RemoveTrash(trash);
+    }
 
+    void AddTrash(Trash trash)
+    {
+        trashList.AddLast(trash);
+        trash.node = trashList.Last;
+    }
 
-    private List<int2> _trashedGrids;
+    void RemoveTrash(Trash trash)
+    {
+        trashList.Remove(trash.node);
+        if (trash.gameObject != null)
+            trash.Dematerialize();
+    }
 
-    void Awake() 
+    void Render()
+    {
+        for (int meshType = 0; meshType < meshPrefabs.Length; meshType++)
+        {
+            Matrix4x4[] instData = new Matrix4x4[trashList.Count];
+            int i = 0;
+            foreach(Trash trash in trashList)
+            {
+                if (trash.IsMaterialized() || trash.meshType != meshType)
+                    continue;
+                Matrix4x4 worldTransform = Matrix4x4.TRS(trash.position, trash.rotation, Vector3.one);
+                Matrix4x4 buoyancyTransform = Matrix4x4.TRS(trash.GetBuoyancy(), trash.GetBuoyancyRotation(), Vector3.one);
+                instData[i] = worldTransform * buoyancyTransform;
+                i++;
+            }
+            if (i > 0)
+            {
+                RenderParams rp = new RenderParams(materials[meshType]);
+                rp.shadowCastingMode = ShadowCastingMode.Off;
+                rp.receiveShadows = false;
+                Graphics.RenderMeshInstanced(rp, meshes[meshType], 0, instData, i);
+            }
+        }
+    }
+
+    void UpdateTrash()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector3 position = player.transform.position;
+        foreach(Trash trash in trashList)
+        {
+            trash.UpdateBuoyancy();
+
+            float distance = Vector3.Distance(trash.position, position);
+            if (distance < lodRange && !trash.IsMaterialized())
+                trash.Materialize();
+            if (distance > lodRange + lodSlack && trash.IsMaterialized())
+                trash.Dematerialize();
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateTrash();
+        Render();
+    }
+
+    void PrepopulateMeshes()
+    {
+        meshes = new Mesh[meshPrefabs.Length];
+        materials = new Material[meshPrefabs.Length];
+        for(int i = 0; i < meshPrefabs.Length; i++)
+        {
+            meshes[i] = meshPrefabs[i].GetComponent<MeshFilter>().sharedMesh;
+            materials[i] = new Material(meshPrefabs[i].GetComponent<Renderer>().sharedMaterial);  // copy so that we modify safely
+            materials[i].enableInstancing = true;
+        }
+    }
+
+    void Start()
     {
         instance = this;
 
-        if (trashDiameter % 2 == 0) {
-            throw new Exception("Trash generation grid diameter can not be even!");
-        }
-
-        _trashedGrids = new List<int2>();
-    }
-
-    public void SpawnTrashWithinPlayerRange()
-    {
-        int2 playerGrid = TerrainManager.instance.GetPlayerGrid();
-
-        int halve = (trashDiameter - 1) / 2;
-
-        for (int x = -halve; x <= halve; x++) {
-            for (int y = -halve; y <= halve; y++) {
-                SpawnTrashWithinGrid(new int2(x + playerGrid.x, y + playerGrid.y), 5);
-            }
-        }
-    }
-
-    public void RemoveAllTrashOutsidePlayerRange()
-    {
-        int2 playerGrid = TerrainManager.instance.GetPlayerGrid();
-
-        foreach (int2 terrainGrid in _trashedGrids.ToList()) {
-            int terrainRange = (trashDiameter - 1) / 2;
-
-            if (Mathf.Abs(terrainGrid.x - playerGrid.x) > terrainRange ||
-                Mathf.Abs(terrainGrid.y - playerGrid.y) > terrainRange) 
-            {
-                RemoveAllTrashWithinGrid(terrainGrid);
-            } 
-        }
-    }
-
-    public bool SpawnTrashWithinGrid(int2 gridPosition, int trashGroupAmount)
-    {
-        if (_trashedGrids.Contains(gridPosition)) return false;
-
-        SpawnRandomTrashWithinArea(
-            new Vector2(gridPosition.x * 128, gridPosition.y * 128), // center of terrain
-            new Vector2(128, 128), // terrain size
-            trashGroupAmount
-        );
-
-        _trashedGrids.Add(gridPosition);
-
-        return true;
-    }
-
-    public bool RemoveAllTrashWithinGrid(int2 gridPosition)
-    {
-        if (!_trashedGrids.Contains(gridPosition)) return false;
-
-        int gridX = gridPosition.x;
-        int gridY = gridPosition.y;
-
-        float terrainPosX = gridX * 128;
-        float terrainPosY = gridY * 128;
-
-        RemoveAllTrashWithinArea(new Vector2(terrainPosX, terrainPosY), new Vector2(128, 128));
-        _trashedGrids.Remove(gridPosition);
-
-        return true;
-    }
-
-
-    // IMPORTANT: The area is a rectangle!
-    public void SpawnRandomTrashWithinArea(Vector2 center, Vector2 size, int groupAmount = 10, int trashPerGroup = 10, float groupRadius = 10/*,  float trashRadius = 2 */) 
-    {
-        for (int i = 0; i < groupAmount; i ++) {
-            float centerX = UnityEngine.Random.Range(0f, size.x);
-            float centerY = UnityEngine.Random.Range(0f, size.y);
-
-            for (int j = 0; j < trashPerGroup; j++) {
-                float offsetX = UnityEngine.Random.Range(-groupRadius / 2, groupRadius / 2);
-                float offsetY = UnityEngine.Random.Range(-groupRadius / 2, groupRadius / 2);
-
-                float trashX = centerX + offsetX;
-                float trashY = centerY + offsetY;
-
-                // trashX += UnityEngine.Random.Range(-trashRadius / 2, trashRadius / 2);
-                // trashY += UnityEngine.Random.Range(-trashRadius / 2, trashRadius / 2);
-                
-                
-                trashX = Mathf.Clamp(trashX, 0, size.x);
-                trashY = Mathf.Clamp(trashY, 0, size.y);
-
-                Vector2 spawnPosition = center - size / 2 + new Vector2(trashX, trashY);
-
-                //  -- TODO: Optimise this --
-                Terrain currentTerrain = TerrainManager.instance
-                    .GetClosestCurrentTerrain(new Vector3(spawnPosition.x, 0, spawnPosition.y));
-
-                float terrainHeightAtLocation = currentTerrain
-                    .SampleHeight(new Vector3(spawnPosition.x, 0, spawnPosition.y));
-
-                Debug.Log(spawnPosition + " " + terrainHeightAtLocation + " " + currentTerrain.name);
-
-                if (terrainHeightAtLocation > 10) {
-                    Debug.Log("Trash within island, skipping: " + terrainHeightAtLocation);
-                    continue;
-                } 
-                // --------------------------
-
-                SpawnSingleTrashAt(spawnPosition);
-            }
-
-        }
-    }
-
-    public void SpawnBulkTrashWithinRadius(Vector2 location, float radius, float gap) 
-    {
-        for (float radi = 0; radi <= radius; radi += gap) {
-            float perimeter = 2 * Mathf.PI * radi;
-
-            for (float i = 0; i < perimeter; i += gap) {
-                float angle = ( i / perimeter ) * 360; // angle in degrees
-
-                Vector2 displacement = Quaternion.Euler(0, 0, angle) * new Vector2(radi, 0);
-
-                GameObject trashObject = SpawnSingleTrashAt(location + displacement);
-            } 
-        }
-    }
-
-    public GameObject SpawnSingleTrashAt(Vector2 location) 
-    {
-        Debug.Log(location);
-
-        float scale = UnityEngine.Random.Range(0.5f, 1.0f);
-
-        GameObject trashObject = Instantiate(trashPrefab, new Vector3(location.x, 0, location.y), Quaternion.identity);
-        trashObject.transform.localScale = new Vector3(scale, scale, scale);
-
-        GameObject trashCube = trashObject.transform.GetChild(0).gameObject;
-        trashCube.transform.rotation = Quaternion.Euler(
-            UnityEngine.Random.Range(0, 360),
-            UnityEngine.Random.Range(0, 360),
-            UnityEngine.Random.Range(0, 360)
-        );
-
-        return trashObject;
-    }
-
-    // IMPORTANT: The area is a rectangle!
-    public void RemoveAllTrashWithinArea(Vector2 center, Vector2 size) 
-    {
-        Trash[] allTrash = FindObjectsOfType<Trash>();
-
-        foreach (Trash trash in allTrash)
+        PrepopulateMeshes();
+        for(int i = 0; i < 1000; i++)
         {
-            Vector2 trashLocation = new Vector2(trash.transform.position.x, trash.transform.position.z);
-
-            if (trashLocation.x > center.x + size.x / 2) continue;
-            if (trashLocation.x < center.x - size.x / 2) continue;
-            
-            if (trashLocation.y > center.y + size.y / 2) continue;
-            if (trashLocation.y < center.y - size.y / 2) continue;
-
-            Destroy(trash.gameObject);
+            CreateTrash(new Vector3(20.0f + 4 * (i / 10), 0.0f, 20.0f + 4 * (i % 10)));
         }
-
     }
 
-    public void RemoveAllTrash() 
-    {
-        Trash[] allTrash = FindObjectsOfType<Trash>();
-
-        foreach (Trash trash in allTrash)
-        {
-            Destroy(trash.gameObject);
-        }
-
-    }
 }
