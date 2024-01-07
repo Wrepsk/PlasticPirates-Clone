@@ -29,6 +29,8 @@ public class BoatEquipments : MonoBehaviour
 
     void Update()
     {
+        if (!canUseWeapons) return;
+
         RotateEquipmentHolder();
         SwitchEquipment();
 
