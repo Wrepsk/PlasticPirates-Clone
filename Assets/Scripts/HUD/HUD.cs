@@ -26,6 +26,8 @@ public class HUD : MonoBehaviour
                 upgradeMenu.SetActive(!upgradeMenu.activeInHierarchy);
                 Cursor.visible = !Cursor.visible;
                 Cursor.lockState = (Cursor.lockState == CursorLockMode.Locked) ? CursorLockMode.None : CursorLockMode.Locked;
+                boat.GetComponent<BoatEquipments>().canUseWeapons = !boat.GetComponent<BoatEquipments>().canUseWeapons;
+                boat.GetComponentInChildren<RotateCamera>().inUpgradeMenu = !boat.GetComponentInChildren<RotateCamera>().inUpgradeMenu;
             }
         }
     }

@@ -53,6 +53,7 @@ public class UpgradeMenu : MonoBehaviour
                 selectedUpgradeButton.interactable = false;
                 selectedUpgradeButton.GetComponent<UpgradeButton>().isPurchased = true;
                 selectedUpgradeButton = null;
+                descArea.SetActive(false);
             }
         }
     }

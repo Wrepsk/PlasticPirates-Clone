@@ -14,6 +14,8 @@ public class BoatEquipments : MonoBehaviour
     float rotationY;
     float rotationZ;
 
+    public bool canUseWeapons = true;
+
     [SerializeField] Equipment[] equipments;
     int equipmentIndex;
     int previousEquipmentIndex = -1;
@@ -32,14 +34,16 @@ public class BoatEquipments : MonoBehaviour
 
         if(equipments[equipmentIndex] != null)
         {
-            if (equipments[equipmentIndex].equipmentInfo.isAutomatic && Input.GetMouseButton(0))
-                equipments[equipmentIndex].BaseUse();
-            else if (Input.GetMouseButtonDown(0))
-                equipments[equipmentIndex].BaseUse();
-            else if (equipments[equipmentIndex].equipmentInfo.isAutomatic && Input.GetMouseButtonUp(0))
-                equipments[equipmentIndex].BaseStopUse();
+            if(canUseWeapons)
+            {
+                if (equipments[equipmentIndex].equipmentInfo.isAutomatic && Input.GetMouseButton(0))
+                    equipments[equipmentIndex].BaseUse();
+                else if (Input.GetMouseButtonDown(0))
+                    equipments[equipmentIndex].BaseUse();
+                else if (equipments[equipmentIndex].equipmentInfo.isAutomatic && Input.GetMouseButtonUp(0))
+                    equipments[equipmentIndex].BaseStopUse();
+            }
         }
-
     }
 
     void RotateEquipmentHolder()

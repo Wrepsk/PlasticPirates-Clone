@@ -11,7 +11,7 @@ public class StatsManager : MonoBehaviour, INotifyPropertyChanged
         instance = this;
     }
 
-    private int _collectedTrash;
+    private int _collectedTrash = 1000;
 
     public int CollectedTrash { 
         get { return _collectedTrash; }

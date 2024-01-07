@@ -27,18 +27,19 @@ public class UpgradeButton : MonoBehaviour
 
     private void Update()
     {
-        if(nextUpgrade != null)
+        if (this.GetComponent<Button>().interactable == false && isPurchased)
         {
-            if (this.GetComponent<Button>().interactable == false && isPurchased)
-            {
-                Color newColor = lineToNextUpgrade.color;
-                newColor = new Color(202, 202, 202);
-                newColor.a = 255;
-                lineToNextUpgrade.color = newColor;
-                checkmark.SetActive(true);
+            Color newColor = lineToNextUpgrade.color;
+            newColor = new Color(202, 202, 202);
+            newColor.a = 255;
+            lineToNextUpgrade.color = newColor;
+            checkmark.SetActive(true);
+            if(nextUpgrade != null)
                 nextUpgrade.interactable = true;
-                isPurchased = false;
-            }
+            isPurchased = false;
+        }
+        if (nextUpgrade != null)
+        {
             if(nextUpgrade.interactable == false && this.GetComponent<Button>().interactable == false)
             {
                 lineToNextUpgrade.color = oldLineColor;

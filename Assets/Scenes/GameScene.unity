@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -198,6 +198,18 @@ Transform:
   - {fileID: 306260766}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 10.524, y: 0, z: 0}
+--- !u!114 &67969202 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
+    type: 3}
+  m_PrefabInstance: {fileID: 1743403126}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a8577e8323bf445b67b2f3c67a5bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &71980336
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1074,11 +1086,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatsManager
       objectReference: {fileID: 0}
-    - target: {fileID: 2422360524457181998, guid: d92e525a3c54eb14386b77a37886f587,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1172,7 +1179,7 @@ PrefabInstance:
         type: 3}
       propertyPath: boat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 67969202}
     - target: {fileID: 7386198400862318157, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: m_Name
@@ -1420,6 +1427,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5994568845745405470, guid: 9262b042cd9e76b4c8695ca6c59d1701,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7172434602534895332, guid: 9262b042cd9e76b4c8695ca6c59d1701,
         type: 3}
       propertyPath: enemyPrefab
@@ -1458,7 +1470,7 @@ PrefabInstance:
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -29.17
+      value: -25.2
       objectReference: {fileID: 0}
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
@@ -1468,7 +1480,7 @@ PrefabInstance:
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -55.72
+      value: -54.58
       objectReference: {fileID: 0}
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}

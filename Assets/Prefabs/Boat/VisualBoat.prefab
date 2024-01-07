@@ -1106,6 +1106,7 @@ MonoBehaviour:
   mouseSensitivity: 350
   target: {fileID: 749989032555114031}
   distanceFromTarget: 10
+  inUpgradeMenu: 0
 --- !u!82 &7423798518735938712
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1261,7 +1262,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7230031415201148778}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.0000002533197}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: -0.075, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1311,6 +1312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementInput: {x: 0, y: 0}
+  inUpgradeIsland: 1
   audioSource: {fileID: 8226011301528252935}
   idleClip: {fileID: 8300000, guid: 791edf6037255784fa52e0063d8d414f, type: 3}
   accClip: {fileID: 8300000, guid: 221bab098552ebb4db09e13ff53c44e3, type: 3}
@@ -1336,6 +1338,7 @@ MonoBehaviour:
   equipmentHorizontalMover: {fileID: 7688237588515416439}
   equipmentVerticalMover: {fileID: 1366607354586982109}
   cam: {fileID: 5492410078293586486}
+  canUseWeapons: 1
   equipments:
   - {fileID: 5056363893401640383}
   - {fileID: 5751248885523022760}

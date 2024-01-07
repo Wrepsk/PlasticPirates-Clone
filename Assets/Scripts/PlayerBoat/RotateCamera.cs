@@ -7,6 +7,7 @@ public class RotateCamera : MonoBehaviour
     public float mouseSensitivity = 350f;
     public Transform target;
     public float distanceFromTarget = 3f;
+    public bool inUpgradeMenu = false;
 
     float rotationY;
     float rotationX;
@@ -19,6 +20,8 @@ public class RotateCamera : MonoBehaviour
 
     private void Update()
     {
+        if (inUpgradeMenu)
+            return;
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
