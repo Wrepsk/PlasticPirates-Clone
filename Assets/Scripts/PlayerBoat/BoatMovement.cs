@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,16 @@ public class BoatMovement : MonoBehaviour
     Rigidbody rb;
 
     public bool inUpgradeIsland;
+    public AudioSource audioSource;
+    public AudioClip idleClip;
+    public AudioClip accClip;
+    public AudioClip fullPowerClip;
+    public AudioClip stopClip;
+    private Boolean idle;
+    private Boolean fullPower;
+    private Boolean invokedIdle;
+    private Boolean invokedFullPower;
+
 
     [SerializeField] Transform motorPosition;
 
@@ -21,6 +32,19 @@ public class BoatMovement : MonoBehaviour
         controls.BoatMovement.Move.performed += ctxt => OnMove(ctxt);
         controls.BoatMovement.Enable();
 
+        if (audioSource != null)
+        {
+
+            audioSource.volume -= 0.3f;
+            audioSource.clip = idleClip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+        idle = true;
+        fullPower = false;
+        invokedIdle = false;
+
+        // Start playing the loop
 
         // See Unity Bug at the bottom of this class
         InvokeRepeating(nameof(TemporarySolutionFixRotation), 0.1f, 0.1f);
@@ -28,6 +52,63 @@ public class BoatMovement : MonoBehaviour
 
     private void OnMove(InputAction.CallbackContext ctxt)
     {
+        float horizontalInput = ctxt.ReadValue<Vector2>().x;
+        float verticalInput = ctxt.ReadValue<Vector2>().y;
+
+        if (Mathf.Approximately(horizontalInput, 0f) && Mathf.Approximately(verticalInput, 0f))
+        {
+            if (fullPower)
+            {
+                idle = true;
+                fullPower = false;
+
+                if (audioSource != null)
+                {
+                    audioSource.Stop();
+
+                    if (stopClip != null) audioSource.PlayOneShot(stopClip);
+                    float delay = stopClip != null ? stopClip.length : 0f;
+
+                    if (!invokedIdle)
+                    {
+                        Invoke("PlayIdle", delay);
+                        invokedIdle = true;
+                    }
+                    else
+                    {
+                        CancelInvoke("PlayIdle");
+                        Invoke("PlayIdle", delay);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (idle)
+            {
+                idle = false;
+                fullPower = true;
+
+                if (audioSource != null && accClip != null )
+                {
+                    audioSource.Stop();
+                    audioSource.PlayOneShot(accClip);
+                    float delay = accClip.length;
+                    if (!invokedFullPower)
+                    {
+                        Invoke("PlayFullPower", delay);
+                        invokedFullPower = true;
+                    }
+                    else
+                    {
+                        CancelInvoke("PlayFullPower");
+                        Invoke("PlayFullPower", delay);
+                    }
+                }
+            }
+
+        }
+
         movementInput = ctxt.ReadValue<Vector2>().normalized;
     }
 
@@ -81,4 +162,25 @@ public class BoatMovement : MonoBehaviour
         }
     }
 
+    private void PlayIdle()
+    {
+        invokedIdle = false;
+        if (idle && audioSource != null)
+        {
+            audioSource.clip = idleClip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+    }
+
+    private void PlayFullPower()
+    {
+        invokedFullPower = false;
+        if (fullPower && audioSource != null)
+        {
+            audioSource.clip = fullPowerClip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+    }
 }
