@@ -7,6 +7,10 @@ public class BoatMovement : MonoBehaviour
     public Vector2 movementInput;
     Rigidbody rb;
 
+public float CurrentSpeed
+    {
+        get { return rb.velocity.magnitude; }
+    }
 
     [SerializeField] Transform motorPosition;
 
