@@ -75,7 +75,6 @@ public class EnemyManager : MonoBehaviour
                 if (terrainHeightAtLocation > 10)
                 {
                     Debug.Log("Enemy within island, skipping: " + terrainHeightAtLocation);
-                    j--;
                     continue;
                 }
                 // --------------------------
