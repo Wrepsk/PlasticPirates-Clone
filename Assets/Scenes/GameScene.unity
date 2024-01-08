@@ -14,19 +14,19 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.5411765, g: 0.81960785, b: 0.9490196, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.003
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.8
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 5c8d5031ce45e4962818ca2b5426a8cf, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18632323, g: 0.5225313, b: 0.8347161, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -221,17 +221,17 @@ PrefabInstance:
     - target: {fileID: 784295175118979090, guid: 310f58a7e835a72458a125eadf2d0d1b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -64
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 784295175118979090, guid: 310f58a7e835a72458a125eadf2d0d1b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 784295175118979090, guid: 310f58a7e835a72458a125eadf2d0d1b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -64
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 784295175118979090, guid: 310f58a7e835a72458a125eadf2d0d1b,
         type: 3}
@@ -386,8 +386,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Color: {r: 1, g: 0.9453858, b: 0.8442268, a: 1}
+  m_Intensity: 1.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -396,7 +396,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.553
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -430,7 +430,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 5700
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -445,13 +445,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.58801836, y: -0.20533493, z: 0.157559, w: 0.7663205}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 75, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,7 +658,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1003298113}
+  - {fileID: 784295175190959394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &751716698
@@ -979,12 +979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1003298113 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 784295175118979090, guid: 310f58a7e835a72458a125eadf2d0d1b,
-    type: 3}
-  m_PrefabInstance: {fileID: 71980336}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1076373546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1976,9 +1970,9 @@ MonoBehaviour:
       y: 10
   settings:
     distanceBlend: 100
-    waterMaxVisibility: 5
-    absorptionColor: {r: 0.2, g: 0.6, b: 0.8, a: 1}
-    scatteringColor: {r: 0, g: 0.15, b: 0.2, a: 1}
+    waterMaxVisibility: 1
+    absorptionColor: {r: 0.4488, g: 0.68293345, b: 0.8, a: 1}
+    scatteringColor: {r: 0.0903, g: 0.40748826, b: 0.516, a: 1}
     cubemapTexture: {fileID: 0}
     waveFoamProfile:
       serializedVersion: 2
@@ -2052,17 +2046,52 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    microWaveIntensity: 0.25
-    foamIntensity: 0.5
+    microWaveIntensity: 0.05
+    foamIntensity: 0.1
   gerstnerData:
-    waveType: 0
+    waveType: 4
     basicWaves:
       waveCount: 6
       amplitude: 0.5
       direction: 45
       wavelength: 5
       seed: 123456
-    waves: []
+    waves:
+    - amplitude: 0.2
+      direction: 0
+      wavelength: 10
+      origin:
+        x: 0
+        y: 0
+      onmiDir: 0
+    - amplitude: 0.05
+      direction: -20
+      wavelength: 4
+      origin:
+        x: 0
+        y: 0
+      onmiDir: 0
+    - amplitude: 0.1
+      direction: 150
+      wavelength: 7
+      origin:
+        x: 0
+        y: 0
+      onmiDir: 0
+    - amplitude: 0.3
+      direction: 220
+      wavelength: 15
+      origin:
+        x: 0
+        y: 0
+      onmiDir: 0
+    - amplitude: 0.2
+      direction: -60
+      wavelength: 6
+      origin:
+        x: 0
+        y: 0
+      onmiDir: 0
 --- !u!4 &2121316870
 Transform:
   m_ObjectHideFlags: 0
@@ -2080,6 +2109,12 @@ Transform:
   - {fileID: 1493333482}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &784295175190959394 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 784295175118979090, guid: 310f58a7e835a72458a125eadf2d0d1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 71980336}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8409620092913704728
 PrefabInstance:
   m_ObjectHideFlags: 0
