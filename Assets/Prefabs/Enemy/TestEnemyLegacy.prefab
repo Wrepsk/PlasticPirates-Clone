@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 2408992544043153551}
   - component: {fileID: 3449040772754569571}
   m_Layer: 7
-  m_Name: VisualEnemy
+  m_Name: TestEnemyLegacy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

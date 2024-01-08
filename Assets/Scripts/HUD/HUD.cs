@@ -5,12 +5,14 @@ using UnityEngine.UI;
 public class HUD : MonoBehaviour
 {
     Text collectedTrash;
+    Slider healthSlider;
     [SerializeField] GameObject upgradeMenu;
     [SerializeField] BoatMovement boat;
 
     void Start() {
         Transform panel = transform.Find("Canvas/Panel");
-        collectedTrash = panel.Find("TrashBar/TrashCount").gameObject.GetComponent<Text>();
+        collectedTrash = panel.Find("TrashBar/TrashCount").GetComponent<Text>();
+        healthSlider = panel.Find("HealthBar/Slider").GetComponent<Slider>();
 
         StatsManager.instance.PropertyChanged += OnStatsChanged;
         Cursor.visible = false;
@@ -39,6 +41,10 @@ public class HUD : MonoBehaviour
         {
             case "CollectedTrash":
                 collectedTrash.text = StatsManager.instance.CollectedTrash.ToString();
+                break;
+
+            case "PlayerHealth":
+                healthSlider.value = StatsManager.instance.PlayerHealth / StatsManager.instance.PlayerMaxHealth;
                 break;
         }
     }

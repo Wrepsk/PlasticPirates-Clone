@@ -2,30 +2,33 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BoatMovement : MonoBehaviour
+public class BoatMovement : Damagable
 {
     PlayerControls controls;
     public Vector2 movementInput;
     Rigidbody rb;
 
     public bool inUpgradeIsland;
-    public AudioSource audioSource;
+
+    public AudioSource motorAudioSource;
     public AudioClip idleClip;
     public AudioClip accClip;
     public AudioClip fullPowerClip;
     public AudioClip stopClip;
-    private Boolean idle;
-    private Boolean fullPower;
-    private Boolean invokedIdle;
-    private Boolean invokedFullPower;
+    private bool idle;
+    private bool fullPower;
+    private bool invokedIdle;
+    private bool invokedFullPower;
 
 
     [SerializeField] Transform motorPosition;
 
     [Header("Boat Control parameters")]
     [SerializeField] float acceleration, maxSpeed, steeringStrength, maxAngularSpeed;
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         rb = GetComponent<Rigidbody>();
         controls = new PlayerControls();
 

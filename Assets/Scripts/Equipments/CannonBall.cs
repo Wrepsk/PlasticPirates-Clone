@@ -20,11 +20,11 @@ public class CannonBall : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.root.tag == "Player")
-            return;
+            other.transform.root.GetComponent<BoatMovement>().DealDamage(100);
 
         if (other.transform.root.tag == "Enemy")
         {
-            other.transform.GetComponent<EnemyBehaviour>().DealDamage(100);
+            other.transform.root.GetComponent<EnemyBehaviour>().DealDamage(100);
         }
 
         audioSource?.PlayOneShot(audioClip);

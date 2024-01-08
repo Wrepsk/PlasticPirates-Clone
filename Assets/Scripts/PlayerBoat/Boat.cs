@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using WaterSystem.Physics;
 
-public class Boat : MonoBehaviour
+public class Boat : Damagable
 {
-    public float defSpeed = 5.0f; // 5 m/s
     private float speed;
     public float boostMultipliar = 4f;
     public float rotationSpeed = 90.0f; // 90 deg/s
@@ -13,8 +12,10 @@ public class Boat : MonoBehaviour
     Transform rotatorTransform;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         // We have a Rotator game object because 
         // SimpleBuoyantObject behavior makes us unable to
         // rotate the object normally. 
@@ -23,12 +24,13 @@ public class Boat : MonoBehaviour
         // the first child under it.
 
         rotatorTransform = transform.GetChild(0);
-        speed = defSpeed;
+        speed = DefaultSpeed;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
 
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -39,10 +41,10 @@ public class Boat : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed = defSpeed * boostMultipliar;
+            speed = DefaultSpeed * boostMultipliar;
         }
         else
-            speed = defSpeed;
+            speed = DefaultSpeed;
 
         // TODO: Add collision logic.
     }

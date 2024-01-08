@@ -330,6 +330,7 @@ MonoBehaviour:
   mouseSensitivity: 350
   target: {fileID: 3677111010196202427}
   distanceFromTarget: 10
+  inUpgradeMenu: 0
 --- !u!82 &2865958814883489960
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1268,9 +1269,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a8577e8323bf445b67b2f3c67a5bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 100
+  <Armor>k__BackingField: 100
+  <DefaultSpeed>k__BackingField: 5
+  smokeParticles: {fileID: 0}
+  fireParticles: {fileID: 0}
+  bubbles: {fileID: 0}
+  audioSource: {fileID: 0}
+  fireSound: {fileID: 0}
+  bubbleSound: {fileID: 0}
   movementInput: {x: 0, y: 0}
   inUpgradeIsland: 0
-  audioSource: {fileID: 0}
+  motorAudioSource: {fileID: 0}
   idleClip: {fileID: 0}
   accClip: {fileID: 0}
   fullPowerClip: {fileID: 0}
@@ -1295,6 +1305,7 @@ MonoBehaviour:
   equipmentHorizontalMover: {fileID: 8985715164152467724}
   equipmentVerticalMover: {fileID: 8960315619649765219}
   cam: {fileID: 0}
+  canUseWeapons: 1
   equipments:
   - {fileID: 3455960077181063290}
   - {fileID: 186053709983442963}
@@ -1602,6 +1613,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1117817131197324625}
+  - {fileID: 4963553856350444401}
   m_Father: {fileID: 8960315619649765219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &186053709983442963
@@ -1625,6 +1637,9 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
+  playerLayers:
+    serializedVersion: 2
+    m_Bits: 0
   shootingDistance: 1000
   damage: 10
   hitSounds:
@@ -2259,3 +2274,34 @@ MonoBehaviour:
   boat: {fileID: 3677111010196202427}
   sizeOfCollider: {x: 7.5, y: 2, z: 6.5}
   attractionStrenght: 350
+--- !u!1 &8099464267748118463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4963553856350444401}
+  m_Layer: 0
+  m_Name: gunPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4963553856350444401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8099464267748118463}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 33.33337, y: 0.0049105585, z: 105.93576}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6385828453611146854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -602,7 +602,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 55
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -754,6 +754,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrashManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6899966383291868961, guid: 55a35b27c6d82409f8ed157bf32ea8c3,
+        type: 3}
+      propertyPath: autoGenerate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6899966383291868961, guid: 55a35b27c6d82409f8ed157bf32ea8c3,
         type: 3}
@@ -1424,18 +1429,33 @@ PrefabInstance:
     - target: {fileID: 5994568845745405470, guid: 9262b042cd9e76b4c8695ca6c59d1701,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172434602534895332, guid: 9262b042cd9e76b4c8695ca6c59d1701,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7172434602534895332, guid: 9262b042cd9e76b4c8695ca6c59d1701,
         type: 3}
       propertyPath: enemyPrefab
       value: 
-      objectReference: {fileID: 4515467481189180655, guid: 3a271787180342c47a74d2e9b33b7021,
+      objectReference: {fileID: 6478928787076853247, guid: 4c8fd1830f981df49853e65e5c8d8796,
         type: 3}
     - target: {fileID: 7172434602534895332, guid: 9262b042cd9e76b4c8695ca6c59d1701,
         type: 3}
       propertyPath: nEnemyGroups
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172434602534895332, guid: 9262b042cd9e76b4c8695ca6c59d1701,
+        type: 3}
+      propertyPath: enemyGroupSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7172434602534895332, guid: 9262b042cd9e76b4c8695ca6c59d1701,
+        type: 3}
+      propertyPath: enemyGroupCount
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7172434602534895332, guid: 9262b042cd9e76b4c8695ca6c59d1701,
         type: 3}
@@ -1515,6 +1535,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VisualBoat
+      objectReference: {fileID: 0}
+    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: <MaxHealth>k__BackingField
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
