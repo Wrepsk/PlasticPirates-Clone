@@ -1976,9 +1976,9 @@ MonoBehaviour:
       y: 10
   settings:
     distanceBlend: 100
-    waterMaxVisibility: 5
-    absorptionColor: {r: 0.2, g: 0.6, b: 0.8, a: 1}
-    scatteringColor: {r: 0, g: 0.15, b: 0.2, a: 1}
+    waterMaxVisibility: 1
+    absorptionColor: {r: 0.4488, g: 0.68293345, b: 0.8, a: 1}
+    scatteringColor: {r: 0.0903, g: 0.40748826, b: 0.516, a: 1}
     cubemapTexture: {fileID: 0}
     waveFoamProfile:
       serializedVersion: 2
@@ -2052,17 +2052,52 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    microWaveIntensity: 0.25
-    foamIntensity: 0.5
+    microWaveIntensity: 0.05
+    foamIntensity: 0.1
   gerstnerData:
-    waveType: 0
+    waveType: 4
     basicWaves:
       waveCount: 6
       amplitude: 0.5
       direction: 45
       wavelength: 5
       seed: 123456
-    waves: []
+    waves:
+    - amplitude: 0.2
+      direction: 0
+      wavelength: 10
+      origin:
+        x: 0
+        y: 0
+      onmiDir: 0
+    - amplitude: 0.05
+      direction: -20
+      wavelength: 4
+      origin:
+        x: 0
+        y: 0
+      onmiDir: 0
+    - amplitude: 0.1
+      direction: 150
+      wavelength: 7
+      origin:
+        x: 0
+        y: 0
+      onmiDir: 0
+    - amplitude: 0.3
+      direction: 220
+      wavelength: 15
+      origin:
+        x: 0
+        y: 0
+      onmiDir: 0
+    - amplitude: 0.2
+      direction: -60
+      wavelength: 6
+      origin:
+        x: 0
+        y: 0
+      onmiDir: 0
 --- !u!4 &2121316870
 Transform:
   m_ObjectHideFlags: 0
