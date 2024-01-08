@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using System;
@@ -9,8 +8,9 @@ public class EnemyBehaviour : Damagable
     //Actors and Helpers
     public GameObject playerObject;
     public NavMeshAgent agent;
-    private bool isAggroed = false;
-    
+    public bool isAggroed = false;
+    private SimpleBuoyantObject simpleBuoyantObject;
+
     //Movement Helpers
     public Vector3 destination;
     public float turnspeed = 5.0f;
@@ -20,8 +20,14 @@ public class EnemyBehaviour : Damagable
     private Vector3 playerPos;
     private Vector3 diffVector;
     private Vector3 directionDiffVec;
-    
-    
+    private Vector3 initialDirection = new Vector3(1, 0, 0);
+
+    //Movement Helpers
+    public Vector3 ownPosition;
+
+    //Physics stuff
+    public Ray sight;
+
     //Physics Objects
     public bool CanSeePlayer = false;
     [SerializeField] Transform motorPosition;
@@ -34,8 +40,6 @@ public class EnemyBehaviour : Damagable
     [SerializeField] Equipment[] equipments;
     int equipmentIndex;
     int previousEquipmentIndex = -1;
-    long unixTimeLastShot = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds();
-    
 
     void DeathDisable()
     {
@@ -58,8 +62,10 @@ public class EnemyBehaviour : Damagable
         previousEquipmentIndex = equipmentIndex;
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         //Gets initial Equipment
         EquipEquipment(0);  
 
@@ -71,60 +77,41 @@ public class EnemyBehaviour : Damagable
         
         //init navigation vars
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = defSpeed;
-        agent.acceleration = defSpeed;
+        agent.speed = DefaultSpeed;
+        agent.acceleration = DefaultSpeed;
 
         
         //initiates deathListener
-        onDeath.AddListener(DeathDisable);
+        OnDeath += DeathDisable;
 
         //rigidbody
         rb = GetComponent<Rigidbody>();
         
         VectorUpdate();
-        
     }
-    private void Update()
-    {
-        //Is the Enemy dead?
-        if (!isDead) CheckIfDead();
 
-        //Handles turning and shooting of weapon
-        TurnToPlayer(equipmentMover.transform, weaponTurnSpeed, -0.5f);
-        DateTime currentTime = DateTime.UtcNow;
-        long unixTimeNow = ((DateTimeOffset)currentTime).ToUnixTimeSeconds();
-        
-        if(equipments[equipmentIndex] != null)
+    protected override void Update()
+    {
+        base.Update();
+
+
+        if (IsDead)
         {
-            if (unixTimeNow - unixTimeLastShot >= equipments[equipmentIndex].equipmentInfo.cooldown + UnityEngine.Random.Range(0.0f, 2.0f)) {
-                unixTimeLastShot = unixTimeNow;
-            }
-            if (equipments[equipmentIndex].equipmentInfo.isAutomatic && unixTimeNow == unixTimeLastShot && CanSeePlayer){
-                equipments[equipmentIndex].Use();
-                //Debug.Log("player hit with:" + equipments[equipmentIndex]);
-                //Debug.Log("Player health:" + playerObject.GetComponent<BoatMovement>().health);
-            }else if(unixTimeNow == unixTimeLastShot && CanSeePlayer)
-                    equipments[equipmentIndex].Use();
+            agent.enabled = false;
         }
+
     }
     private void FixedUpdate()
     {
         //checks if dead
-        if (isDead) 
+        if (IsDead) 
         {
-            DeathAnimation();
+            if (equipments[equipmentIndex] != null) equipments[equipmentIndex].BaseStopUse();
             return;
         }
 
 
         VectorUpdate();
-
-        //recalibrates destination if player moves
-        if (Vector3.Distance(destination, playerPos) > 10.0f & isAggroed) 
-        {
-            agent.destination = playerPos;
-            
-        }
 
         //checks if path interrupted by Environment
         sight = new Ray(ownPosition, diffVector);
@@ -141,28 +128,63 @@ public class EnemyBehaviour : Damagable
                 CanSeePlayer = true;
             }
         }
-        
-        //checks if should be aggroed
-        if (diffVector.magnitude < aggroRange)
+
+        isAggroed = diffVector.magnitude < aggroRange;
+
+
+        //recalibrates destination if player moves
+        if (Vector3.Distance(destination, playerPos) > 10.0f & isAggroed)
         {
+            agent.isStopped = false;
             agent.destination = playerPos;
-            isAggroed = true;
-            
+        } else
+        {
+            agent.isStopped = true;
         }
-        
-        //Turns enemy in direction of player by turnspeed
-        TurnToPlayer(transform.GetChild(0), turnspeed);
-        
+
+        if (isAggroed)
+        {
+            //Turns enemy in direction of player by turnspeed
+            TurnToPlayer(transform, turnspeed);
+        }
+
+        //Handles turning and shooting of weapon
+        if (diffVector.magnitude < aggroRange / 2 && equipments[equipmentIndex] != null)
+        {
+            TurnToPlayer(equipmentMover.transform, weaponTurnSpeed, -0.5f, -90f);
+            equipments[equipmentIndex].BaseUse();
+        } else
+        {
+            equipments[equipmentIndex].BaseStopUse();
+        }
+
     }
-    
-    //Turns enemy in direction of player by turnspeed
-    public void TurnToPlayer(Transform toRotate, float specificTurnspeed, float yOffset = 0.0f)
+
+    public Quaternion RotateQuaternionLeft(Quaternion original, float angleDegrees)
     {
+
+        // Calculate the rotation quaternion
+        Quaternion rotationQuaternion = Quaternion.Euler(0f, -angleDegrees, 0f);
+
+        // Multiply the original quaternion by the rotation quaternion
+        Quaternion rotatedQuaternion = rotationQuaternion * original;
+
+        return rotatedQuaternion;
+    }
+
+    //Turns enemy in direction of player by turnspeed
+    public void TurnToPlayer(Transform toRotate, float specificTurnspeed, float yOffset = 0.0f, float rotateLeft = 0f)
+    {
+
         Vector3 goalVec = diffVector + new Vector3(0,yOffset,0);
         Quaternion _lookRotation = Quaternion.LookRotation(goalVec);
-        _lookRotation = RotateQuaternionLeft(_lookRotation, 90);
+
+        // weird unity forward directions... ughhh
+        if (rotateLeft != 0f) _lookRotation = RotateQuaternionLeft(_lookRotation, rotateLeft);
+
         toRotate.rotation = Quaternion.Slerp(toRotate.rotation, _lookRotation, Time.deltaTime * specificTurnspeed);
     }
+    
     void VectorUpdate()
     {
         //Updates posititon vectors and calculated vectors
@@ -170,5 +192,7 @@ public class EnemyBehaviour : Damagable
         playerPos = playerObject.transform.position;
         diffVector = playerPos - ownPosition;
         directionDiffVec = diffVector.normalized;
+
     }
+
 }

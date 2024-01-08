@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class BoatEquipments : MonoBehaviour
     float rotationY;
     float rotationZ;
 
+    public bool canUseWeapons = true;
+
     [SerializeField] Equipment[] equipments;
     int equipmentIndex;
     int previousEquipmentIndex = -1;
@@ -26,17 +29,23 @@ public class BoatEquipments : MonoBehaviour
 
     void Update()
     {
+        if (!canUseWeapons) return;
+
         RotateEquipmentHolder();
         SwitchEquipment();
 
         if(equipments[equipmentIndex] != null)
         {
-            if (equipments[equipmentIndex].equipmentInfo.isAutomatic && Input.GetMouseButton(0))
-                equipments[equipmentIndex].Use();
-            else if(Input.GetMouseButtonDown(0))
-                    equipments[equipmentIndex].Use();
+            if(canUseWeapons)
+            {
+                if (equipments[equipmentIndex].equipmentInfo.isAutomatic && Input.GetMouseButton(0))
+                    equipments[equipmentIndex].BaseUse();
+                else if (Input.GetMouseButtonDown(0))
+                    equipments[equipmentIndex].BaseUse();
+                else if (equipments[equipmentIndex].equipmentInfo.isAutomatic && Input.GetMouseButtonUp(0))
+                    equipments[equipmentIndex].BaseStopUse();
+            }
         }
-
     }
 
     void RotateEquipmentHolder()

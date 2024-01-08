@@ -12,8 +12,10 @@ public class Boat : Damagable
     Transform rotatorTransform;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         // We have a Rotator game object because 
         // SimpleBuoyantObject behavior makes us unable to
         // rotate the object normally. 
@@ -22,12 +24,13 @@ public class Boat : Damagable
         // the first child under it.
 
         rotatorTransform = transform.GetChild(0);
-        speed = defSpeed;
+        speed = DefaultSpeed;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
 
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -38,11 +41,12 @@ public class Boat : Damagable
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed = defSpeed * boostMultipliar;
+            speed = DefaultSpeed * boostMultipliar;
         }
         else
-            speed = defSpeed;
+            speed = DefaultSpeed;
 
         // TODO: Add collision logic.
     }
+
 }

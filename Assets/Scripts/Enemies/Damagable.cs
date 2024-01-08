@@ -1,48 +1,75 @@
-using Unity.VisualScripting;
-using UnityEditor.VersionControl;
+using System;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UIElements;
 using WaterSystem.Physics;
 
 public class Damagable : MonoBehaviour
 {
     //Stats
-    public float health = 100;
-    public float maxHealth = 100;
-    public float armor = 100;
-    public float defSpeed = 5.0f;
+    [field: SerializeField]
+    public float MaxHealth { get; set; } = 100;
+    public float Health { get; private set; }
+    [field: SerializeField]
+    public float Armor { get; set; } = 100;
+    [field: SerializeField]
+    public float DefaultSpeed { get; set; } = 5.0f;
 
     //Actors and Helpers
-    public UnityEvent onDeath = new UnityEvent();
-    public bool isDead = false;
+    public event Action OnDeath;
+    public event Action<float> HealthChanged;
+    public bool IsDead => Health <= 0;
     //public SimpleBuoyantObject simpleBuoyantObject;
     
-    //Movement Helpers
-    public Vector3 ownPosition;
 
-    //Vector Helpers
-    protected Vector3 initialDirection = new Vector3(1,0,0);
+    //Smoke/Fire/Bubbles Animations
+    public ParticleSystem smokeParticles;
+    public ParticleSystem fireParticles;
+    public ParticleSystem bubbles;
+    private bool onFire;
+    private bool smoking;
+    private bool alive;
 
-    //Physics stuff
-    public Ray sight;
-    
-    public Quaternion RotateQuaternionLeft(Quaternion original, float angleDegrees)
+    //Sounds
+    public AudioSource audioSource;
+    public AudioClip fireSound;
+    public AudioClip bubbleSound;
+
+    protected virtual void Start()
     {
-
-        // Calculate the rotation quaternion
-        Quaternion rotationQuaternion = Quaternion.Euler(0f, -angleDegrees, 0f);
-
-        // Multiply the original quaternion by the rotation quaternion
-        Quaternion rotatedQuaternion = rotationQuaternion * original;
-
-        return rotatedQuaternion;
+        Debug.Log(MaxHealth);
+        Health = MaxHealth;
     }
     
+    protected virtual void Update()
+    {
+
+        float sixtyPercentHealth = MaxHealth * 0.6f;
+        float thirtyPercentHealth = MaxHealth * 0.3f;
+
+        // sinking animation
+        if (Health == 0)
+        {
+            if (alive) StartDeathVisuals();
+
+            DeathAnimation();
+        }
+        else if (Health <= thirtyPercentHealth && !onFire)
+        {
+            StartFireVisuals();
+        }
+        else if (Health <= sixtyPercentHealth && !smoking)
+        {
+            StartSmokeVisuals();
+        }
+    }
 
     public void DealDamage(float damage)
     {
-        health = Mathf.Max(0f, health - damage);
-        Debug.Log("health left: " + health);
+        Health = Mathf.Max(0f, Health - damage);
+        Debug.Log("health left: " + Health);
+
+        if (damage <= 0) OnDeath?.Invoke();
+        HealthChanged?.Invoke(Health);
     }
 
     public void DeathAnimation()
@@ -51,20 +78,58 @@ public class Damagable : MonoBehaviour
 
         if (transform.position.y < -5) Destroy(gameObject);
     }
-    public void CheckIfDead()
+
+
+    // Visuals
+
+    private void StopFireAndSmoke()
     {
-        if (health == 0 | health < 0)
-        {
-            Debug.Log("Dies");
-            onDeath.Invoke();
-            isDead = true;
-        }
+        if (audioSource != null) audioSource.Stop();
+        if (fireParticles != null) fireParticles?.Stop();
+        if (smokeParticles != null) smokeParticles?.Stop();
     }
 
-    //getters and setters
-    public float GetHealth() { return health; }
-    public void SetHealth(float newHealth) {health = newHealth;}
+    private void StartBubbles()
+    {
+        if (audioSource != null) audioSource.volume = 1f;
+        if (audioSource != null) audioSource.PlayOneShot(bubbleSound);
+        if (bubbles != null) bubbles.Play();
+    }
 
-    public float GetMaxHealth() { return maxHealth; }
-    public void SetMaxHealth(float newMaxHealth) {maxHealth = newMaxHealth;}
+    private void StartDeathVisuals()
+    {
+        if (fireParticles != null && !fireParticles.isPlaying)
+        {
+            fireParticles.Play();
+            audioSource.clip = fireSound;
+            audioSource.volume = 0.8f;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+
+        Invoke(nameof(StopFireAndSmoke), 0.7f);
+        Invoke(nameof(StartBubbles), 1.35f);
+    }
+
+    private void StartFireVisuals()
+    {
+        if (smokeParticles != null) smokeParticles.Stop();
+        if (fireParticles != null) fireParticles.Play();
+        onFire = true;
+        if (audioSource != null) audioSource.volume = 0.65f;
+    }
+
+    private void StartSmokeVisuals()
+    {
+        if (smokeParticles != null) smokeParticles.Play();
+        smoking = true;
+
+        if (audioSource != null)
+        {
+            audioSource.clip = fireSound;
+            audioSource.loop = true;
+            audioSource.volume = 0.3f;
+            audioSource.Play();
+        }
+    }
 }

@@ -107,7 +107,7 @@ public class TerrainManager : MonoBehaviour
         }
 
         // Below code will later be moved to GameManager
-        TrashManager.instance.SpawnTrashWithinPlayerRange();
+        if (TrashManager.instance.autoGenerate) TrashManager.instance.SpawnTrashWithinPlayerRange();
     }
 
     void DestroyTerrainsOutsidePlayerRange() {

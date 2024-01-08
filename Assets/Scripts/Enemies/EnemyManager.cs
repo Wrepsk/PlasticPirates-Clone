@@ -12,8 +12,8 @@ public class EnemyManager : MonoBehaviour
     // Counters
     public int desiredEnemyCount = 3; // should be set by difficulty
     public int desiredWaveCounter = 6; // should be set by difficulty
-    public int enemyCount = 0;
-    public int waveCounter = 6; // After you kill x amount of enemies, a big wave will spawn
+    int enemyCount = 0;
+    int waveCounter = 6; // After you kill x amount of enemies, a big wave will spawn
 
     public static EnemyManager instance;
 
@@ -63,12 +63,22 @@ public class EnemyManager : MonoBehaviour
 
                 Vector2 spawnPosition = center - size / 2 + new Vector2(enemyX, enemyY);
 
-                // float terrainHeightAtLocation = Terrain.activeTerrain.SampleHeight(new Vector3(spawnPosition.x, 0, spawnPosition.y));
-                // if (terrainHeightAtLocation > 18) {
-                //     Debug.Log("Enemy within island, skipping");
-                // } else {
-                //     Debug.Log(terrainHeightAtLocation);
-                // }
+                //  -- TODO: Optimise this --
+                Terrain currentTerrain = TerrainManager.instance
+                    .GetClosestCurrentTerrain(new Vector3(spawnPosition.x, 0, spawnPosition.y));
+
+                float terrainHeightAtLocation = currentTerrain
+                    .SampleHeight(new Vector3(spawnPosition.x, 0, spawnPosition.y));
+
+                Debug.Log(spawnPosition + " " + terrainHeightAtLocation + " " + currentTerrain.name);
+
+                if (terrainHeightAtLocation > 10)
+                {
+                    Debug.Log("Enemy within island, skipping: " + terrainHeightAtLocation);
+                    j--;
+                    continue;
+                }
+                // --------------------------
 
                 SpawnSingleEnemyAt(spawnPosition);
             }
@@ -102,7 +112,7 @@ public class EnemyManager : MonoBehaviour
         Debug.Log(location);
 
         GameObject enemyObject = Instantiate(enemyPrefab, new Vector3(location.x, 0, location.y), Quaternion.identity);
-        enemyObject.GetComponent<EnemyBehaviour>().onDeath.AddListener(ReduceEnemyCount);
+        enemyObject.GetComponent<EnemyBehaviour>().OnDeath += ReduceEnemyCount;
         enemyCount += 1;
 
         return enemyObject;
