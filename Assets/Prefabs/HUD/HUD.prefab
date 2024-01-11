@@ -756,6 +756,7 @@ MonoBehaviour:
   descText: {fileID: 2891838501663190878}
   costText: {fileID: 6985858129637085110}
   descArea: {fileID: 7818055267878774919}
+  playerBoat: {fileID: 0}
   selectedUpgradeButton: {fileID: 0}
 --- !u!222 &3232071663873250791
 CanvasRenderer:
@@ -1853,6 +1854,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MaxHealth
+      objectReference: {fileID: 0}
+    - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
       value: Increases health to 2000.
       objectReference: {fileID: 0}
@@ -2117,7 +2123,7 @@ PrefabInstance:
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: speed
+      value: DefaultSpeed
       objectReference: {fileID: 0}
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
@@ -2389,7 +2395,7 @@ PrefabInstance:
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: armor
+      value: Armor
       objectReference: {fileID: 0}
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
@@ -2671,6 +2677,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MaxHealth
+      objectReference: {fileID: 0}
+    - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
       value: Increases health to 3000.
       objectReference: {fileID: 0}
@@ -2945,7 +2956,7 @@ PrefabInstance:
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: speed
+      value: DefaultSpeed
       objectReference: {fileID: 0}
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
@@ -3233,7 +3244,7 @@ PrefabInstance:
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: armor
+      value: Armor
       objectReference: {fileID: 0}
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
@@ -3498,6 +3509,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
       value: UpgradeMenu, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MaxHealth
+      objectReference: {fileID: 0}
+    - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: Increases health to 1500.
+      objectReference: {fileID: 0}
     - target: {fileID: 3309480509870529446, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
       propertyPath: m_Name
@@ -3758,7 +3784,7 @@ PrefabInstance:
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: speed
+      value: DefaultSpeed
       objectReference: {fileID: 0}
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
@@ -4036,7 +4062,7 @@ PrefabInstance:
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: armor
+      value: Armor
       objectReference: {fileID: 0}
     - target: {fileID: 143824770339826437, guid: 7c4b25b71de8b3d46893d1dfacebc3ea,
         type: 3}

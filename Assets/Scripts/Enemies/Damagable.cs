@@ -8,7 +8,7 @@ public class Damagable : MonoBehaviour
     //Stats
     [field: SerializeField]
     public float MaxHealth { get; set; } = 100;
-    public float Health { get; private set; }
+    public float Health { get; set; }
     [field: SerializeField]
     public float Armor { get; set; } = 100;
     [field: SerializeField]
