@@ -25,6 +25,10 @@ public class BoatMovement : Damagable
 
     [Header("Boat Control parameters")]
     [SerializeField] float acceleration, maxSpeed, steeringStrength, maxAngularSpeed;
+
+    [SerializeField] AnimationCurve massMult;
+
+    float ogMass;
     protected override void Start()
     {
         base.Start();
@@ -46,6 +50,8 @@ public class BoatMovement : Damagable
         idle = true;
         fullPower = false;
         invokedIdle = false;
+
+        ogMass = rb.mass;
 
         // Start playing the loop
 
@@ -118,6 +124,8 @@ public class BoatMovement : Damagable
 
     private void FixedUpdate()
     {
+        rb.mass = ogMass * massMult.Evaluate((float)(StatsManager.instance.CollectedTrash + 0.001f) / (float)StatsManager.instance.maxTrashCapacity ) + ogMass;
+
         var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.forward) * movementInput.y * acceleration + Vector3.Scale(new Vector3(1, 0, 1), transform.right) * -movementInput.x * steeringStrength;
         //var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.forward) * movementInput.y * acceleration;
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18631649, g: 0.5225311, b: 0.8326769, a: 1}
+  m_IndirectSpecularColor: {r: 0.18632323, g: 0.5225313, b: 0.8347161, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1523,8 +1523,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
+      propertyPath: massPerTrash
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
       propertyPath: <MaxHealth>k__BackingField
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: massMult.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: massMult.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: massMult.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: massMult.m_Curve.Array.data[1].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: massMult.m_Curve.Array.data[1].outSlope
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
