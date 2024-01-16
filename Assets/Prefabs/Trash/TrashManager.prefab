@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad26c5e286e8dbaaeb605a5c3a44c36d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalTrash: 1000
   prefab: {fileID: 508337204643814014, guid: b651f67d93eb08812a342503cab7c391, type: 3}
   meshPrefabs:
   - {fileID: 1727726501743960, guid: 5b208b30237704b4ba8379eebcbc6b8a, type: 3}
@@ -52,13 +53,13 @@ MonoBehaviour:
   - {fileID: 1405612168663392, guid: 9c4cb834410d1b94391e4eaaac010b19, type: 3}
   - {fileID: 1327590931756138, guid: bef15c0bd4d6b734b834563b1eb2c603, type: 3}
   - {fileID: 1295287569993388, guid: d5572c310af2071488c58676abcffd0f, type: 3}
-  lodRange: 500
-  lodSlack: 100
+  lodRange: 100
+  lodSlack: 10
   buoyancyRandomness: 1
-  buoyancySpatialScaling: 0.25
-  xFrequency: 2.8
-  zFrequency: 3.3
-  xDegreeRange: 5
-  zDegreeRange: 2
+  buoyancySpatialScaling: 0
+  xFrequency: 3.7
+  zFrequency: 1.2
+  xDegreeRange: 2.3
+  zDegreeRange: 5
   zPhaseOffset: 1.5
-  yRange: 0.25
+  yRange: 0.07

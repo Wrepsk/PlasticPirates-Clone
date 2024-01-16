@@ -98,15 +98,20 @@ public class TrashManager : MonoBehaviour
     private LinkedList<Trash> trashList = new LinkedList<Trash>();
     private Matrix4x4[] instData;
 
-    public Trash CreateTrash(Vector3 position)
+    public Trash CreateTrash(Vector3 position, int meshType = -1)
     {
         Trash trash = new Trash();
         trash.manager = this;
         trash.position = position;
         trash.rotation = Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f);
-        trash.meshType = Random.Range(0, meshPrefabs.Length);
         trash.xPhase = trash.position.x * buoyancySpatialScaling + Random.Range(0.0f, buoyancyRandomness);
         trash.zPhase = trash.position.z * buoyancySpatialScaling + Random.Range(0.0f, buoyancyRandomness);
+
+        if (meshType == -1)
+            trash.meshType = Random.Range(0, meshPrefabs.Length);
+        else
+            trash.meshType = meshType;
+
         AddTrash(trash);
         return trash;
     }
@@ -200,7 +205,10 @@ public class TrashManager : MonoBehaviour
         PrepopulateMeshes();
         for(int i = 0; i < 1000; i++)
         {
-            CreateTrash(new Vector3(20.0f + 4 * (i / 10), 0.0f, 20.0f + 4 * (i % 10)));
+            int type = Random.Range(0, meshPrefabs.Length);
+            float yOffset = meshes[type].bounds.size.y / 2;
+            Vector3 position = new Vector3(20.0f + 4 * (i / 10), -yOffset, 20.0f + 4 * (i % 10));
+            CreateTrash(position, type);
         }
     }
 
