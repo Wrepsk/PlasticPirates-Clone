@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Harpoon : Equipment
@@ -16,6 +14,10 @@ public class Harpoon : Equipment
     public LayerMask grappableLayers;
     public float maxHarpoonDistance = 50f;
 
+    private void Awake()
+    {
+        disableAutoPlay = true;    
+    }
 
     private void Update()
     {
@@ -76,6 +78,7 @@ public class Harpoon : Equipment
         RaycastHit hit;
         if (Physics.Raycast(ropePoint.position, -ropePoint.right, out hit, maxHarpoonDistance, grappableLayers))
         {
+            audioSource.PlayOneShot(audioClip);
             currentlyHarpoonedGameObject = hit.transform;
             Debug.Log("Harpoon hit " + hit.transform.name);
             grapplePoint = hit.point;

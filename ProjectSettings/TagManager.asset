@@ -8,6 +8,7 @@ TagManager:
   - Trash
   - Environment
   - Enemy
+  - UpgradeIsland
   layers:
   - Default
   - TransparentFX
