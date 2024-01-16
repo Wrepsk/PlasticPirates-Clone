@@ -26,9 +26,12 @@ public class BoatMovement : Damagable
 
     [Header("Boat Control parameters")]
     [SerializeField] float acceleration, maxSpeed, steeringStrength, maxAngularSpeed;
+
     protected override void Start()
     {
         base.Start();
+
+        PreloadAudioClips();
 
         rb = GetComponent<Rigidbody>();
         controls = new PlayerControls();
@@ -52,6 +55,19 @@ public class BoatMovement : Damagable
 
         // See Unity Bug at the bottom of this class
         InvokeRepeating(nameof(TemporarySolutionFixRotation), 0.1f, 0.1f);
+    }
+
+    private void PreloadAudioClips() {
+        if (idleClip != null)
+            idleClip.LoadAudioData();
+        if (accClip != null)
+            accClip.LoadAudioData();
+        if (fullPowerClip != null)
+            fullPowerClip.LoadAudioData();
+        if (stopClip != null)
+            stopClip.LoadAudioData();
+        if (trashCollectingClip != null)
+            trashCollectingClip.LoadAudioData();
     }
 
     private void OnMove(InputAction.CallbackContext ctxt)
