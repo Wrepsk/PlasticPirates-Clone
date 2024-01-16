@@ -17,8 +17,9 @@ public class Trash
 
     public void Materialize()
     {
-        Assert.IsNull(gameObject); 
-        gameObject = GameObject.Instantiate(manager.prefab, position, rotation, manager.transform);
+        Assert.IsNull(gameObject);
+        Transform trashParent = manager.transform.Find("Trash");
+        gameObject = GameObject.Instantiate(manager.prefab, position, rotation, trashParent);
         gameObject.GetComponent<TrashBehaviour>().trash = this;
         GameObject mesh = GameObject.Instantiate(manager.meshPrefabs[meshType], gameObject.transform);
     }
@@ -75,9 +76,10 @@ public class TrashManager : MonoBehaviour
 
     [Header("General")]
     public int totalTrash = 1000;
+    public Sampler2d sampler;
     public GameObject prefab;
     public GameObject[] meshPrefabs;
-
+    
     [Header("LOD")]
     public float lodRange = 100.0f;
     public float lodSlack = 10.0f;
@@ -122,7 +124,7 @@ public class TrashManager : MonoBehaviour
         RemoveTrash(trash);
     }
 
-    void AddTrash(Trash trash)
+    private void AddTrash(Trash trash)
     {
         if (trashList.Count >= totalTrash)
             throw new System.Exception("Can't add more trash. Maximum reached.");
@@ -131,14 +133,14 @@ public class TrashManager : MonoBehaviour
         trash.node = trashList.Last;
     }
 
-    void RemoveTrash(Trash trash)
+    private void RemoveTrash(Trash trash)
     {
         trashList.Remove(trash.node);
         if (trash.gameObject != null)
             trash.Dematerialize();
     }
 
-    void Render()
+    private void Render()
     {
         for (int meshType = 0; meshType < meshPrefabs.Length; meshType++)
         {
@@ -162,7 +164,7 @@ public class TrashManager : MonoBehaviour
         }
     }
 
-    void UpdateTrash()
+    private void UpdateTrash()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Vector3 position = player.transform.position;
@@ -178,14 +180,7 @@ public class TrashManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateTrash();
-        Render();
-    }
-
-    void PrepopulateMeshes()
+    private void PrepopulateMeshes()
     {
         meshes = new Mesh[meshPrefabs.Length];
         materials = new Material[meshPrefabs.Length];
@@ -197,19 +192,31 @@ public class TrashManager : MonoBehaviour
         }
     }
 
+    private void SpawnTrash()
+    {
+        for(int i = 0; i < totalTrash; i++)
+        {
+            int type = Random.Range(0, meshPrefabs.Length);
+            float yOffset = meshes[type].bounds.size.y / 2;
+            Vector2 position2d = sampler.SampleVector2();
+            Vector3 position3d = new Vector3(position2d.x, -yOffset, position2d.y);
+            CreateTrash(position3d, type);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateTrash();
+        Render();
+    }
+
     void Start()
     {
         instance = this;
         instData = new Matrix4x4[totalTrash];
-
         PrepopulateMeshes();
-        for(int i = 0; i < 1000; i++)
-        {
-            int type = Random.Range(0, meshPrefabs.Length);
-            float yOffset = meshes[type].bounds.size.y / 2;
-            Vector3 position = new Vector3(20.0f + 4 * (i / 10), -yOffset, 20.0f + 4 * (i % 10));
-            CreateTrash(position, type);
-        }
+        SpawnTrash();
     }
 
 }
