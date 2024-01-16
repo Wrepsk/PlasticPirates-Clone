@@ -74,12 +74,13 @@ public class TrashManager : MonoBehaviour
     public static TrashManager instance;
 
     [Header("General")]
+    public int totalTrash = 1000;
     public GameObject prefab;
     public GameObject[] meshPrefabs;
 
     [Header("LOD")]
-    public float lodRange = 500.0f;
-    public float lodSlack = 100.0f;
+    public float lodRange = 100.0f;
+    public float lodSlack = 10.0f;
 
     [Header("Buoyancy")]
     public float buoyancyRandomness = 1.0f;
@@ -95,6 +96,7 @@ public class TrashManager : MonoBehaviour
     private Material[] materials;
 
     private LinkedList<Trash> trashList = new LinkedList<Trash>();
+    private Matrix4x4[] instData;
 
     public Trash CreateTrash(Vector3 position)
     {
@@ -117,6 +119,9 @@ public class TrashManager : MonoBehaviour
 
     void AddTrash(Trash trash)
     {
+        if (trashList.Count >= totalTrash)
+            throw new System.Exception("Can't add more trash. Maximum reached.");
+
         trashList.AddLast(trash);
         trash.node = trashList.Last;
     }
@@ -132,7 +137,6 @@ public class TrashManager : MonoBehaviour
     {
         for (int meshType = 0; meshType < meshPrefabs.Length; meshType++)
         {
-            Matrix4x4[] instData = new Matrix4x4[trashList.Count];
             int i = 0;
             foreach(Trash trash in trashList)
             {
@@ -191,6 +195,7 @@ public class TrashManager : MonoBehaviour
     void Start()
     {
         instance = this;
+        instData = new Matrix4x4[totalTrash];
 
         PrepopulateMeshes();
         for(int i = 0; i < 1000; i++)
