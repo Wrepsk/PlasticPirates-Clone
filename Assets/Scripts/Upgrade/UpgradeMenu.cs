@@ -52,11 +52,18 @@ public class UpgradeMenu : MonoBehaviour
                 Debug.Log(statName);
                 StatsManager.instance.CollectedTrash -= cost;
                 stat.SetValue(playerBoat, newValue);
+
+                if (statName == "MaxHealth") 
+                {	
+                    playerBoat.Health = playerBoat.MaxHealth;
+                }
+
                 playerBoat.DealDamage(0);
                 selectedUpgradeButton.interactable = false;
                 selectedUpgradeButton.GetComponent<UpgradeButton>().isPurchased = true;
                 selectedUpgradeButton = null;
                 descArea.SetActive(false);
+
             }
         }
     }
