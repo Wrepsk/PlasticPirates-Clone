@@ -61,6 +61,10 @@ public class Damagable : MonoBehaviour
         {
             StartSmokeVisuals();
         }
+        else if (Health > sixtyPercentHealth && (onFire || smoking)) 
+        {	
+            StopFireAndSmoke();
+        }
     }
 
     public void DealDamage(float damage)
@@ -87,6 +91,9 @@ public class Damagable : MonoBehaviour
         if (audioSource != null) audioSource.Stop();
         if (fireParticles != null) fireParticles?.Stop();
         if (smokeParticles != null) smokeParticles?.Stop();
+
+        onFire = false;
+        smoking = false;
     }
 
     private void StartBubbles()
