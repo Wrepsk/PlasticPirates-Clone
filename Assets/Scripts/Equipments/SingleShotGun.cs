@@ -41,7 +41,7 @@ public class SingleShotGun : Equipment
             if (hitSounds.Length > 0 && audioSource != null)
             {
                 AudioClip randomClip = hitSounds[Random.Range(0, hitSounds.Length)];
-                audioSource.PlayOneShot(randomClip, 0.8f);
+                audioSource.PlayOneShot(randomClip, 0.33f);
             }
         }
     }

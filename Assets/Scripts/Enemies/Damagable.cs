@@ -8,7 +8,7 @@ public class Damagable : MonoBehaviour
     //Stats
     [field: SerializeField]
     public float MaxHealth { get; set; } = 100;
-    public float Health { get; private set; }
+    public float Health { get; set; }
     [field: SerializeField]
     public float Armor { get; set; } = 100;
     [field: SerializeField]
@@ -38,6 +38,7 @@ public class Damagable : MonoBehaviour
     {
         Debug.Log(MaxHealth);
         Health = MaxHealth;
+        alive = true;
     }
     
     protected virtual void Update()
@@ -49,7 +50,11 @@ public class Damagable : MonoBehaviour
         // sinking animation
         if (Health == 0)
         {
-            if (alive) StartDeathVisuals();
+            if (alive)
+            {
+                StartDeathVisuals();
+                alive = false;
+            }
 
             DeathAnimation();
         }
@@ -109,7 +114,7 @@ public class Damagable : MonoBehaviour
         {
             fireParticles.Play();
             audioSource.clip = fireSound;
-            audioSource.volume = 0.8f;
+            audioSource.volume = 0.5f;
             audioSource.loop = true;
             audioSource.Play();
         }
@@ -123,7 +128,7 @@ public class Damagable : MonoBehaviour
         if (smokeParticles != null) smokeParticles.Stop();
         if (fireParticles != null) fireParticles.Play();
         onFire = true;
-        if (audioSource != null) audioSource.volume = 0.65f;
+        if (audioSource != null) audioSource.volume = 0.5f;
     }
 
     private void StartSmokeVisuals()
@@ -135,7 +140,7 @@ public class Damagable : MonoBehaviour
         {
             audioSource.clip = fireSound;
             audioSource.loop = true;
-            audioSource.volume = 0.3f;
+            audioSource.volume = 0.2f;
             audioSource.Play();
         }
     }
