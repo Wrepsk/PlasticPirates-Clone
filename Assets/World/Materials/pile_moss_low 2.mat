@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pile_moss
+  m_Name: pile_moss_low 2
   m_Shader: {fileID: -6465566751694194690, guid: 3f38a43cdcacb1e4dba63d2db34588c9,
     type: 3}
   m_Parent: {fileID: 0}
@@ -132,8 +132,8 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SecondSmoothness: 0
-    - _SecondTextureHeight: 10
-    - _SecondTextureThreshhold: 0
+    - _SecondTextureHeight: 0
+    - _SecondTextureThreshhold: 0.166
     - _Smoothness: 0.3
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

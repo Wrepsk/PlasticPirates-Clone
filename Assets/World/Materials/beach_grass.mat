@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5298147577204846166
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pile_moss
+  m_Name: beach_grass
   m_Shader: {fileID: -6465566751694194690, guid: 3f38a43cdcacb1e4dba63d2db34588c9,
     type: 3}
   m_Parent: {fileID: 0}
@@ -38,11 +25,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 57d1da1c5e6e93d47b149eadc874169a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0a57702b15d54d04c900752a337c34d6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 7c5914131a478e043a2a6f982769ec78, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -62,11 +49,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 57d1da1c5e6e93d47b149eadc874169a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0a57702b15d54d04c900752a337c34d6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: a04c66bde4cddf14da1afde52e0f6f8e, type: 3}
+        m_Texture: {fileID: 2800000, guid: d5d1b867e4cbfb7409d06737fe915188, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -74,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTexture:
-        m_Texture: {fileID: 2800000, guid: c8549acb14623b34c91395b0a02361c7, type: 3}
+        m_Texture: {fileID: 2800000, guid: cb523382c4664dd40823051ee736d620, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -86,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SecondTexture:
-        m_Texture: {fileID: 2800000, guid: d6e37d6b756a15b418b50b62f092db01, type: 3}
+        m_Texture: {fileID: 2800000, guid: f5650d1aab830964d91c189fd27bb3fc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -132,9 +119,9 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SecondSmoothness: 0
-    - _SecondTextureHeight: 10
-    - _SecondTextureThreshhold: 0
-    - _Smoothness: 0.3
+    - _SecondTextureHeight: 0
+    - _SecondTextureThreshhold: 0.713
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -148,3 +135,16 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &7683251212790113563
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
