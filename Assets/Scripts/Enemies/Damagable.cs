@@ -114,7 +114,7 @@ public class Damagable : MonoBehaviour
         {
             fireParticles.Play();
             audioSource.clip = fireSound;
-            audioSource.volume = 0.5f;
+            audioSource.volume = 0.35f;
             audioSource.loop = true;
             audioSource.Play();
         }
@@ -128,7 +128,7 @@ public class Damagable : MonoBehaviour
         if (smokeParticles != null) smokeParticles.Stop();
         if (fireParticles != null) fireParticles.Play();
         onFire = true;
-        if (audioSource != null) audioSource.volume = 0.5f;
+        if (audioSource != null) audioSource.volume = 0.3f;
     }
 
     private void StartSmokeVisuals()
@@ -140,7 +140,7 @@ public class Damagable : MonoBehaviour
         {
             audioSource.clip = fireSound;
             audioSource.loop = true;
-            audioSource.volume = 0.2f;
+            audioSource.volume = 0.15f;
             audioSource.Play();
         }
     }

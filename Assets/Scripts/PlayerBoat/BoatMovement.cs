@@ -42,7 +42,7 @@ public class BoatMovement : Damagable
         if (motorAudioSource != null)
         {
 
-            motorAudioSource.volume -= 0.3f;
+            motorAudioSource.volume -= 0.65f;
             motorAudioSource.clip = idleClip;
             motorAudioSource.loop = true;
             motorAudioSource.Play();
@@ -174,7 +174,7 @@ public class BoatMovement : Damagable
         }
         else if (other.tag == "Trash")
         {
-            motorAudioSource.PlayOneShot(trashCollectingClip, 0.18f);
+            motorAudioSource.PlayOneShot(trashCollectingClip, 0.45f);
         }
     }
 
