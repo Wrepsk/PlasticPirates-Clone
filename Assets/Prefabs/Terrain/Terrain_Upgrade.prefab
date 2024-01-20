@@ -104,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8785662530495824614}
   - component: {fileID: 6829065566919399392}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TrashDisposalTrigger
   m_TagString: UpgradeIsland
   m_Icon: {fileID: 0}

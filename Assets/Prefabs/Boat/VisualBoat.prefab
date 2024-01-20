@@ -1319,7 +1319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7230031415201148778}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.075, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1331,7 +1331,7 @@ Transform:
   - {fileID: 449587778948646236}
   - {fileID: 5362976711370709376}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8879828171275767134
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1387,6 +1387,7 @@ MonoBehaviour:
   accClip: {fileID: 8300000, guid: 221bab098552ebb4db09e13ff53c44e3, type: 3}
   fullPowerClip: {fileID: 8300000, guid: c7586d1303b2a364b9a0a9c1a2c607b1, type: 3}
   stopClip: {fileID: 8300000, guid: 5c40a2dc7a8c3d449b1799ef2ee7f458, type: 3}
+  trashCollectingClip: {fileID: 0}
   motorPosition: {fileID: 129322659809120638}
   acceleration: 100
   maxSpeed: 100

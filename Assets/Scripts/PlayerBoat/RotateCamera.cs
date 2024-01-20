@@ -30,7 +30,7 @@ public class RotateCamera : MonoBehaviour
 
         rotationX = Mathf.Clamp(rotationX, -10, 45f);
         Vector3 nextRotation = new Vector3(rotationX, rotationY);
-        currentRotation = Vector3.SmoothDamp(currentRotation, nextRotation, ref smoothVelocity, smoothTime);
+        currentRotation = Vector3.SmoothDamp(currentRotation, nextRotation, ref smoothVelocity, 0.05f);
         transform.localEulerAngles = currentRotation;
         transform.position = (target.position - transform.forward * distanceFromTarget) + new Vector3(0, 2.5f, 0);
     }
