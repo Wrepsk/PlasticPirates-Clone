@@ -1,32 +1,134 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BoatMovement : MonoBehaviour
+public class BoatMovement : Damagable
 {
     PlayerControls controls;
     public Vector2 movementInput;
     Rigidbody rb;
+
+    public bool inUpgradeIsland;
+
+    public AudioSource motorAudioSource;
+    public AudioClip idleClip;
+    public AudioClip accClip;
+    public AudioClip fullPowerClip;
+    public AudioClip stopClip;
+    public AudioClip trashCollectingClip;
+    private bool idle;
+    private bool fullPower;
+    private bool invokedIdle;
+    private bool invokedFullPower;
 
 
     [SerializeField] Transform motorPosition;
 
     [Header("Boat Control parameters")]
     [SerializeField] float acceleration, maxSpeed, steeringStrength, maxAngularSpeed;
-    void Start()
+
+    protected override void Start()
     {
+        base.Start();
+
+        PreloadAudioClips();
+
         rb = GetComponent<Rigidbody>();
         controls = new PlayerControls();
 
         controls.BoatMovement.Move.performed += ctxt => OnMove(ctxt);
         controls.BoatMovement.Enable();
 
+        if (motorAudioSource != null)
+        {
+
+            motorAudioSource.volume -= 0.65f;
+            motorAudioSource.clip = idleClip;
+            motorAudioSource.loop = true;
+            motorAudioSource.Play();
+        }
+        idle = true;
+        fullPower = false;
+        invokedIdle = false;
+
+        // Start playing the loop
 
         // See Unity Bug at the bottom of this class
         InvokeRepeating(nameof(TemporarySolutionFixRotation), 0.1f, 0.1f);
     }
 
+    private void PreloadAudioClips() {
+        if (idleClip != null)
+            idleClip.LoadAudioData();
+        if (accClip != null)
+            accClip.LoadAudioData();
+        if (fullPowerClip != null)
+            fullPowerClip.LoadAudioData();
+        if (stopClip != null)
+            stopClip.LoadAudioData();
+        if (trashCollectingClip != null)
+            trashCollectingClip.LoadAudioData();
+    }
+
     private void OnMove(InputAction.CallbackContext ctxt)
     {
+        float horizontalInput = ctxt.ReadValue<Vector2>().x;
+        float verticalInput = ctxt.ReadValue<Vector2>().y;
+
+        if (Mathf.Approximately(horizontalInput, 0f) && Mathf.Approximately(verticalInput, 0f))
+        {
+            if (fullPower)
+            {
+                idle = true;
+                fullPower = false;
+
+                if (motorAudioSource != null)
+                {
+                    motorAudioSource.Stop();
+
+                    if (stopClip != null) motorAudioSource.PlayOneShot(stopClip);
+                    float delay = stopClip != null ? stopClip.length : 0f;
+
+                    if (!invokedIdle)
+                    {
+                        Invoke("PlayIdle", delay);
+                        invokedIdle = true;
+                    }
+                    else
+                    {
+                        CancelInvoke("PlayIdle");
+                        Invoke("PlayIdle", delay);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (idle)
+            {
+                idle = false;
+                fullPower = true;
+
+                if (motorAudioSource != null && accClip != null )
+                {
+                    motorAudioSource.Stop();
+                    motorAudioSource.PlayOneShot(accClip);
+                    float delay = accClip.length;
+                    if (!invokedFullPower)
+                    {
+                        Invoke("PlayFullPower", delay);
+                        invokedFullPower = true;
+                    }
+                    else
+                    {
+                        CancelInvoke("PlayFullPower");
+                        Invoke("PlayFullPower", delay);
+                    }
+                }
+            }
+
+        }
+
         movementInput = ctxt.ReadValue<Vector2>().normalized;
     }
 
@@ -64,4 +166,45 @@ public class BoatMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "UpgradeIsland")
+        {
+            inUpgradeIsland = true;
+        }
+        else if (other.tag == "Trash")
+        {
+            motorAudioSource.PlayOneShot(trashCollectingClip, 0.45f);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "UpgradeIsland")
+        {
+            inUpgradeIsland = false;
+        }
+    }
+
+    private void PlayIdle()
+    {
+        invokedIdle = false;
+        if (idle && motorAudioSource != null)
+        {
+            motorAudioSource.clip = idleClip;
+            motorAudioSource.loop = true;
+            motorAudioSource.Play();
+        }
+    }
+
+    private void PlayFullPower()
+    {
+        invokedFullPower = false;
+        if (fullPower && motorAudioSource != null)
+        {
+            motorAudioSource.clip = fullPowerClip;
+            motorAudioSource.loop = true;
+            motorAudioSource.Play();
+        }
+    }
 }

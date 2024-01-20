@@ -158,7 +158,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6478928787076853247}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6915cd045e15f4ab7a5366eb4f2966e5, type: 3}
   m_Name: 
@@ -225,9 +225,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  maxHealth: 100
+  ownPosition: {x: 0, y: 0, z: 0}
   playerObject: {fileID: 0}
   agent: {fileID: 0}
-  ownPosition: {x: 0, y: 0, z: 0}
   destination: {x: 0, y: 0, z: 0}
   turnspeed: 5
   aggroRange: 128

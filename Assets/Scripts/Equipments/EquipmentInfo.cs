@@ -8,4 +8,5 @@ public class EquipmentInfo : ScriptableObject
     public string equipmentName;
     public int damage;
     public bool isAutomatic;
+    public float cooldown;
 }

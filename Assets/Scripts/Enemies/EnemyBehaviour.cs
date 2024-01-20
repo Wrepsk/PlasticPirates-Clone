@@ -1,24 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Unity.VisualScripting;
 using UnityEngine.AI;
+using System;
 using WaterSystem.Physics;
 
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : Damagable
 {
-    //Stats
-    public float health = 100;
-
-
     //Actors and Helpers
     public GameObject playerObject;
     public NavMeshAgent agent;
-    private bool isAggroed = false;
+    public bool isAggroed = false;
     private SimpleBuoyantObject simpleBuoyantObject;
-    
+
     //Movement Helpers
-    public Vector3 ownPosition;
     public Vector3 destination;
     public float turnspeed = 5.0f;
     public float aggroRange = 128f;
@@ -27,66 +20,148 @@ public class EnemyBehaviour : MonoBehaviour
     private Vector3 playerPos;
     private Vector3 diffVector;
     private Vector3 directionDiffVec;
-    private Vector3 initialDirection = new Vector3(1,0,0);
+    private Vector3 initialDirection = new Vector3(1, 0, 0);
+
+    //Movement Helpers
+    public Vector3 ownPosition;
+
+    //Physics stuff
+    public Ray sight;
 
     //Physics Objects
+    public bool CanSeePlayer = false;
     [SerializeField] Transform motorPosition;
     Rigidbody rb;
 
-    void Start()
+    //Shooting helpers
+    protected Transform weaponPosition;
+    [SerializeField] Transform equipmentMover;
+    float weaponTurnSpeed = 10;
+    [SerializeField] Equipment[] equipments;
+    int equipmentIndex;
+    int previousEquipmentIndex = -1;
+
+    void DeathDisable()
     {
+        agent.enabled = false;
+    }
+
+    void EquipEquipment(int index)
+    {
+        if (index == previousEquipmentIndex)
+            return;
+
+        equipmentIndex = index;
+        equipments[equipmentIndex].equipmentGameObject.SetActive(true);
+
+        if(previousEquipmentIndex != -1)
+        {
+            equipments[previousEquipmentIndex].equipmentGameObject.SetActive(false);
+        }
+
+        previousEquipmentIndex = equipmentIndex;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        //Gets initial Equipment
+        EquipEquipment(0);  
+
         // Finding player object without manually assigning it
         playerObject = GameObject.FindGameObjectWithTag("Player");
-        //init variables
-        rb = GetComponent<Rigidbody>();
-        transform.eulerAngles = initialDirection;
-        agent = GetComponent<NavMeshAgent>();
-        simpleBuoyantObject = GetComponent<SimpleBuoyantObject>();
-        VectorUpdate();
         
+        //sets object in initial direction
+        transform.eulerAngles = initialDirection;
+        
+        //init navigation vars
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = DefaultSpeed;
+        agent.acceleration = DefaultSpeed;
+
+        
+        //initiates deathListener
+        OnDeath += DeathDisable;
+
+        //rigidbody
+        rb = GetComponent<Rigidbody>();
+        
+        VectorUpdate();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        // sinking animation
-        if (health == 0)
+        base.Update();
+
+
+        if (IsDead)
         {
             agent.enabled = false;
-            simpleBuoyantObject.enabled = false;
-            transform.position -= new Vector3(0, 1 * Time.deltaTime, 0);
-
-            if (transform.position.y < -5) Destroy(gameObject);
         }
-    }
 
+    }
     private void FixedUpdate()
     {
-        if (health == 0) return;
+        //checks if dead
+        if (IsDead) 
+        {
+            if (equipments[equipmentIndex] != null) equipments[equipmentIndex].BaseStopUse();
+            return;
+        }
 
 
         VectorUpdate();
-        if (Vector3.Distance(destination, playerPos) > 10.0f & isAggroed) 
+
+        //checks if path interrupted by Environment
+        sight = new Ray(ownPosition, diffVector);
+        Debug.DrawRay(ownPosition, diffVector);
+        if (Physics.Raycast(sight, out RaycastHit hit))
         {
-            agent.destination = playerPos;
-            
+            //Debug.Log(hit.collider);
+            if (hit.collider.CompareTag("Environment"))
+            {
+                CanSeePlayer = false;
+            }
+            else if (hit.collider.CompareTag("Player"))
+            {
+                CanSeePlayer = true;
+            }
         }
-        if (diffVector.magnitude < aggroRange)
+
+        isAggroed = diffVector.magnitude < aggroRange;
+
+
+        //recalibrates destination if player moves
+        if (Vector3.Distance(destination, playerPos) > 10.0f & isAggroed)
         {
+            agent.isStopped = false;
             agent.destination = playerPos;
-            isAggroed = true;
+        } else
+        {
+            agent.isStopped = true;
         }
-        
-        //Turns enemy in direction of player by turnspeed
-        Quaternion _lookRotation = Quaternion.LookRotation(directionDiffVec);
-        _lookRotation = RotateQuaternionLeft(_lookRotation, 90);
-        transform.GetChild(0).rotation = Quaternion.Slerp(transform.GetChild(0).rotation, _lookRotation, Time.deltaTime * turnspeed);
-        
+
+        if (isAggroed)
+        {
+            //Turns enemy in direction of player by turnspeed
+            TurnToPlayer(transform, turnspeed);
+        }
+
+        //Handles turning and shooting of weapon
+        if (diffVector.magnitude < aggroRange / 2 && equipments[equipmentIndex] != null)
+        {
+            TurnToPlayer(equipmentMover.transform, weaponTurnSpeed, -0.5f, -90f);
+            equipments[equipmentIndex].BaseUse();
+        } else
+        {
+            equipments[equipmentIndex].BaseStopUse();
+        }
+
     }
-    
-    Quaternion RotateQuaternionLeft(Quaternion original, float angleDegrees)
+
+    public Quaternion RotateQuaternionLeft(Quaternion original, float angleDegrees)
     {
-        // Convert the angle to radians
-        float angleRadians = angleDegrees * Mathf.Deg2Rad;
 
         // Calculate the rotation quaternion
         Quaternion rotationQuaternion = Quaternion.Euler(0f, -angleDegrees, 0f);
@@ -95,6 +170,19 @@ public class EnemyBehaviour : MonoBehaviour
         Quaternion rotatedQuaternion = rotationQuaternion * original;
 
         return rotatedQuaternion;
+    }
+
+    //Turns enemy in direction of player by turnspeed
+    public void TurnToPlayer(Transform toRotate, float specificTurnspeed, float yOffset = 0.0f, float rotateLeft = 0f)
+    {
+
+        Vector3 goalVec = diffVector + new Vector3(0,yOffset,0);
+        Quaternion _lookRotation = Quaternion.LookRotation(goalVec);
+
+        // weird unity forward directions... ughhh
+        if (rotateLeft != 0f) _lookRotation = RotateQuaternionLeft(_lookRotation, rotateLeft);
+
+        toRotate.rotation = Quaternion.Slerp(toRotate.rotation, _lookRotation, Time.deltaTime * specificTurnspeed);
     }
     
     void VectorUpdate()
@@ -107,8 +195,4 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
-    public void DealDamage(float damage)
-    {
-        health = Mathf.Max(0f, health - damage);
-    }
 }
