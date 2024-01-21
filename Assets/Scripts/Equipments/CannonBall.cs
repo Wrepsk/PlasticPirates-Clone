@@ -7,7 +7,6 @@ public class CannonBall : MonoBehaviour
     public GameObject explosionParticle;
     public float cannonLifetime = 5f;
 
-    public AudioSource audioSource;
     public AudioClip audioClip;
 
     private void Update()
@@ -27,8 +26,22 @@ public class CannonBall : MonoBehaviour
             other.transform.root.GetComponent<EnemyBehaviour>().DealDamage(100);
         }
 
-        audioSource?.PlayOneShot(audioClip);
+        GameObject audioObject = new GameObject("AudioObject");
+        audioObject.transform.position = transform.position;
 
+        // Füge einen temporären AudioSource hinzu
+        AudioSource audioSource = audioObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.volume = 0.15f;
+        audioSource.clip = audioClip;
+
+        // Spiele den Sound ab
+        audioSource.Play();
+
+        // Starte die Zerstörung des AudioObjects mit Verzögerung entsprechend der Sounddauer
+        Destroy(audioObject, audioClip.length);
+
+        // Erzeuge die Explosion und zerstöre das Haupt-GameObject
         Instantiate(explosionParticle, transform.position, transform.rotation);
         Destroy(gameObject);
     }
