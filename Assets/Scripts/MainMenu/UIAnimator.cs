@@ -14,6 +14,7 @@ public class UIAnimator : MonoBehaviour
     private float _hiddenTime;
     private string _changeToScene;
     private Action _hideWith;
+    private bool _hidden;
 
     private List<KeyValuePair<float, CanvasGroup>> _showElements;
     private List<KeyValuePair<float, CanvasGroup>> _hideElements;
@@ -49,11 +50,17 @@ public class UIAnimator : MonoBehaviour
         if (_hiddenTime != -1f)
         {
             if (currentTime - _hiddenTime < 0.5f)
+            {
                 _canvasGroup.alpha = 1 - 2 * (currentTime - _hiddenTime);
-            else if (_hideWith != null)
-                _hideWith();
-            else
-                SceneManager.LoadScene(_changeToScene, LoadSceneMode.Single);
+            }
+            else if (!_hidden)
+            {
+                _hidden = true;
+                if (_hideWith != null)
+                    _hideWith();
+                else
+                    SceneManager.LoadScene(_changeToScene, LoadSceneMode.Single);
+            }
         }
 
 

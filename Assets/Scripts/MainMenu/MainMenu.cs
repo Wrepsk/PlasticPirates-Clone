@@ -6,14 +6,18 @@ using UnityEngine.UI;
 
 public class MainMenu : UIAnimator
 {
+    private GameObject _rightPane;
+    private GameObject _loadingPane;
     private GameObject _settingsPane;
-    private Button _settingsPaneDoneButton;
+
+    private Slider _loadingSlider;
 
     private Transform _buttonsList;
 
     private Button _playButton;
     private Button _settingsButton;
     private Button _quitButton;
+    private Button _settingsPaneDoneButton;
 
 
     protected override void Start() 
@@ -21,8 +25,12 @@ public class MainMenu : UIAnimator
         // UIAnimator
         base.Start();
 
+        _rightPane = transform.Find("Center/RightPane").gameObject;
+        _loadingPane = transform.Find("Center/LoadingPane").gameObject;
         _settingsPane = transform.Find("Center/SettingsPane").gameObject;
         _settingsPaneDoneButton = transform.Find("Center/SettingsPane/DoneButton").GetComponent<Button>();
+
+        _loadingSlider = _loadingPane.transform.Find("Slider").GetComponent<Slider>();
 
         _buttonsList = transform.Find("Center/RightPane/ButtonList");
 
@@ -38,7 +46,25 @@ public class MainMenu : UIAnimator
 
     private void LaunchGame() 
     {
-        ChangeScene("GameScene");
+        StartCoroutine(LaunchGameSequence());
+    }
+
+    private IEnumerator LaunchGameSequence()
+    {
+
+        HideElement(_settingsPane);
+        HideElement(_rightPane);
+        ShowElement(_loadingPane);
+
+        yield return new WaitForSeconds(0.5f);
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync("GameScene", LoadSceneMode.Single);
+
+        while (!operation.isDone)
+        {
+            _loadingSlider.value = operation.progress;
+            yield return null;
+        }
     }
 
     private void ToggleSettingsPane() 
