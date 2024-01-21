@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : UIAnimator
 {
     private GameObject _settingsPane;
     private Button _settingsPaneDoneButton;
@@ -16,11 +16,15 @@ public class MainMenu : MonoBehaviour
     private Button _quitButton;
 
 
-    private void Start() {
-        _settingsPane = transform.Find("SettingsPane").gameObject;
-        _settingsPaneDoneButton = transform.Find("SettingsPane/DoneButton").GetComponent<Button>();
+    protected override void Start() 
+    {
+        // UIAnimator
+        base.Start();
 
-        _buttonsList = transform.Find("RightPane/ButtonList");
+        _settingsPane = transform.Find("Center/SettingsPane").gameObject;
+        _settingsPaneDoneButton = transform.Find("Center/SettingsPane/DoneButton").GetComponent<Button>();
+
+        _buttonsList = transform.Find("Center/RightPane/ButtonList");
 
         _playButton     = _buttonsList.Find("PlayButton").GetComponent<Button>();
         _settingsButton = _buttonsList.Find("SettingsButton").GetComponent<Button>();
@@ -32,15 +36,19 @@ public class MainMenu : MonoBehaviour
         _quitButton.onClick.AddListener(QuitGame);
     }
 
-    private void LaunchGame() {
-        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+    private void LaunchGame() 
+    {
+        ChangeScene("GameScene");
     }
 
-    private void ToggleSettingsPane() {
-        _settingsPane.SetActive(!_settingsPane.activeSelf);
+    private void ToggleSettingsPane() 
+    {
+        if (_settingsPane.activeSelf) HideElement(_settingsPane);
+        else ShowElement(_settingsPane);
     }
 
-    private void QuitGame() {
-        Application.Quit();
+    private void QuitGame() 
+    {
+        FadeOutWith(() => Application.Quit());
     }
 }
