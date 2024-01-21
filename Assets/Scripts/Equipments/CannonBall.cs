@@ -6,24 +6,31 @@ public class CannonBall : MonoBehaviour
 {
     public GameObject explosionParticle;
     public float cannonLifetime = 5f;
+    public int explosionRadius;
 
     public AudioClip audioClip;
 
     private void Update()
     {
         cannonLifetime -= Time.deltaTime;
-        if(cannonLifetime <= 0)
+        if(cannonLifetime <= 0 || transform.position.y < -5)
             Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.root.tag == "Player")
-            other.transform.root.GetComponent<BoatMovement>().DealDamage(100);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
-        if (other.transform.root.tag == "Enemy")
+        foreach (Collider collider in colliders)
         {
-            other.transform.root.GetComponent<EnemyBehaviour>().DealDamage(100);
+            if (collider.CompareTag("Player"))
+            {
+                collider.transform.root.GetComponent<BoatMovement>().DealDamage(100);
+            }
+            else if (collider.CompareTag("Enemy"))
+            {
+                collider.transform.root.GetComponent<EnemyBehaviour>().DealDamage(100);
+            }
         }
 
         GameObject audioObject = new GameObject("AudioObject");

@@ -171,4 +171,5 @@ MonoBehaviour:
   explosionParticle: {fileID: 7685241218638805103, guid: df0bc10fa4dab124e8bf388de0021cf8,
     type: 3}
   cannonLifetime: 5
+  explosionRadius: 20
   audioClip: {fileID: 8300000, guid: 6ec0d7d79956da5429c864a81218989c, type: 3}
