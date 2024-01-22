@@ -211,10 +211,13 @@ public class TrashManager : MonoBehaviour
         Render();
     }
 
-    void Start()
-    {
+    void Awake() {
         instance = this;
         instData = new Matrix4x4[totalTrash];
+    }
+
+    void Start()
+    {
         PrepopulateMeshes();
         SpawnTrash();
     }
