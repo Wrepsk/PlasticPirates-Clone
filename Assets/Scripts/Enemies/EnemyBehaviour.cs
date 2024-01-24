@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System;
 using WaterSystem.Physics;
 using Microsoft.Unity.VisualStudio.Editor;
+using System.Runtime.CompilerServices;
 
 public class EnemyBehaviour : Damagable
 {
@@ -15,11 +16,16 @@ public class EnemyBehaviour : Damagable
 
     //Healthbar Helpers
     [SerializeField]
-    private UnityEngine.UI.Image healthbarForeground;  // Sprite of the health indicator
+    private UnityEngine.UI.Image healthbarForeground;   // Sprite of the health indicator
     [SerializeField]
-    private UnityEngine.UI.Image healthbarComplete;  // Sprite of the healthbar
+    private UnityEngine.UI.Image healthbarComplete;     // Sprite of the healthbar
     [SerializeField]
-    private UnityEngine.UI.Image healthbarDeath; // Sprite of Deathmarker
+    private UnityEngine.UI.Image healthbarDeath;        // Sprite of Deathmarker
+    [SerializeField]
+    private AudioClip alarm;
+    private bool alarmPlayed = false;                   //Indicator if indicator sound was played
+    [SerializeField]
+    private float alarmVolume = 2f;                     //Volume of alarm sound
 
     //Movement Helpers
     public Vector3 destination;
@@ -172,6 +178,16 @@ public class EnemyBehaviour : Damagable
 
         if (isAggroed)
         {
+            if (!alarmPlayed)
+            {
+                //Alarm signal to player
+                audioSource.clip = alarm;
+                audioSource.volume = alarmVolume;
+                audioSource.loop = false;
+                audioSource.Play();
+                alarmPlayed = true;
+            }
+            
             //Turns enemy in direction of player by turnspeed
             TurnToPlayer(transform, turnspeed);
             //Updates the healthbar

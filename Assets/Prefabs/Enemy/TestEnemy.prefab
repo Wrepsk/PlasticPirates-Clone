@@ -1163,6 +1163,7 @@ MonoBehaviour:
   healthbarForeground: {fileID: 491638466013882558}
   healthbarComplete: {fileID: 9125233715462191189}
   healthbarDeath: {fileID: 824880873104624701}
+  alarm: {fileID: 8300000, guid: 5bc0ac3dbf8598e44b17789fd5cda293, type: 3}
   destination: {x: 0, y: 0, z: 0}
   turnspeed: 5
   aggroRange: 64
