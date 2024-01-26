@@ -55,11 +55,12 @@ public class BoatMovement : Damagable
         invokedIdle = false;
 
         ogMass = rb.mass;
+    }
 
-        // Start playing the loop
-
-        // See Unity Bug at the bottom of this class
-        InvokeRepeating(nameof(TemporarySolutionFixRotation), 0.1f, 0.1f);
+    protected override void Update()
+    {
+        base.Update();
+        TemporarySolutionFixRotation();
     }
 
     private void PreloadAudioClips() {
