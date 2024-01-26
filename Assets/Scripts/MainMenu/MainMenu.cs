@@ -9,6 +9,7 @@ public class MainMenu : UIAnimator
     private GameObject _rightPane;
     private GameObject _loadingPane;
     private GameObject _settingsPane;
+    private GameObject _storyControlsPane;
 
     private Slider _loadingSlider;
 
@@ -18,6 +19,7 @@ public class MainMenu : UIAnimator
     private Button _settingsButton;
     private Button _quitButton;
     private Button _settingsPaneDoneButton;
+    private Button _gotItButton;
 
 
     protected override void Start() 
@@ -29,6 +31,8 @@ public class MainMenu : UIAnimator
         _loadingPane = transform.Find("Center/LoadingPane").gameObject;
         _settingsPane = transform.Find("Center/SettingsPane").gameObject;
         _settingsPaneDoneButton = transform.Find("Center/SettingsPane/DoneButton").GetComponent<Button>();
+        _storyControlsPane = transform.Find("Center/StoryControlsPane").gameObject;
+        _gotItButton = transform.Find("Center/StoryControlsPane/GotItButton").GetComponent<Button>();
 
         _loadingSlider = _loadingPane.transform.Find("Slider").GetComponent<Slider>();
 
@@ -38,7 +42,8 @@ public class MainMenu : UIAnimator
         _settingsButton = _buttonsList.Find("SettingsButton").GetComponent<Button>();
         _quitButton     = _buttonsList.Find("QuitButton").GetComponent<Button>();
 
-        _playButton.onClick.AddListener(LaunchGame);
+        _gotItButton.onClick.AddListener(LaunchGame);
+        _playButton.onClick.AddListener(ToggleStoryControlsPane);
         _settingsButton.onClick.AddListener(ToggleSettingsPane);
         _settingsPaneDoneButton.onClick.AddListener(ToggleSettingsPane);
         _quitButton.onClick.AddListener(QuitGame);
@@ -55,6 +60,7 @@ public class MainMenu : UIAnimator
         HideElement(_settingsPane);
         HideElement(_rightPane);
         ShowElement(_loadingPane);
+        HideElement(_storyControlsPane);
 
         yield return new WaitForSeconds(0.5f);
 
@@ -71,6 +77,11 @@ public class MainMenu : UIAnimator
     {
         if (_settingsPane.activeSelf) HideElement(_settingsPane);
         else ShowElement(_settingsPane);
+    }
+
+    private void ToggleStoryControlsPane()
+    {
+        ShowElement(_storyControlsPane);
     }
 
     private void QuitGame() 
