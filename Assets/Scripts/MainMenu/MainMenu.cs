@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : UIAnimator
 {
+    public AudioSource backgroundAudioSource;
+    public AudioClip backgroundClip;
+    public AudioClip hoverClip;
+    public AudioClip clickClip;
+
     private GameObject _rightPane;
     private GameObject _loadingPane;
     private GameObject _settingsPane;
@@ -47,20 +53,32 @@ public class MainMenu : UIAnimator
         _settingsButton.onClick.AddListener(ToggleSettingsPane);
         _settingsPaneDoneButton.onClick.AddListener(ToggleSettingsPane);
         _quitButton.onClick.AddListener(QuitGame);
+
+        AddHoverEvents(_playButton);
+        AddHoverEvents(_settingsButton);
+        AddHoverEvents(_quitButton);
+        AddHoverEvents(_settingsPaneDoneButton);
+        AddHoverEvents(_gotItButton);
+
+        backgroundAudioSource.clip = backgroundClip;
+        backgroundAudioSource.loop = true;
+        backgroundAudioSource.Play();
     }
 
     private void LaunchGame() 
     {
+        backgroundAudioSource.PlayOneShot(clickClip, 0.35f);
         StartCoroutine(LaunchGameSequence());
     }
 
     private IEnumerator LaunchGameSequence()
     {
-
         HideElement(_settingsPane);
         HideElement(_rightPane);
         ShowElement(_loadingPane);
         HideElement(_storyControlsPane);
+
+        Invoke("StopAudio", 1f);
 
         yield return new WaitForSeconds(0.5f);
 
@@ -70,22 +88,46 @@ public class MainMenu : UIAnimator
         {
             _loadingSlider.value = operation.progress;
             yield return null;
-        }
+        }    
     }
 
     private void ToggleSettingsPane() 
     {
+        backgroundAudioSource.PlayOneShot(clickClip, 0.35f);
+        if (_storyControlsPane.activeSelf) HideElement(_storyControlsPane);        
         if (_settingsPane.activeSelf) HideElement(_settingsPane);
         else ShowElement(_settingsPane);
     }
 
     private void ToggleStoryControlsPane()
     {
+        backgroundAudioSource.PlayOneShot(clickClip, 0.35f);
+        if (_settingsPane.activeSelf) HideElement(_settingsPane);
+        if (_storyControlsPane.activeSelf) HideElement(_storyControlsPane);
         ShowElement(_storyControlsPane);
     }
 
     private void QuitGame() 
     {
+        backgroundAudioSource.PlayOneShot(clickClip, 0.35f);
         FadeOutWith(() => Application.Quit());
+    }
+
+    private void AddHoverEvents(Button button)
+    {
+        EventTrigger trigger = button.gameObject.GetComponent<EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = button.gameObject.AddComponent<EventTrigger>();
+        }
+
+        EventTrigger.Entry entryEnter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
+        entryEnter.callback.AddListener((data) => { backgroundAudioSource.PlayOneShot(hoverClip, 0.15f); });
+        trigger.triggers.Add(entryEnter);
+    }
+
+    private void StopAudio()
+    {
+        backgroundAudioSource.Stop();
     }
 }
