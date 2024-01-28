@@ -61,6 +61,7 @@ public class BoatMovement : Damagable
     {
         base.Update();
         TemporarySolutionFixRotation();
+        maxSpeed = DefaultSpeed;
     }
 
     private void PreloadAudioClips() {
