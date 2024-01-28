@@ -81,6 +81,12 @@ public class BoatMovement : Damagable
         float verticalInput = ctxt.ReadValue<Vector2>().y;
         float horizontalInput = ctxt.ReadValue<Vector2>().x * Mathf.Sign(verticalInput);
 
+        if (HUD.instance.HudActive)
+        {
+            verticalInput = 0;
+            horizontalInput = 0;
+        }
+
         if (Mathf.Approximately(horizontalInput, 0f) && Mathf.Approximately(verticalInput, 0f))
         {
             if (fullPower)
