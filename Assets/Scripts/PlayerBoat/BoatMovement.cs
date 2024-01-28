@@ -27,6 +27,9 @@ public class BoatMovement : Damagable
     [Header("Boat Control parameters")]
     [SerializeField] float acceleration, maxSpeed, steeringStrength, maxAngularSpeed;
 
+    [SerializeField] AnimationCurve massMult;
+
+    float ogMass;
     protected override void Start()
     {
         base.Start();
@@ -51,10 +54,13 @@ public class BoatMovement : Damagable
         fullPower = false;
         invokedIdle = false;
 
-        // Start playing the loop
+        ogMass = rb.mass;
+    }
 
-        // See Unity Bug at the bottom of this class
-        InvokeRepeating(nameof(TemporarySolutionFixRotation), 0.1f, 0.1f);
+    protected override void Update()
+    {
+        base.Update();
+        TemporarySolutionFixRotation();
     }
 
     private void PreloadAudioClips() {
@@ -72,8 +78,8 @@ public class BoatMovement : Damagable
 
     private void OnMove(InputAction.CallbackContext ctxt)
     {
-        float horizontalInput = ctxt.ReadValue<Vector2>().x;
         float verticalInput = ctxt.ReadValue<Vector2>().y;
+        float horizontalInput = ctxt.ReadValue<Vector2>().x * Mathf.Sign(verticalInput);
 
         if (Mathf.Approximately(horizontalInput, 0f) && Mathf.Approximately(verticalInput, 0f))
         {
@@ -129,12 +135,14 @@ public class BoatMovement : Damagable
 
         }
 
-        movementInput = ctxt.ReadValue<Vector2>().normalized;
+        movementInput = new Vector2(horizontalInput, verticalInput).normalized;
     }
 
 
     private void FixedUpdate()
     {
+        rb.mass = ogMass * massMult.Evaluate((float)(StatsManager.instance.CollectedTrash + 0.001f) / (float)StatsManager.instance.maxTrashCapacity ) + ogMass;
+
         var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.forward) * movementInput.y * acceleration + Vector3.Scale(new Vector3(1, 0, 1), transform.right) * -movementInput.x * steeringStrength;
         //var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.forward) * movementInput.y * acceleration;
 

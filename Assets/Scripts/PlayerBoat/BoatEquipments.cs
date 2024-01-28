@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UIElements;
 using WaterSystem.Physics;
@@ -55,13 +56,11 @@ public class BoatEquipments : MonoBehaviour
 
         rotationZ = Mathf.Clamp(rotationZ, -15f, 30f);
 
-
         equipmentHorizontalMover.transform.localEulerAngles = new Vector3(0, rotationY, 0);
         equipmentVerticalMover.transform.localEulerAngles = new Vector3(0, 0, rotationZ);
-
     }
 
-    void EquipEquipment(int index)
+        void EquipEquipment(int index)
     {
         if (index == previousEquipmentIndex)
             return;
