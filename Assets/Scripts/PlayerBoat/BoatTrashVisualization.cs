@@ -1,18 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BoatTrashVisualization : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    [SerializeField] Transform TrashDropPosition;
+    [SerializeField] Collider BoatColl;
     void Start()
     {
-        
+        TrashManager.instance.OnTrashCollected += HandleTrashCollected;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void HandleTrashCollected(Trash trash)
     {
+        var clone = Instantiate(TrashManager.instance.meshPrefabs[trash.meshType], TrashDropPosition);
+        clone.transform.localScale *= 0.5f;
+        Physics.IgnoreCollision(clone.GetComponent<Collider>(), BoatColl);
         
     }
 }
