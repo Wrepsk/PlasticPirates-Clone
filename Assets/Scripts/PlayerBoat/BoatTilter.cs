@@ -15,14 +15,20 @@ public class BoatTilter : MonoBehaviour
 
     public float targetTilt;
 
+    // Player
+    private Damagable _player;
+
 
     void Start()
     {
+        _player = GetComponentInParent<Damagable>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (_player.Health <= 0) return;
+
         Vector3 position = transform.position;
         Quaternion rotation = transform.rotation;
         float velocity = rigidbody.velocity.magnitude;

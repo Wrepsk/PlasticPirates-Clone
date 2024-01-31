@@ -1561,6 +1561,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: VisualBoat
       objectReference: {fileID: 0}
+    - target: {fileID: 8641104301406597578, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: verticalOffset
+      value: -3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
