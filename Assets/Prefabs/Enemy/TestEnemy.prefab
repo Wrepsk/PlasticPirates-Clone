@@ -1170,6 +1170,7 @@ MonoBehaviour:
   audioSource: {fileID: 8334890336535162744}
   fireSound: {fileID: 8300000, guid: 239e1a976d6f9d249bb3e418f06bf40a, type: 3}
   bubbleSound: {fileID: 8300000, guid: bb8790fc33c352c4993abccf2ef8354b, type: 3}
+  trashManager: {fileID: 0}
   playerObject: {fileID: 0}
   agent: {fileID: 0}
   isAggroed: 0

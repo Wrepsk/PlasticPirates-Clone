@@ -18,7 +18,6 @@ public class Damagable : MonoBehaviour
     public event Action OnDeath;
     public event Action<float> HealthChanged;
     public bool IsDead => Health <= 0;
-    //public SimpleBuoyantObject simpleBuoyantObject;
     
 
     //Smoke/Fire/Bubbles Animations
@@ -41,7 +40,7 @@ public class Damagable : MonoBehaviour
 
     protected virtual void Start()
     {
-        //trashManager = FindObjectsOfType<TrashManager>()[0];
+        trashManager = FindObjectsOfType<TrashManager>()[0];
         objectHeigth = gameObject.GetComponentsInChildren<MeshRenderer>()[0].bounds.size.y;
         
         Health = MaxHealth;
@@ -96,9 +95,9 @@ public class Damagable : MonoBehaviour
 
         if (transform.position.y < -objectHeigth)
         {
-            //trashManager.SpawnRandomTrashWithinCube(new Vector2(transform.position.x, transform.position.z),
-                //    new Vector3(10, 0, 5), 1, trashDropAmount, 10);
-            //Debug.Log("Trash spawn function went through");
+            trashManager.SpawnRandomTrashWithinCube(new Vector2(transform.position.x, transform.position.z),
+                    new Vector3(10, 0, 5), 1, trashDropAmount, 10);
+            Debug.Log("Trash spawn function went through");
             Destroy(gameObject);
         }
         

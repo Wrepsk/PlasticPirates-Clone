@@ -14,14 +14,18 @@ public class Trash
     public GameObject gameObject;
     public float xPhase;
     public float zPhase;
+    public bool ignoreDematerialize;
+    public bool rising;
 
-    public void Materialize()
+    public GameObject Materialize()
     {
         Assert.IsNull(gameObject);
         Transform trashParent = manager.transform.Find("Trash");
         gameObject = GameObject.Instantiate(manager.prefab, position, rotation, trashParent);
         gameObject.GetComponent<TrashBehaviour>().trash = this;
         GameObject mesh = GameObject.Instantiate(manager.meshPrefabs[meshType], gameObject.transform);
+
+        return gameObject;
     }
 
     public void Dematerialize()
@@ -93,14 +97,16 @@ public class TrashManager : MonoBehaviour
     public float zDegreeRange = 2.0f;
     public float zPhaseOffset = 1.5f;
     public float yRange = 0.25f;
+    public float riseSpeed = 0.025f;
 
-    private Mesh[] meshes;
+    [HideInInspector]
+    public Mesh[] meshes;
     private Material[] materials;
 
     private LinkedList<Trash> trashList = new LinkedList<Trash>();
     private Matrix4x4[] instData;
 
-    public Trash CreateTrash(Vector3 position, int meshType = -1)
+    public Trash CreateTrash(Vector3 position, int meshType = -1, bool rising = false)
     {
         Trash trash = new Trash();
         trash.manager = this;
@@ -108,6 +114,7 @@ public class TrashManager : MonoBehaviour
         trash.rotation = Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f);
         trash.xPhase = trash.position.x * buoyancySpatialScaling + Random.Range(0.0f, buoyancyRandomness);
         trash.zPhase = trash.position.z * buoyancySpatialScaling + Random.Range(0.0f, buoyancyRandomness);
+        trash.rising = rising;
 
         if (meshType == -1)
             trash.meshType = Random.Range(0, meshPrefabs.Length);
@@ -175,7 +182,7 @@ public class TrashManager : MonoBehaviour
             float distance = Vector3.Distance(trash.position, position);
             if (distance < lodRange && !trash.IsMaterialized())
                 trash.Materialize();
-            if (distance > lodRange + lodSlack && trash.IsMaterialized())
+            if (distance > lodRange + lodSlack && trash.IsMaterialized() && !trash.ignoreDematerialize)
                 trash.Dematerialize();
         }
     }
@@ -201,6 +208,56 @@ public class TrashManager : MonoBehaviour
             Vector2 position2d = sampler.SampleVector2();
             Vector3 position3d = new Vector3(position2d.x, -yOffset, position2d.y);
             CreateTrash(position3d, type);
+        }
+    }
+    public void SpawnRandomTrashWithinCube(Vector2 center2d, Vector3 size, int groupAmount = 1, int trashPerGroup = 10, float groupRadius = 10/*,  float trashRadius = 2 */)
+    {
+        Vector3 center = new Vector3(center2d.x, 0, center2d.y);
+        for (int i = 0; i < groupAmount; i++)
+        {
+            float centerX = Random.Range(0f, size.x);
+            // float centerY = Random.Range(0f, -size.y);
+            float centerZ = Random.Range(0f, size.z);
+
+            for (int j = 0; j < trashPerGroup; j++)
+            {
+                float offsetX = Random.Range(-groupRadius / 2, groupRadius / 2);
+                // float offsetY = Random.Range(-groupRadius / 2, groupRadius / 2);
+                float offsetZ = Random.Range(-groupRadius / 2, groupRadius / 2);
+
+                float trashX = centerX + offsetX;
+                // float trashY = centerY + offsetY;
+                float trashZ = centerZ + offsetZ;
+
+                trashX = Mathf.Clamp(trashX, 0, size.x);
+                // trashY = Mathf.Clamp(trashY, -size.y, -0.5f);
+                trashZ = Mathf.Clamp(trashZ, 0, size.z);
+
+
+                int type = Random.Range(0, meshPrefabs.Length);
+                float yOffset = Random.Range(meshes[type].bounds.size.y / 2, 5);
+
+                Vector3 spawnPosition3d = center - size / 2 + new Vector3(trashX, -yOffset, trashZ);
+
+                //  -- TODO: Optimise this --
+                //Terrain currentTerrain = TerrainManager.instance
+                //    .GetClosestCurrentTerrain(spawnPosition3d);
+
+                //float terrainHeightAtLocation = currentTerrain
+                //    .SampleHeight(spawnPosition3d);
+
+                //Debug.Log(spawnPosition3d + " " + terrainHeightAtLocation + " " + currentTerrain.name);
+
+                //if (terrainHeightAtLocation > 10)
+                //{
+                //    Debug.Log("Trash within island, skipping: " + terrainHeightAtLocation);
+                //    continue;
+                //}
+                // --------------------------
+
+                CreateTrash(spawnPosition3d, type, true);
+            }
+
         }
     }
 

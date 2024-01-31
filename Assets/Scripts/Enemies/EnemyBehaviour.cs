@@ -191,7 +191,7 @@ public class EnemyBehaviour : Damagable
             }
             
             //Turns enemy in direction of player by turnspeed
-            TurnToPlayer(transform, turnspeed);
+            TurnToPlayer(transform, turnspeed, direction:diffVector);
             //Updates the healthbar
             healthbarComplete.enabled = true;
             healthbarForeground.enabled = true;
@@ -206,7 +206,8 @@ public class EnemyBehaviour : Damagable
         //Handles turning and shooting of weapon
         if (diffVector.magnitude < aggroRange / 2 && equipments[equipmentIndex] != null)
         {
-            TurnToPlayer(equipmentMover.transform, weaponTurnSpeed, -0.5f, -90f);
+            Vector3 weaponToPlayer = playerPos - equipmentMover.transform.position;
+            TurnToPlayer(equipmentMover.transform, weaponTurnSpeed, weaponToPlayer, -0.5f, -90f);
             equipments[equipmentIndex].BaseUse();
         } else
         {
@@ -228,10 +229,10 @@ public class EnemyBehaviour : Damagable
     }
 
     //Turns enemy in direction of player by turnspeed
-    public void TurnToPlayer(Transform toRotate, float specificTurnspeed, float yOffset = 0.0f, float rotateLeft = 0f)
+    public void TurnToPlayer(Transform toRotate, float specificTurnspeed, Vector3 direction, float yOffset = 0.0f, float rotateLeft = 0f)
     {
 
-        Vector3 goalVec = diffVector + new Vector3(0,yOffset,0);
+        Vector3 goalVec = direction + new Vector3(0,yOffset,0);
         Quaternion _lookRotation = Quaternion.LookRotation(goalVec);
 
         // weird unity forward directions... ughhh

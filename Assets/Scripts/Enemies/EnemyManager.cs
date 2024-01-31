@@ -25,6 +25,12 @@ public class EnemyManager : MonoBehaviour
 
     public GameObject[] enemyPrefabs; // assigned in editor
     public GameObject cargoshipPrefab; // assigned in editor
+    
+    //Difficulty Modifier starts at 1 and increases over time.
+    //This modifies desiredwave and desiredEnemy counts and also wave counter to avoid constant waves
+    public float difficultyMod = 1.0f;
+    private int nextDifficultyInt = 2;
+    public static float difficultyIncrement = 0.0005f;
 
     void Awake() {
         instance = this;
@@ -49,6 +55,16 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
+        //increment difficulty and check for increases by whole number
+        if ((difficultyMod + difficultyIncrement) >= nextDifficultyInt)
+        {
+            nextDifficultyInt++;
+            desiredEnemyCount++;
+            desiredWaveCounter++;
+            waveCounter++;
+        }
+        difficultyMod += difficultyIncrement;
+
         // Spawn enemies one by one outside of Waves
         if(enemyCount < desiredEnemyCount)
         {
