@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff2af1216982eb4438cd1a52e1af754c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nEnemyGroups: 5
-  sizeEnemyGroups: 2
-  radiusEnemyGroups: 10
+  enemyGroupCount: 3
+  enemyGroupSize: 2
+  enemyGroupRadius: 10
+  desiredEnemyCount: 3
+  desiredWaveCounter: 6
   enemyPrefab: {fileID: 0}

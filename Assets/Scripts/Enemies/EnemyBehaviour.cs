@@ -1,7 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using System;
 using WaterSystem.Physics;
+using Microsoft.Unity.VisualStudio.Editor;
+using System.Runtime.CompilerServices;
 
 public class EnemyBehaviour : Damagable
 {
@@ -10,6 +13,19 @@ public class EnemyBehaviour : Damagable
     public NavMeshAgent agent;
     public bool isAggroed = false;
     private SimpleBuoyantObject simpleBuoyantObject;
+
+    //Healthbar Helpers
+    [SerializeField]
+    private UnityEngine.UI.Image healthbarForeground;   // Sprite of the health indicator
+    [SerializeField]
+    private UnityEngine.UI.Image healthbarComplete;     // Sprite of the healthbar
+    [SerializeField]
+    private UnityEngine.UI.Image healthbarDeath;        // Sprite of Deathmarker
+    [SerializeField]
+    private AudioClip alarm;
+    private bool alarmPlayed = false;                   //Indicator if indicator sound was played
+    [SerializeField]
+    private float alarmVolume = 1.6f;                     //Volume of alarm sound
 
     //Movement Helpers
     public Vector3 destination;
@@ -62,12 +78,26 @@ public class EnemyBehaviour : Damagable
         previousEquipmentIndex = equipmentIndex;
     }
 
+    
+    // Setting the healthbar
+    public void UpdateHealthBar(float healthMax, float currentHealth)
+    {
+        healthbarForeground.fillAmount = currentHealth / healthMax;
+        //healthCanvas.transform.rotation = _cam.transform.rotation;
+    }
+
+
     protected override void Start()
     {
         base.Start();
 
         //Gets initial Equipment
         EquipEquipment(0);  
+
+        //Turn off healthbar at start
+        healthbarComplete.enabled = false;
+        healthbarForeground.enabled = false;
+        healthbarDeath.enabled = false;
 
         // Finding player object without manually assigning it
         playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -106,6 +136,10 @@ public class EnemyBehaviour : Damagable
         //checks if dead
         if (IsDead) 
         {
+            healthbarDeath.enabled = true;
+            healthbarComplete.enabled = false;
+            healthbarForeground.enabled = false;
+            
             if (equipments[equipmentIndex] != null) equipments[equipmentIndex].BaseStopUse();
             return;
         }
@@ -144,8 +178,27 @@ public class EnemyBehaviour : Damagable
 
         if (isAggroed)
         {
+            if (!alarmPlayed)
+            {
+                //Alarm signal to player
+                audioSource.clip = alarm;
+                audioSource.volume = alarmVolume;
+                audioSource.loop = false;
+                audioSource.Play();
+                alarmPlayed = true;
+            }
+            
             //Turns enemy in direction of player by turnspeed
             TurnToPlayer(transform, turnspeed);
+            //Updates the healthbar
+            healthbarComplete.enabled = true;
+            healthbarForeground.enabled = true;
+            UpdateHealthBar(MaxHealth, Health);
+        }
+        else
+        {
+            healthbarComplete.enabled = false;
+            healthbarForeground.enabled = false;
         }
 
         //Handles turning and shooting of weapon
