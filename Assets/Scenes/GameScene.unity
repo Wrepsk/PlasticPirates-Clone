@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18632323, g: 0.5225313, b: 0.8347161, a: 1}
+  m_IndirectSpecularColor: {r: 0.18631649, g: 0.5225311, b: 0.8326769, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1109,11 +1109,71 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1076373547}
     m_Modifications:
+    - target: {fileID: 477006631852642283, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
+    - target: {fileID: 477006631852642283, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a9ed5071978d2a4aa054734e0f20b4b, type: 3}
+    - target: {fileID: 477006631852642283, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1838997002}
+    - target: {fileID: 928244693531100179, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
+    - target: {fileID: 928244693531100179, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
     - target: {fileID: 928244693531100179, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: playerBoat
       value: 
       objectReference: {fileID: 67969202}
+    - target: {fileID: 928244693531100179, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1838997002}
+    - target: {fileID: 1345522283125557360, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
+    - target: {fileID: 1345522283125557360, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a9ed5071978d2a4aa054734e0f20b4b, type: 3}
+    - target: {fileID: 1345522283125557360, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1838997002}
+    - target: {fileID: 2103962111625173058, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
+    - target: {fileID: 2103962111625173058, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a9ed5071978d2a4aa054734e0f20b4b, type: 3}
+    - target: {fileID: 2103962111625173058, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1838997002}
     - target: {fileID: 2642113450171267236, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1134,6 +1194,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
       value: Increases speed to 125.
       objectReference: {fileID: 0}
+    - target: {fileID: 3208908070756074240, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3694078537108503674, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
+    - target: {fileID: 3694078537108503674, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a9ed5071978d2a4aa054734e0f20b4b, type: 3}
+    - target: {fileID: 3694078537108503674, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1838997002}
     - target: {fileID: 4254749601111791696, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
@@ -1144,6 +1224,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
       value: Increases speed to 200.
       objectReference: {fileID: 0}
+    - target: {fileID: 5179902836702765095, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
+    - target: {fileID: 5179902836702765095, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a9ed5071978d2a4aa054734e0f20b4b, type: 3}
+    - target: {fileID: 5179902836702765095, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1838997002}
     - target: {fileID: 5289512619904229493, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1194,15 +1289,90 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5604955495003590806, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5842219859798831496, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6130188925283164524, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
+    - target: {fileID: 6130188925283164524, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a9ed5071978d2a4aa054734e0f20b4b, type: 3}
+    - target: {fileID: 6130188925283164524, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1838997002}
+    - target: {fileID: 6160713218355126805, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
+    - target: {fileID: 6160713218355126805, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a9ed5071978d2a4aa054734e0f20b4b, type: 3}
+    - target: {fileID: 6160713218355126805, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1838997002}
+    - target: {fileID: 6310880017814920502, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
+    - target: {fileID: 6310880017814920502, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a9ed5071978d2a4aa054734e0f20b4b, type: 3}
+    - target: {fileID: 6310880017814920502, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1838997002}
     - target: {fileID: 6947272297880675087, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: boat
       value: 
       objectReference: {fileID: 67969202}
+    - target: {fileID: 7304048775229398585, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d80eb0b644fa49d428acdbcc9508c604, type: 3}
+    - target: {fileID: 7304048775229398585, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a9ed5071978d2a4aa054734e0f20b4b, type: 3}
+    - target: {fileID: 7304048775229398585, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1838997002}
     - target: {fileID: 7386198400862318157, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818055267878774919, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7945791702875664391, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
@@ -1222,7 +1392,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3208908070756074240, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1838997002}
+    - targetCorrespondingSourceObject: {fileID: 1268340456970697908, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1786491893}
   m_SourcePrefab: {fileID: 100100000, guid: e787c88fc60ed94f28b28faef6f26cb7, type: 3}
 --- !u!4 &1421638436 stripped
 Transform:
@@ -1704,6 +1882,128 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1786491888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1268340456970697908, guid: e787c88fc60ed94f28b28faef6f26cb7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1421638435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1786491893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786491888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7c8ec4133f656488a963106024d60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 1838997002}
+  hoverClip: {fileID: 8300000, guid: 4a9ed5071978d2a4aa054734e0f20b4b, type: 3}
+--- !u!1 &1838996997 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3208908070756074240, guid: e787c88fc60ed94f28b28faef6f26cb7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1421638435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1838997002
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838996997}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1872691097
 GameObject:
   m_ObjectHideFlags: 3
