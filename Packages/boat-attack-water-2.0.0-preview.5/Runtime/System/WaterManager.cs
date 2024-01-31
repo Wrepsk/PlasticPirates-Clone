@@ -62,7 +62,7 @@ namespace WaterSystem
 
         private void OnBeginCameraRendering(ScriptableRenderContext context, Camera cam)
         {
-            if(cam.cameraType == CameraType.Preview) return;
+            if(cam.cameraType == CameraType.Preview || cam.orthographic) return;
             
             //if(WaterBodies == null || WaterBodies.Count == 0) return;
             

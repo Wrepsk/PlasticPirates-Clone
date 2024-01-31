@@ -28,10 +28,16 @@ public class SingleShotGun : Equipment
         if (shootingAnimation != null && !shootingAnimation.isPlaying) shootingAnimation.Play();
 
         RaycastHit hit;
+        Ray ray;
         //Debug.Log("Enemy hit?:" + Physics.Raycast(gunPoint.position, -gunPoint.right, out hit, shootingDistance, enemyLayers));
         //Debug.Log("Player hit?:" + Physics.Raycast(gunPoint.position, -gunPoint.right, out hit, shootingDistance, playerLayers));
         //Debug.Log(-gunPoint.right);
-        if(Physics.Raycast(gunPoint.position, -gunPoint.right, out hit, shootingDistance, enemyLayers))
+        if (transform.root.transform.tag == "Enemy")
+            ray = new Ray(gunPoint.position, -gunPoint.right);
+        else ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
+
+        if (Physics.Raycast(ray ,out hit, shootingDistance, enemyLayers))
         {
             Debug.Log("Hit the enemy: " + hit.transform.name);
             hit.transform.root.GetComponent<Damagable>().DealDamage(damage);
@@ -41,7 +47,7 @@ public class SingleShotGun : Equipment
             if (hitSounds.Length > 0 && audioSource != null)
             {
                 AudioClip randomClip = hitSounds[Random.Range(0, hitSounds.Length)];
-                audioSource.PlayOneShot(randomClip, 0.33f);
+                audioSource.PlayOneShot(randomClip, 0.08f);
             }
         }
     }

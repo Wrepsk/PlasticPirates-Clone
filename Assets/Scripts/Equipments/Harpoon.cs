@@ -76,7 +76,7 @@ public class Harpoon : Equipment
     {
         Debug.Log("Trying to shoot harpoon!");
         RaycastHit hit;
-        if (Physics.Raycast(ropePoint.position, -ropePoint.right, out hit, maxHarpoonDistance, grappableLayers))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)), out hit, maxHarpoonDistance, grappableLayers))
         {
             audioSource.PlayOneShot(audioClip);
             currentlyHarpoonedGameObject = hit.transform;

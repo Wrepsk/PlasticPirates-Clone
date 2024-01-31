@@ -25,6 +25,7 @@ public class EnemyManager : MonoBehaviour
 
     void Start() {
         // Spawn initial Wave
+
         SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), enemyGroupCount, enemyGroupSize, enemyGroupRadius);
     }
 
@@ -72,7 +73,7 @@ public class EnemyManager : MonoBehaviour
 
                 Debug.Log(spawnPosition + " " + terrainHeightAtLocation + " " + currentTerrain.name);
 
-                if (terrainHeightAtLocation > 10)
+                if (terrainHeightAtLocation > -currentTerrain.transform.position.y + 2)
                 {
                     Debug.Log("Enemy within island, skipping: " + terrainHeightAtLocation);
                     continue;
