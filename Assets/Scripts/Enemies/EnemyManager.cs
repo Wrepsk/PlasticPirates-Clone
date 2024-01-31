@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
     public int enemyGroupRadius = 10;
 
     // Counters
-    public int desiredEnemyCount = 3; // should be set by difficulty
+    public int desiredEnemyCount = 6; // should be set by difficulty
     public int desiredWaveCounter = 6; // should be set by difficulty
     int enemyCount = 0;
     int waveCounter = 6; // After you kill x amount of enemies, a big wave will spawn
@@ -52,6 +52,7 @@ public class EnemyManager : MonoBehaviour
         // Spawn enemies one by one outside of Waves
         if(enemyCount < desiredEnemyCount)
         {
+            Debug.Log("Checking works");
             SpawnSingleEnemyAround(playerObject.transform.position, enemyPrefabs[0], minSpawnDistance, maxSpawnDistance);
         }
 
@@ -78,14 +79,30 @@ public class EnemyManager : MonoBehaviour
         return navPosition;
     }
     public GameObject SpawnSingleEnemyAround(Vector3 centerPosition, GameObject usedPrefab, float minDistance = 50f, float maxDistance = 150f) {
+        Debug.Log("Called Spawn");
         Vector3 enemyPosition = GetRandomOnNavmesh(centerPosition, minDistance, maxDistance);
+        Debug.Log("got Position");
         //Instantiate
         GameObject enemyObject = Instantiate(usedPrefab, enemyPosition, Quaternion.identity);
-        enemyObject.GetComponent<EnemyBehaviour>().OnDeath += ReduceEnemyCount;
-        enemyCount += 1;
-        return enemyObject;
+        Debug.Log("Called Instantiate");
+        //Check if actually on navmesh
+        if (!enemyObject.GetComponent<EnemyBehaviour>().agent.isOnNavMesh)
+        {
+            Destroy(enemyObject);
+            return null;
+        }
+        else
+        {
+            enemyObject.GetComponent<EnemyBehaviour>().OnDeath += TestMessage;
+            enemyObject.GetComponent<EnemyBehaviour>().OnDeath += ReduceEnemyCount;
+            enemyCount += 1;
+            return enemyObject;
+        }
     }
 
+    public void TestMessage(){
+        Debug.Log("u workin?");
+    }
     public void SpawnEnemiesInRandomCircle(Vector3 originalCenterPosition, GameObject usedPrefab, float originalMinDistance = 50f, float originalMaxDistance = 150f, int groupAmount = 10, int enemyPerGroup = 1, float groupRadius = 10)
     {
         for (int i = 0; i < groupAmount; i++) {
@@ -99,6 +116,7 @@ public class EnemyManager : MonoBehaviour
     }
     void ReduceEnemyCount()
     {
+        Debug.Log("reduced");
         enemyCount -= 1;
         waveCounter -= 1;
 

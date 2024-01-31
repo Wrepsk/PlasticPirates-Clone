@@ -87,6 +87,14 @@ public class EnemyBehaviour : Damagable
     }
 
 
+    protected void Awake()
+    {
+        //init navigation vars
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = DefaultSpeed;
+        agent.acceleration = DefaultSpeed;
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -104,12 +112,6 @@ public class EnemyBehaviour : Damagable
         
         //sets object in initial direction
         transform.eulerAngles = initialDirection;
-        
-        //init navigation vars
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = DefaultSpeed;
-        agent.acceleration = DefaultSpeed;
-
         
         //initiates deathListener
         OnDeath += DeathDisable;
