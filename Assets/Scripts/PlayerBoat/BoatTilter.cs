@@ -12,8 +12,9 @@ public class BoatTilter : MonoBehaviour
     
     // Maps velocity to y offset
     public AnimationCurve offsetCurve = AnimationCurve.EaseInOut(2.5f, 0f, 10f, 0.1f);
-    
-    
+
+    public float targetTilt;
+
 
     void Start()
     {
@@ -26,7 +27,7 @@ public class BoatTilter : MonoBehaviour
         Quaternion rotation = transform.rotation;
         float velocity = rigidbody.velocity.magnitude;
 
-        float targetTilt = -1 * tiltCurve.Evaluate(velocity);
+        targetTilt = -1 * tiltCurve.Evaluate(velocity);
         float targeOffeset = offsetCurve.Evaluate(velocity);
 
         // We don't need any extra, time-dependent interpolation here (i think)

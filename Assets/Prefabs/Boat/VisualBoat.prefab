@@ -1452,6 +1452,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  targetTilt: 0
 --- !u!1 &5831762378307255853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1623,6 +1624,8 @@ MonoBehaviour:
   equipmentHorizontalMover: {fileID: 7688237588515416439}
   equipmentVerticalMover: {fileID: 1366607354586982109}
   cam: {fileID: 5492410078293586486}
+  tilter: {fileID: 3682529951238447597}
+  verticalOffset: 0
   canUseWeapons: 1
   equipments:
   - {fileID: 5751248885523022760}
@@ -1917,7 +1920,7 @@ MonoBehaviour:
   cooldown: 0
   attractor: {fileID: 3196436180374294524}
   boat: {fileID: 749989032555114031}
-  sizeOfCollider: {x: 7.5, y: 2, z: 6.5}
+  sizeOfCollider: {x: 8.46, y: 2.24, z: 9.13}
   attractionStrenght: 350
 --- !u!1001 &398455966397072641
 PrefabInstance:
@@ -2243,6 +2246,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MagnetGun
       objectReference: {fileID: 0}
+    - target: {fileID: 4482696519174189651, guid: 1f743a28529786c4e847cfc00e976ae0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6055612893139502945, guid: 1f743a28529786c4e847cfc00e976ae0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2292,6 +2300,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293529406299029486, guid: 1f743a28529786c4e847cfc00e976ae0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293529406299029486, guid: 1f743a28529786c4e847cfc00e976ae0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
