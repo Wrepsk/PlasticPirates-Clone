@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18631649, g: 0.5225311, b: 0.8326769, a: 1}
+  m_IndirectSpecularColor: {r: 0.18632323, g: 0.5225313, b: 0.8347161, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &219681625 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
+    type: 3}
+  m_PrefabInstance: {fileID: 1505266815}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a8577e8323bf445b67b2f3c67a5bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,7 +915,7 @@ PrefabInstance:
         type: 3}
       propertyPath: boat
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 219681625}
     - target: {fileID: 7386198400862318157, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: m_Name
@@ -977,6 +989,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129007872331424762, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7230031415201148778, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
