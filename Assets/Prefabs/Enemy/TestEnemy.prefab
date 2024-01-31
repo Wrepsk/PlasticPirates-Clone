@@ -907,6 +907,7 @@ GameObject:
   - component: {fileID: 9080254425876005322}
   - component: {fileID: 6281080344326774640}
   - component: {fileID: 824880873104624701}
+  - component: {fileID: 2513154676835090607}
   m_Layer: 7
   m_Name: DeathImage
   m_TagString: Untagged
@@ -971,6 +972,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &2513154676835090607
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5558527270606471655}
+  m_Enabled: 1
+  m_Alpha: 0.7
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6188826949355836972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1177,7 @@ MonoBehaviour:
   healthbarComplete: {fileID: 9125233715462191189}
   healthbarDeath: {fileID: 824880873104624701}
   alarm: {fileID: 8300000, guid: 5bc0ac3dbf8598e44b17789fd5cda293, type: 3}
+  alarmVolume: 2
   destination: {x: 0, y: 0, z: 0}
   turnspeed: 5
   aggroRange: 64

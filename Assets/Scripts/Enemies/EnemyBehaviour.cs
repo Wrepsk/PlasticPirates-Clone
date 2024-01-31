@@ -25,7 +25,7 @@ public class EnemyBehaviour : Damagable
     private AudioClip alarm;
     private bool alarmPlayed = false;                   //Indicator if indicator sound was played
     [SerializeField]
-    private float alarmVolume = 2f;                     //Volume of alarm sound
+    private float alarmVolume = 1.6f;                     //Volume of alarm sound
 
     //Movement Helpers
     public Vector3 destination;
