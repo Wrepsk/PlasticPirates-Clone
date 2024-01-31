@@ -1162,7 +1162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 100
-  <Armor>k__BackingField: 100
+  <Armor>k__BackingField: 0
   <DefaultSpeed>k__BackingField: 5
   smokeParticles: {fileID: 7837782639312330554}
   fireParticles: {fileID: 1663876358173264570}

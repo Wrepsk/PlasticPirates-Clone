@@ -9,47 +9,40 @@ public class CannonBall : MonoBehaviour
     public int explosionRadius;
 
     public AudioClip audioClip;
+    public AudioSource audioSource;
+
+    private bool destroyInvoked = false;
 
     private void Update()
     {
         cannonLifetime -= Time.deltaTime;
-        if(cannonLifetime <= 0 || transform.position.y < -5)
+        if((cannonLifetime <= 0 || transform.position.y < -5) && !destroyInvoked)
             Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
-
-        foreach (Collider collider in colliders)
+        if (!destroyInvoked)
         {
-            if (collider.CompareTag("Player"))
+            destroyInvoked = true;
+            Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
+            foreach (Collider collider in colliders)
             {
-                collider.transform.root.GetComponent<BoatMovement>().DealDamage(100);
+                if (collider.CompareTag("Player"))
+                {
+                    collider.transform.root.GetComponent<BoatMovement>().DealDamage(100);
+                }
+                else if (collider.CompareTag("Enemy"))
+                {
+                    collider.transform.root.GetComponent<EnemyBehaviour>().DealDamage(100);
+                }
             }
-            else if (collider.CompareTag("Enemy"))
-            {
-                collider.transform.root.GetComponent<EnemyBehaviour>().DealDamage(100);
-            }
+
+            audioSource.PlayOneShot(audioClip, 0.15f);
+
+            Instantiate(explosionParticle, transform.position, transform.rotation);
+            Destroy(gameObject, audioClip.length);
         }
-
-        GameObject audioObject = new GameObject("AudioObject");
-        audioObject.transform.position = transform.position;
-
-        // Füge einen temporären AudioSource hinzu
-        AudioSource audioSource = audioObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-        audioSource.volume = 0.15f;
-        audioSource.clip = audioClip;
-
-        // Spiele den Sound ab
-        audioSource.Play();
-
-        // Starte die Zerstörung des AudioObjects mit Verzögerung entsprechend der Sounddauer
-        Destroy(audioObject, audioClip.length);
-
-        // Erzeuge die Explosion und zerstöre das Haupt-GameObject
-        Instantiate(explosionParticle, transform.position, transform.rotation);
-        Destroy(gameObject);
     }
 }

@@ -10,4 +10,5 @@ Motor Idle: https://www.youtube.com/watch?v=t8yDPcawKTE
 Ambient Sound: https://freesound.org/people/Ainolnaim_Azizol/sounds/502338/ and something else from the website, source lost...
 Bubbles: https://freesound.org/people/pillwave/sounds/423959/
 Fire: https://pixabay.com/sound-effects/fire-sound-efftect-21991/
-Trash collecting sound: https://freesound.org/people/lebaston100/sounds/192273/
+Trash collecting sound/Menu Hover Sound: https://freesound.org/people/lebaston100/sounds/192273/
+Menu Click Sound: https://freesound.org/people/Garuda1982/sounds/528138/
