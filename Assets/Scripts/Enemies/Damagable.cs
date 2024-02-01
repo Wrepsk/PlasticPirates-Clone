@@ -8,11 +8,11 @@ public class Damagable : MonoBehaviour
     //Stats
     [field: SerializeField]
     public float MaxHealth { get; set; } = 100;
-    public float Health { get; private set; }
+    public float Health { get; set; }
     [field: SerializeField]
-    public float Armor { get; set; } = 100;
+    public float Armor { get; set; } = 0;
     [field: SerializeField]
-    public float DefaultSpeed { get; set; } = 5.0f;
+    public float DefaultSpeed { get; set; } = 100.0f;
 
     //Actors and Helpers
     public event Action OnDeath;
@@ -38,6 +38,7 @@ public class Damagable : MonoBehaviour
     {
         Debug.Log(MaxHealth);
         Health = MaxHealth;
+        alive = true;
     }
     
     protected virtual void Update()
@@ -49,7 +50,11 @@ public class Damagable : MonoBehaviour
         // sinking animation
         if (Health == 0)
         {
-            if (alive) StartDeathVisuals();
+            if (alive)
+            {
+                StartDeathVisuals();
+                alive = false;
+            }
 
             DeathAnimation();
         }
@@ -61,14 +66,20 @@ public class Damagable : MonoBehaviour
         {
             StartSmokeVisuals();
         }
+        else if (Health > sixtyPercentHealth && (onFire || smoking)) 
+        {	
+            StopFireAndSmoke();
+        }
     }
 
     public void DealDamage(float damage)
     {
-        Health = Mathf.Max(0f, Health - damage);
+        float _damage = (damage * (100f - Armor)) / 100f;
+
+        Health = Mathf.Max(0f, Health - _damage);
         Debug.Log("health left: " + Health);
 
-        if (damage <= 0) OnDeath?.Invoke();
+        if (_damage <= 0) OnDeath?.Invoke();
         HealthChanged?.Invoke(Health);
     }
 
@@ -87,6 +98,9 @@ public class Damagable : MonoBehaviour
         if (audioSource != null) audioSource.Stop();
         if (fireParticles != null) fireParticles?.Stop();
         if (smokeParticles != null) smokeParticles?.Stop();
+
+        onFire = false;
+        smoking = false;
     }
 
     private void StartBubbles()
@@ -102,7 +116,7 @@ public class Damagable : MonoBehaviour
         {
             fireParticles.Play();
             audioSource.clip = fireSound;
-            audioSource.volume = 0.8f;
+            audioSource.volume = 0.35f;
             audioSource.loop = true;
             audioSource.Play();
         }
@@ -116,7 +130,7 @@ public class Damagable : MonoBehaviour
         if (smokeParticles != null) smokeParticles.Stop();
         if (fireParticles != null) fireParticles.Play();
         onFire = true;
-        if (audioSource != null) audioSource.volume = 0.65f;
+        if (audioSource != null) audioSource.volume = 0.3f;
     }
 
     private void StartSmokeVisuals()
@@ -128,7 +142,7 @@ public class Damagable : MonoBehaviour
         {
             audioSource.clip = fireSound;
             audioSource.loop = true;
-            audioSource.volume = 0.3f;
+            audioSource.volume = 0.15f;
             audioSource.Play();
         }
     }

@@ -19,8 +19,13 @@ TagManager:
   - Trash
   - Enemy
   - Boat
-  - minimap
-  - islands
+  - CannonBall
+  - UpgradeIsland
+  - 
+  - 
+  - 
+  - 
+  - Minimap
   - 
   - 
   - 
@@ -36,12 +41,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - HLOD
   m_SortingLayers:
   - name: Default
     uniqueID: 0

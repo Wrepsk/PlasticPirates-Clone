@@ -33,6 +33,8 @@ public class StatsManager : MonoBehaviour, INotifyPropertyChanged
     public float PlayerHealth => _playerBoat.Health;
     public float PlayerMaxHealth => _playerBoat.MaxHealth;
 
+    public int maxTrashCapacity = 15;
+
     protected virtual void OnPropertyChanged(string propertyName) {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

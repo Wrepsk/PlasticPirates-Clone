@@ -6,30 +6,43 @@ public class CannonBall : MonoBehaviour
 {
     public GameObject explosionParticle;
     public float cannonLifetime = 5f;
+    public int explosionRadius;
 
-    public AudioSource audioSource;
     public AudioClip audioClip;
+    public AudioSource audioSource;
+
+    private bool destroyInvoked = false;
 
     private void Update()
     {
         cannonLifetime -= Time.deltaTime;
-        if(cannonLifetime <= 0)
+        if((cannonLifetime <= 0 || transform.position.y < -5) && !destroyInvoked)
             Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.root.tag == "Player")
-            other.transform.root.GetComponent<BoatMovement>().DealDamage(100);
-
-        if (other.transform.root.tag == "Enemy")
+        if (!destroyInvoked)
         {
-            other.transform.root.GetComponent<EnemyBehaviour>().DealDamage(100);
+            destroyInvoked = true;
+            Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
+            foreach (Collider collider in colliders)
+            {
+                if (collider.CompareTag("Player"))
+                {
+                    collider.transform.root.GetComponent<BoatMovement>().DealDamage(100);
+                }
+                else if (collider.CompareTag("Enemy"))
+                {
+                    collider.transform.root.GetComponent<EnemyBehaviour>().DealDamage(100);
+                }
+            }
+
+            audioSource.PlayOneShot(audioClip, 0.15f);
+
+            Instantiate(explosionParticle, transform.position, transform.rotation);
+            Destroy(gameObject, audioClip.length);
         }
-
-        audioSource?.PlayOneShot(audioClip);
-
-        Instantiate(explosionParticle, transform.position, transform.rotation);
-        Destroy(gameObject);
     }
 }

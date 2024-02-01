@@ -25,6 +25,7 @@ public class EnemyManager : MonoBehaviour
 
     void Start() {
         // Spawn initial Wave
+
         SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), enemyGroupCount, enemyGroupSize, enemyGroupRadius);
     }
 
@@ -64,19 +65,19 @@ public class EnemyManager : MonoBehaviour
                 Vector2 spawnPosition = center - size / 2 + new Vector2(enemyX, enemyY);
 
                 //  -- TODO: Optimise this --
-                Terrain currentTerrain = TerrainManager.instance
-                    .GetClosestCurrentTerrain(new Vector3(spawnPosition.x, 0, spawnPosition.y));
+                //Terrain currentTerrain = TerrainManager.instance
+                //    .GetClosestCurrentTerrain(new Vector3(spawnPosition.x, 0, spawnPosition.y));
 
-                float terrainHeightAtLocation = currentTerrain
-                    .SampleHeight(new Vector3(spawnPosition.x, 0, spawnPosition.y));
+                //float terrainHeightAtLocation = currentTerrain
+                //    .SampleHeight(new Vector3(spawnPosition.x, 0, spawnPosition.y));
 
-                Debug.Log(spawnPosition + " " + terrainHeightAtLocation + " " + currentTerrain.name);
+                //Debug.Log(spawnPosition + " " + terrainHeightAtLocation + " " + currentTerrain.name);
 
-                if (terrainHeightAtLocation > 10)
-                {
-                    Debug.Log("Enemy within island, skipping: " + terrainHeightAtLocation);
-                    continue;
-                }
+                //if (terrainHeightAtLocation > -currentTerrain.transform.position.y + 2)
+                //{
+                //    Debug.Log("Enemy within island, skipping: " + terrainHeightAtLocation);
+                //    continue;
+                //}
                 // --------------------------
 
                 SpawnSingleEnemyAt(spawnPosition);

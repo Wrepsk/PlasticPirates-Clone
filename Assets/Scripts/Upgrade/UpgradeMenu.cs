@@ -11,9 +11,14 @@ public class UpgradeMenu : MonoBehaviour
     [SerializeField] TMP_Text costText;
     [SerializeField] GameObject descArea;
 
+    public Damagable playerBoat;
+
     public Button selectedUpgradeButton;
 
-    System.Reflection.FieldInfo stat;
+    public AudioSource audioSource;
+    public AudioClip clickClip;
+
+    System.Reflection.PropertyInfo stat;
     string statName;
     string description;
     int newValue;
@@ -21,7 +26,7 @@ public class UpgradeMenu : MonoBehaviour
     
     public void StatName(string _statName)
     {
-        stat = PlayerStats.instance.GetType().GetField(_statName);
+        stat = playerBoat.GetType().GetProperty(_statName);
         statName = _statName;
     }
     public void NewValue(int _newValue)
@@ -44,16 +49,25 @@ public class UpgradeMenu : MonoBehaviour
     {
         if(selectedUpgradeButton != null)
         {
-            if(StatsManager.instance.CollectedTrash >= cost)
+            if (StatsManager.instance.CollectedTrash >= cost)
             {
+                audioSource.PlayOneShot(clickClip, 0.35f);
                 Debug.Log("Changing value");
                 Debug.Log(statName);
                 StatsManager.instance.CollectedTrash -= cost;
-                stat.SetValue(PlayerStats.instance, newValue);
+                stat.SetValue(playerBoat, newValue);
+
+                if (statName == "MaxHealth") 
+                {	
+                    playerBoat.Health = playerBoat.MaxHealth;
+                }
+
+                playerBoat.DealDamage(0);
                 selectedUpgradeButton.interactable = false;
                 selectedUpgradeButton.GetComponent<UpgradeButton>().isPurchased = true;
                 selectedUpgradeButton = null;
                 descArea.SetActive(false);
+
             }
         }
     }

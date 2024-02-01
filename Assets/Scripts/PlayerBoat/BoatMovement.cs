@@ -15,6 +15,7 @@ public class BoatMovement : Damagable
     public AudioClip accClip;
     public AudioClip fullPowerClip;
     public AudioClip stopClip;
+    public AudioClip trashCollectingClip;
     private bool idle;
     private bool fullPower;
     private bool invokedIdle;
@@ -25,9 +26,15 @@ public class BoatMovement : Damagable
 
     [Header("Boat Control parameters")]
     [SerializeField] float acceleration, maxSpeed, steeringStrength, maxAngularSpeed;
+
+    [SerializeField] AnimationCurve massMult;
+
+    float ogMass;
     protected override void Start()
     {
         base.Start();
+
+        PreloadAudioClips();
 
         rb = GetComponent<Rigidbody>();
         controls = new PlayerControls();
@@ -35,28 +42,51 @@ public class BoatMovement : Damagable
         controls.BoatMovement.Move.performed += ctxt => OnMove(ctxt);
         controls.BoatMovement.Enable();
 
-        if (audioSource != null)
+        if (motorAudioSource != null)
         {
 
-            audioSource.volume -= 0.3f;
-            audioSource.clip = idleClip;
-            audioSource.loop = true;
-            audioSource.Play();
+            motorAudioSource.volume -= 0.65f;
+            motorAudioSource.clip = idleClip;
+            motorAudioSource.loop = true;
+            motorAudioSource.Play();
         }
         idle = true;
         fullPower = false;
         invokedIdle = false;
 
-        // Start playing the loop
+        ogMass = rb.mass;
+    }
 
-        // See Unity Bug at the bottom of this class
-        InvokeRepeating(nameof(TemporarySolutionFixRotation), 0.1f, 0.1f);
+    protected override void Update()
+    {
+        base.Update();
+        TemporarySolutionFixRotation();
+        maxSpeed = DefaultSpeed;
+    }
+
+    private void PreloadAudioClips() {
+        if (idleClip != null)
+            idleClip.LoadAudioData();
+        if (accClip != null)
+            accClip.LoadAudioData();
+        if (fullPowerClip != null)
+            fullPowerClip.LoadAudioData();
+        if (stopClip != null)
+            stopClip.LoadAudioData();
+        if (trashCollectingClip != null)
+            trashCollectingClip.LoadAudioData();
     }
 
     private void OnMove(InputAction.CallbackContext ctxt)
     {
-        float horizontalInput = ctxt.ReadValue<Vector2>().x;
         float verticalInput = ctxt.ReadValue<Vector2>().y;
+        float horizontalInput = ctxt.ReadValue<Vector2>().x * Mathf.Sign(verticalInput);
+
+        if (HUD.instance.HudActive)
+        {
+            verticalInput = 0;
+            horizontalInput = 0;
+        }
 
         if (Mathf.Approximately(horizontalInput, 0f) && Mathf.Approximately(verticalInput, 0f))
         {
@@ -65,11 +95,11 @@ public class BoatMovement : Damagable
                 idle = true;
                 fullPower = false;
 
-                if (audioSource != null)
+                if (motorAudioSource != null)
                 {
-                    audioSource.Stop();
+                    motorAudioSource.Stop();
 
-                    if (stopClip != null) audioSource.PlayOneShot(stopClip);
+                    if (stopClip != null) motorAudioSource.PlayOneShot(stopClip);
                     float delay = stopClip != null ? stopClip.length : 0f;
 
                     if (!invokedIdle)
@@ -92,10 +122,10 @@ public class BoatMovement : Damagable
                 idle = false;
                 fullPower = true;
 
-                if (audioSource != null && accClip != null )
+                if (motorAudioSource != null && accClip != null )
                 {
-                    audioSource.Stop();
-                    audioSource.PlayOneShot(accClip);
+                    motorAudioSource.Stop();
+                    motorAudioSource.PlayOneShot(accClip);
                     float delay = accClip.length;
                     if (!invokedFullPower)
                     {
@@ -112,12 +142,14 @@ public class BoatMovement : Damagable
 
         }
 
-        movementInput = ctxt.ReadValue<Vector2>().normalized;
+        movementInput = new Vector2(horizontalInput, verticalInput).normalized;
     }
 
 
     private void FixedUpdate()
     {
+        rb.mass = ogMass * massMult.Evaluate((float)(StatsManager.instance.CollectedTrash + 0.001f) / (float)StatsManager.instance.maxTrashCapacity ) + ogMass;
+
         var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.forward) * movementInput.y * acceleration + Vector3.Scale(new Vector3(1, 0, 1), transform.right) * -movementInput.x * steeringStrength;
         //var forceVec = Vector3.Scale(new Vector3(1,0,1), transform.forward) * movementInput.y * acceleration;
 
@@ -155,6 +187,10 @@ public class BoatMovement : Damagable
         {
             inUpgradeIsland = true;
         }
+        else if (other.tag == "Trash")
+        {
+            motorAudioSource.PlayOneShot(trashCollectingClip, 0.45f);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -168,22 +204,22 @@ public class BoatMovement : Damagable
     private void PlayIdle()
     {
         invokedIdle = false;
-        if (idle && audioSource != null)
+        if (idle && motorAudioSource != null)
         {
-            audioSource.clip = idleClip;
-            audioSource.loop = true;
-            audioSource.Play();
+            motorAudioSource.clip = idleClip;
+            motorAudioSource.loop = true;
+            motorAudioSource.Play();
         }
     }
 
     private void PlayFullPower()
     {
         invokedFullPower = false;
-        if (fullPower && audioSource != null)
+        if (fullPower && motorAudioSource != null)
         {
-            audioSource.clip = fullPowerClip;
-            audioSource.loop = true;
-            audioSource.Play();
+            motorAudioSource.clip = fullPowerClip;
+            motorAudioSource.loop = true;
+            motorAudioSource.Play();
         }
     }
 }

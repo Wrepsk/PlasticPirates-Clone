@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 559243811596274543}
   - component: {fileID: 8035873872461286529}
-  - component: {fileID: 1056868499974874735}
   m_Layer: 0
   m_Name: StatsManager
   m_TagString: Untagged
@@ -45,18 +44,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338ba293e7897a8c584e80a59c476925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1056868499974874735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2422360524457181998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38733acc713ee9c43b2fec2fb45eb660, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  armor: 100
-  speed: 5
