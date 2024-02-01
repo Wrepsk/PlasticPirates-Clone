@@ -79,7 +79,7 @@ public class TrashManager : MonoBehaviour
     public static TrashManager instance;
 
     [Header("General")]
-    public int totalTrash = 1000;
+    public int totalTrash = 2000;
     public Sampler2d sampler;
     public GameObject prefab;
     public GameObject[] meshPrefabs;
@@ -201,7 +201,7 @@ public class TrashManager : MonoBehaviour
 
     private void SpawnTrash()
     {
-        for(int i = 0; i < totalTrash; i++)
+        for(int i = 0; i < totalTrash / 2; i++)
         {
             int type = Random.Range(0, meshPrefabs.Length);
             float yOffset = meshes[type].bounds.size.y / 2;

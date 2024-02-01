@@ -45,12 +45,12 @@ public class EnemyManager : MonoBehaviour
         //SpawnRandomEnemyWithinArea(new Vector2(0, 0), new Vector2(250, 250), enemyGroupCount, enemyGroupSize, enemyGroupRadius);
         
         //THIS BLOCKCOMMENT DISABLES THE CARGO SHIP
-        /*
-        SpawnSingleEnemyAround(playerPos, cargoshipPrefab, 100f, 100f);
-        GameObject cargoShip = FindObjectsOfType<CargoshipBehaviour>()[0].gameObject;
-        SpawnEnemiesInRandomCircle(cargoshipPrefab.transform.position, enemyPrefabs[1], 10, 20, 1, 5, 0);
+        
+        //SpawnSingleEnemyAround(playerPos, cargoshipPrefab, 100f, 100f);
+        //GameObject cargoShip = FindObjectsOfType<CargoshipBehaviour>()[0].gameObject;
+        //SpawnEnemiesInRandomCircle(cargoshipPrefab.transform.position, enemyPrefabs[1], 10, 20, 1, 5, 0);
         //SpawnSingleCargoshipAt(cargoSpawn);
-        */
+        
     }
 
     void Update()
