@@ -44,9 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff2af1216982eb4438cd1a52e1af754c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyGroupCount: 3
+  minSpawnDistance: 70
+  maxSpawnDistance: 150
+  playerObject: {fileID: 0}
+  enemyGroupCount: 5
   enemyGroupSize: 2
   enemyGroupRadius: 10
-  desiredEnemyCount: 3
+  desiredEnemyCount: 5
   desiredWaveCounter: 6
-  enemyPrefab: {fileID: 0}
+  enemyPrefabs:
+  - {fileID: 6478928787076853247, guid: 4c8fd1830f981df49853e65e5c8d8796, type: 3}
+  cargoshipPrefab: {fileID: 6478928787076853247, guid: a5b6f431ec7bb314796fe327cea3671c,
+    type: 3}
+  difficultyMod: 1

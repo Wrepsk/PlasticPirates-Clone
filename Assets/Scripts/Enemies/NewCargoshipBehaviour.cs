@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +8,12 @@ using System.Drawing;
 using static Unity.Burst.Intrinsics.X86;
 using static UnityEditor.FilePathAttribute;
 using System.Transactions;
+using System.Runtime.CompilerServices;
+using Microsoft.Unity.VisualStudio.Editor;
 
-public class CargoshipBehaviour : Damagable
+
+public class NewCargoshipBehaviour : EnemyBehaviour
 {
-    //Actors and Helpers
-    public NavMeshAgent agent;
-    private SimpleBuoyantObject simpleBuoyantObject;
-
     //Trash Management
     [SerializeField] GameObject trashPoint;
     public float trashSpawnRate = 3f;
@@ -24,116 +22,134 @@ public class CargoshipBehaviour : Damagable
     public float trashMass = 10f;
     public float timeBeforeEnablingSBO = 1.5f;
 
-    //Movement Helpers
-    public Vector3 dest = new Vector3(250.0f, 0.0f, 250.0f);
-    public float turnspeed = 5.0f;
-    public GameObject boundsObject;
 
-    //Vector Helpers
-    private Vector3 initialDirection = new Vector3(1, 0, 0);
-    private Vector3 direction;
-    private Quaternion lookRotation;
     private bool rotated = false;
+    public Vector3 moveTo;
+    public bool stopped;
 
-    //Movement Helpers
-    public Vector3 ownPosition;
-    private Vector3 moveTo;
-
-    //Physics Objects
-    [SerializeField] Transform motorPosition;
-    Rigidbody rb;
-
-    void DeathDisable()
-    {
-        agent.enabled = false;
-    }
+    protected override void EquipEquipment(int index) {}
     
     protected override void Start()
     {
         base.Start();
-  
-        
-        //sets object in initial direction
-        transform.eulerAngles = initialDirection;
-        
-        //init navigation vars
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = DefaultSpeed;
-        agent.acceleration = DefaultSpeed;
-        //agent.enabled = false;
-
-        
-        //initiates deathListener
-        OnDeath += DeathDisable;
-
-        //rigidbody
-        rb = GetComponent<Rigidbody>();
-
-
         currentTrashDelay = trashSpawnRate;
-        //SetRandomDestination();
+        agent.isStopped = false;
+        SetRandomDestination();
     }
 
     protected override void Update()
     {
-        
+        //basic shit
+        base.Update();
         if (IsDead)
         {
             agent.enabled = false;
             return;
         }
         base.Update();
-        
-        if (agent.isOnNavMesh && agent.enabled && moveTo != null)
-        {
-            SetRandomDestination();
-            agent.enabled = true;
-        }
-        
+        //spawn trash
         currentTrashDelay -= Time.deltaTime;
         if(currentTrashDelay <= 0)
         {
             SpawnTrashAtTheBack();
             currentTrashDelay = trashSpawnRate;
         }
-
     }
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        if (IsDead) return;
-
-        TurnToDestination();
-
-
-        if (agent.hasPath == false)
+        //checks if dead
+        if (IsDead) 
         {
+            healthbarDeath.enabled = true;
+            healthbarComplete.enabled = false;
+            healthbarForeground.enabled = false;
+            return;
+        }
+        
+        if (!agent.isOnNavMesh)
+        {
+            Vector3 warpPosition = GetRandomOnNavmesh(transform.position, 0, 10); //Set to position you want to warp to
+            agent.transform.position = warpPosition;
+            agent.enabled = false;
+            agent.enabled = true;
+        }
+
+        VectorUpdate();
+        stopped = agent.isStopped;
+
+        isAggroed = diffVector.magnitude < aggroRange;
+
+        //recalibrates destination if destination reached
+        if (Vector3.Distance(moveTo, transform.position) <= 30.0f || !agent.hasPath)
+        {
+            agent.isStopped = false;
             SetRandomDestination();
         }
+
+        if (isAggroed)
+        {
+            if (!alarmPlayed)
+            {
+                //Alarm signal to player
+                audioSource.clip = alarm;
+                audioSource.volume = alarmVolume;
+                audioSource.loop = false;
+                audioSource.Play();
+                alarmPlayed = true;
+            }
+            
+            //Updates the healthbar
+            healthbarComplete.enabled = true;
+            healthbarForeground.enabled = true;
+            UpdateHealthBar(MaxHealth, Health);
+        }
+        else
+        {
+            healthbarComplete.enabled = false;
+            healthbarForeground.enabled = false;
+        }
+
+        Vector3 _lookdirection = moveTo - transform.position;
+        TurnToPlayer(transform, turnspeed, _lookdirection);
     }
 
 
-    public Vector3 GetRandomOnNavmesh(Vector3 centerPosition, float minDistance = 30f, float maxDistance = 80f) {
+    public Vector3 GetRandomOnNavmesh(Vector3 centerPosition, float minDistance = 60f, float maxDistance = 110f) {
         //generate initial position
         Vector2 centerPosition2d = new Vector2(centerPosition.x, centerPosition.z);
-        Vector2 initPosition = centerPosition2d + UnityEngine.Random.insideUnitCircle.normalized * UnityEngine.Random.Range(minDistance, maxDistance);
-
-        //move onto navmesh
-        Vector3 navPosition = new Vector3(initPosition.x, 0, initPosition.y);
-        if (UnityEngine.AI.NavMesh.SamplePosition(new Vector3(initPosition.x, 0, initPosition.y), out UnityEngine.AI.NavMeshHit navHit, 100, UnityEngine.AI.NavMesh.AllAreas))
+        bool goodSpot = false;
+        int searchradius = 100;
+        Vector3 navPosition = centerPosition;
+        while(!goodSpot)
         {
-            navPosition = new Vector3(navHit.position.x, 0, navHit.position.z);
+            Vector2 initPosition = centerPosition2d + UnityEngine.Random.insideUnitCircle.normalized * UnityEngine.Random.Range(minDistance, maxDistance);
+            //move onto navmesh
+            navPosition = new Vector3(initPosition.x, 0, initPosition.y);
+            if (UnityEngine.AI.NavMesh.SamplePosition(navPosition, out UnityEngine.AI.NavMeshHit navHit, searchradius, UnityEngine.AI.NavMesh.AllAreas))
+            {
+                if (-1f <= navHit.position.y && 1f >= navHit.position.y)
+                {
+                    goodSpot = true;
+                    navPosition = new Vector3(navHit.position.x, 0, navHit.position.z);
+                }
+            }
+            minDistance += 2;
+            maxDistance += 2;
+            searchradius += 2;
+            if (searchradius >= 200) goodSpot = true;
         }
         return navPosition;
     }
     private void SetRandomDestination()
     {
         moveTo = GetRandomOnNavmesh(transform.position);
-        agent.SetDestination(moveTo);
+        agent.destination = moveTo;
+        Debug.Log("Destination Set");
         //agent.isStopped = true;
-        rotated = false;
+        //rotated = false;
         //CheckPointOnPath();
     }
-
+    /*
     private void TurnToDestination()
     {
         if (Quaternion.Angle(transform.rotation, lookRotation) <= 1f || rotated == true)
@@ -149,6 +165,7 @@ public class CargoshipBehaviour : Damagable
 
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnspeed);
     }
+    
 
     private void CheckPointOnPath()
     {
@@ -157,6 +174,7 @@ public class CargoshipBehaviour : Damagable
             SetRandomDestination();
         }
     }
+    */
     private void SpawnTrashAtTheBack()
     {
         int type = UnityEngine.Random.Range(0, TrashManager.instance.meshPrefabs.Length);

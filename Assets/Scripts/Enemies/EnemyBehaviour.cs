@@ -12,20 +12,20 @@ public class EnemyBehaviour : Damagable
     public GameObject playerObject;
     public NavMeshAgent agent;
     public bool isAggroed = false;
-    private SimpleBuoyantObject simpleBuoyantObject;
 
     //Healthbar Helpers
     [SerializeField]
-    private UnityEngine.UI.Image healthbarForeground;   // Sprite of the health indicator
+    public UnityEngine.UI.Image healthbarForeground;   // Sprite of the health indicator
     [SerializeField]
-    private UnityEngine.UI.Image healthbarComplete;     // Sprite of the healthbar
+    public UnityEngine.UI.Image healthbarComplete;     // Sprite of the healthbar
     [SerializeField]
-    private UnityEngine.UI.Image healthbarDeath;        // Sprite of Deathmarker
+    public UnityEngine.UI.Image healthbarDeath;        // Sprite of Deathmarker
     [SerializeField]
-    private AudioClip alarm;
-    private bool alarmPlayed = false;                   //Indicator if indicator sound was played
+    public AudioClip alarm;
+    [HideInInspector]
+    public bool alarmPlayed = false;                   //Indicator if indicator sound was played
     [SerializeField]
-    private float alarmVolume = 1.6f;                     //Volume of alarm sound
+    public float alarmVolume = 1.6f;                     //Volume of alarm sound
 
     //Movement Helpers
     public Vector3 destination;
@@ -33,10 +33,10 @@ public class EnemyBehaviour : Damagable
     public float aggroRange = 128f;
 
     //Vector Helpers
-    private Vector3 playerPos;
-    private Vector3 diffVector;
-    private Vector3 directionDiffVec;
-    private Vector3 initialDirection = new Vector3(1, 0, 0);
+    protected Vector3 playerPos;
+    protected Vector3 diffVector;
+    protected Vector3 directionDiffVec;
+    protected Vector3 initialDirection = new Vector3(1, 0, 0);
 
     //Movement Helpers
     public Vector3 ownPosition;
@@ -51,18 +51,20 @@ public class EnemyBehaviour : Damagable
 
     //Shooting helpers
     protected Transform weaponPosition;
-    [SerializeField] Transform equipmentMover;
-    float weaponTurnSpeed = 10;
-    [SerializeField] Equipment[] equipments;
-    int equipmentIndex;
-    int previousEquipmentIndex = -1;
+    [SerializeField] 
+    protected Transform equipmentMover;
+    protected float weaponTurnSpeed = 10;
+    [SerializeField] 
+    protected Equipment[] equipments;
+    protected int equipmentIndex;
+    protected int previousEquipmentIndex = -1;
 
     void DeathDisable()
     {
         agent.enabled = false;
     }
 
-    void EquipEquipment(int index)
+    protected virtual void EquipEquipment(int index)
     {
         if (index == previousEquipmentIndex)
             return;
@@ -100,7 +102,7 @@ public class EnemyBehaviour : Damagable
         base.Start();
 
         //Gets initial Equipment
-        EquipEquipment(0);  
+        EquipEquipment(0);
 
         //Turn off healthbar at start
         healthbarComplete.enabled = false;
@@ -109,6 +111,7 @@ public class EnemyBehaviour : Damagable
 
         // Finding player object without manually assigning it
         playerObject = GameObject.FindGameObjectWithTag("Player");
+        Debug.Log(playerObject);
         
         //sets object in initial direction
         transform.eulerAngles = initialDirection;
@@ -125,15 +128,13 @@ public class EnemyBehaviour : Damagable
     protected override void Update()
     {
         base.Update();
-
-
         if (IsDead)
         {
             agent.enabled = false;
+            return;
         }
-
     }
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         //checks if dead
         if (IsDead) 
@@ -171,11 +172,11 @@ public class EnemyBehaviour : Damagable
         //recalibrates destination if player moves
         if (Vector3.Distance(destination, playerPos) > 10.0f & isAggroed)
         {
-            agent.isStopped = false;
+            //agent.isStopped = false;
             agent.destination = playerPos;
         } else
         {
-            agent.isStopped = true;
+            //agent.isStopped = true;
         }
 
         if (isAggroed)
@@ -241,7 +242,7 @@ public class EnemyBehaviour : Damagable
         toRotate.rotation = Quaternion.Slerp(toRotate.rotation, _lookRotation, Time.deltaTime * specificTurnspeed);
     }
     
-    void VectorUpdate()
+    protected void VectorUpdate()
     {
         //Updates posititon vectors and calculated vectors
         ownPosition = transform.position;

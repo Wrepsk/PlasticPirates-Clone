@@ -42,6 +42,7 @@ public class Damagable : MonoBehaviour
     {
         trashManager = FindObjectsOfType<TrashManager>()[0];
         objectHeigth = gameObject.GetComponentsInChildren<MeshRenderer>()[0].bounds.size.y;
+        if (objectHeigth < 1) objectHeigth = 10;
         
         Health = MaxHealth;
         alive = true;

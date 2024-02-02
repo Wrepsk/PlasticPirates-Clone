@@ -46,7 +46,7 @@ public class EnemyManager : MonoBehaviour
         
         //THIS BLOCKCOMMENT DISABLES THE CARGO SHIP
         
-        //SpawnSingleEnemyAround(playerPos, cargoshipPrefab, 100f, 100f);
+        SpawnSingleEnemyAround(playerPos, cargoshipPrefab, 150f, 150f);
         //GameObject cargoShip = FindObjectsOfType<CargoshipBehaviour>()[0].gameObject;
         //SpawnEnemiesInRandomCircle(cargoshipPrefab.transform.position, enemyPrefabs[1], 10, 20, 1, 5, 0);
         //SpawnSingleCargoshipAt(cargoSpawn);
@@ -81,44 +81,56 @@ public class EnemyManager : MonoBehaviour
 
     }
 
-    public Vector3 GetRandomOnNavmesh(Vector3 centerPosition, float minDistance = 50f, float maxDistance = 150f) {
+    public Vector3 GetRandomOnNavmesh(Vector3 centerPosition, float minDistance = 30f, float maxDistance = 80f) {
         //generate initial position
         Vector2 centerPosition2d = new Vector2(centerPosition.x, centerPosition.z);
-        Vector2 initPosition = centerPosition2d + Random.insideUnitCircle.normalized * Random.Range(minDistance, maxDistance);
-
-        //move onto navmesh
-        Vector3 navPosition = new Vector3(initPosition.x, 0, initPosition.y);
-        if (UnityEngine.AI.NavMesh.SamplePosition(new Vector3(initPosition.x, 0, initPosition.y), out UnityEngine.AI.NavMeshHit navHit, 100, UnityEngine.AI.NavMesh.AllAreas))
+        bool goodSpot = false;
+        int searchradius = 100;
+        Vector3 navPosition = centerPosition;
+        while(!goodSpot)
         {
-            navPosition = new Vector3(navHit.position.x, 0, navHit.position.z);
+            Vector2 initPosition = centerPosition2d + UnityEngine.Random.insideUnitCircle.normalized * UnityEngine.Random.Range(minDistance, maxDistance);
+            //move onto navmesh
+            navPosition = new Vector3(initPosition.x, 0, initPosition.y);
+            if (UnityEngine.AI.NavMesh.SamplePosition(navPosition, out UnityEngine.AI.NavMeshHit navHit, searchradius, UnityEngine.AI.NavMesh.AllAreas))
+            {
+                if (-1f <= navHit.position.y && 1f >= navHit.position.y)
+                {
+                    goodSpot = true;
+                    navPosition = new Vector3(navHit.position.x, 0, navHit.position.z);
+                }
+            }
+            minDistance += 2;
+            maxDistance += 2;
+            searchradius += 2;
+            if (searchradius >= 200) goodSpot = true;
         }
         return navPosition;
     }
     public GameObject SpawnSingleEnemyAround(Vector3 centerPosition, GameObject usedPrefab, float minDistance = 50f, float maxDistance = 150f) {
-        Debug.Log("Called Spawn");
         Vector3 enemyPosition = GetRandomOnNavmesh(centerPosition, minDistance, maxDistance);
-        Debug.Log("got Position");
         //Instantiate
         GameObject enemyObject = Instantiate(usedPrefab, enemyPosition, Quaternion.identity);
-        Debug.Log("Called Instantiate");
         //Check if actually on navmesh
-        if (!enemyObject.GetComponent<EnemyBehaviour>().agent.isOnNavMesh)
+        //DOESN'T WORK WITH LIVE-BAKED NAVMESH
+        /*
+        if (!enemyObject.GetComponent<UnityEngine.AI.NavMeshAgent>().isOnNavMesh)
         {
             Destroy(enemyObject);
             return null;
         }
         else
         {
-            enemyObject.GetComponent<EnemyBehaviour>().OnDeath += TestMessage;
             enemyObject.GetComponent<EnemyBehaviour>().OnDeath += ReduceEnemyCount;
             enemyCount += 1;
             return enemyObject;
         }
+        */
+        enemyObject.GetComponent<EnemyBehaviour>().OnDeath += ReduceEnemyCount;
+            enemyCount += 1;
+            return enemyObject;
     }
 
-    public void TestMessage(){
-        Debug.Log("u workin?");
-    }
     public void SpawnEnemiesInRandomCircle(Vector3 originalCenterPosition, GameObject usedPrefab, float originalMinDistance = 50f, float originalMaxDistance = 150f, int groupAmount = 10, int enemyPerGroup = 1, float groupRadius = 10)
     {
         for (int i = 0; i < groupAmount; i++) {
