@@ -94,7 +94,7 @@ public class Damagable : MonoBehaviour
     {
         transform.position -= new Vector3(0, 1 * Time.deltaTime, 0);
 
-        if (transform.position.y < -objectHeigth)
+        if (transform.position.y < -Mathf.Max(objectHeigth, 4))
         {
             trashManager.SpawnRandomTrashWithinCube(new Vector2(transform.position.x, transform.position.z),
                     new Vector3(10, 0, 5), 1, trashDropAmount, 10);
