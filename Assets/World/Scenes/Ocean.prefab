@@ -58,8 +58,8 @@ MonoBehaviour:
   settings:
     distanceBlend: 100
     waterMaxVisibility: 5
-    absorptionColor: {r: 0.2, g: 0.6, b: 0.8, a: 1}
-    scatteringColor: {r: 0, g: 0.15, b: 0.2, a: 1}
+    absorptionColor: {r: 0.5918476, g: 0.8262135, b: 0.9433962, a: 1}
+    scatteringColor: {r: 0.0073424703, g: 0.23383614, b: 0.31132078, a: 1}
     cubemapTexture: {fileID: 0}
     waveFoamProfile:
       serializedVersion: 2
