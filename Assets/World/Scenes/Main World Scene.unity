@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: f5fe628ba3aad414980fed8c0c03c895,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -362,6 +363,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 54.771, z: 0}
+--- !u!4 &286496056 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 328599476391838948, guid: 99e70b2bbdd841246a8c5b9620151153,
+    type: 3}
+  m_PrefabInstance: {fileID: 1505266815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &325505198 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2770240206055113096, guid: 99e70b2bbdd841246a8c5b9620151153,
+    type: 3}
+  m_PrefabInstance: {fileID: 1505266815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &377803490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -781,6 +794,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3025170241802819867, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3025170241802819867, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: Increases speed to 20.
+      objectReference: {fileID: 0}
     - target: {fileID: 3694078537108503674, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: clickClip
@@ -796,6 +819,16 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1912413731}
+    - target: {fileID: 4254749601111791696, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254749601111791696, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: Increases speed to 100.
+      objectReference: {fileID: 0}
     - target: {fileID: 5179902836702765095, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: clickClip
@@ -931,6 +964,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 7945791702875664391, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945791702875664391, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: Increases speed to 50.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1005,6 +1048,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6440322541461252216, guid: 55a35b27c6d82409f8ed157bf32ea8c3,
+        type: 3}
+      propertyPath: BoatColl
+      value: 
+      objectReference: {fileID: 325505198}
+    - target: {fileID: 6440322541461252216, guid: 55a35b27c6d82409f8ed157bf32ea8c3,
+        type: 3}
+      propertyPath: TrashDropPosition
+      value: 
+      objectReference: {fileID: 286496056}
     - target: {fileID: 6899966383291868961, guid: 55a35b27c6d82409f8ed157bf32ea8c3,
         type: 3}
       propertyPath: autoGenerate
@@ -1410,7 +1463,7 @@ PrefabInstance:
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -54.64
       objectReference: {fileID: 0}
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
@@ -1420,7 +1473,7 @@ PrefabInstance:
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -23.88
       objectReference: {fileID: 0}
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
@@ -1464,17 +1517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
-      propertyPath: maxSpeed
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
-        type: 3}
-      propertyPath: acceleration
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
-        type: 3}
-      propertyPath: steeringStrength
+      propertyPath: <DefaultSpeed>k__BackingField
       value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1909,7 +1952,7 @@ Transform:
   m_GameObject: {fileID: 2046437655}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -77, y: 3.5, z: 0}
+  m_LocalPosition: {x: -77, y: 3.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

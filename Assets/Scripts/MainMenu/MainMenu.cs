@@ -82,7 +82,7 @@ public class MainMenu : UIAnimator
 
         yield return new WaitForSeconds(0.5f);
 
-        AsyncOperation operation = SceneManager.LoadSceneAsync("GameScene", LoadSceneMode.Single);
+        AsyncOperation operation = SceneManager.LoadSceneAsync("Main World Scene", LoadSceneMode.Single);
 
         while (!operation.isDone)
         {
