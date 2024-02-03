@@ -441,7 +441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8152618900583005207}
   - component: {fileID: 6342658092722502185}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TrashHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +458,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.45, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 0.72, y: 0.72, z: 0.72}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7034318605361613284}
@@ -753,7 +753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1929907164841605716}
   - component: {fileID: 2915889796338369069}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TrashHolder (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -873,7 +873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3211468803384016067}
   - component: {fileID: 4742522779786032043}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TrashHolder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -890,7 +890,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0.41, y: 0.487, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.3, z: 0.5}
+  m_LocalScale: {x: 0.72, y: 0.3, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7034318605361613284}
@@ -1248,7 +1248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3259262617051337194}
   - component: {fileID: 4202541139182763120}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TrashHolder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1264,8 +1264,8 @@ Transform:
   m_GameObject: {fileID: 5026309790515415421}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.93, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.3, z: 0.75}
+  m_LocalPosition: {x: 0, y: 0.831, z: 0}
+  m_LocalScale: {x: 0.72, y: 0.3, z: 0.72}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7034318605361613284}
@@ -2073,7 +2073,7 @@ GameObject:
   m_Component:
   - component: {fileID: 567649390665057530}
   - component: {fileID: 9126724004729349382}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TrashHolder (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2161,7 +2161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7163054824952547510}
   - component: {fileID: 1893867966523003193}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TrashHolder (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2178,7 +2178,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: -0.80999994, y: 0.48700002, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.3, z: 0.5}
+  m_LocalScale: {x: 0.72, y: 0.3, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7034318605361613284}
