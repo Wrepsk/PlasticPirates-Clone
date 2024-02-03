@@ -1267,6 +1267,8 @@ MonoBehaviour:
   descArea: {fileID: 7818055267878774919}
   playerBoat: {fileID: 0}
   selectedUpgradeButton: {fileID: 0}
+  audioSource: {fileID: 0}
+  clickClip: {fileID: 0}
 --- !u!222 &3232071663873250791
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2626,9 +2628,9 @@ MonoBehaviour:
   _resumeButton: {fileID: 6095033980562917944}
   _restartButton: {fileID: 3853110609800702626}
   _quitButton: {fileID: 6023345022821116955}
-  _deathScreen: {fileID: 0}
-  _restartAfterDeathButton: {fileID: 0}
-  _returnAfterDeathButton: {fileID: 0}
+  _deathScreen: {fileID: 4325023381819695900}
+  _restartAfterDeathButton: {fileID: 6624724941974689461}
+  _returnAfterDeathButton: {fileID: 4060768959256137579}
   _message: {fileID: 7897707243790279258}
   _cross: {fileID: 358014333614281855}
   upgradeMenu: {fileID: 3208908070756074240}
@@ -3466,7 +3468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back to main Menue
+  m_text: Back to Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

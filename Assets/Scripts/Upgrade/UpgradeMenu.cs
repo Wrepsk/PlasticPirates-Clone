@@ -15,6 +15,9 @@ public class UpgradeMenu : MonoBehaviour
 
     public Button selectedUpgradeButton;
 
+    public AudioSource audioSource;
+    public AudioClip clickClip;
+
     System.Reflection.PropertyInfo stat;
     string statName;
     string description;
@@ -46,8 +49,9 @@ public class UpgradeMenu : MonoBehaviour
     {
         if(selectedUpgradeButton != null)
         {
-            if(StatsManager.instance.CollectedTrash >= cost)
+            if (StatsManager.instance.CollectedTrash >= cost)
             {
+                audioSource.PlayOneShot(clickClip, 0.35f);
                 Debug.Log("Changing value");
                 Debug.Log(statName);
                 StatsManager.instance.CollectedTrash -= cost;

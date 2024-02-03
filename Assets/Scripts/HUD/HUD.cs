@@ -61,6 +61,7 @@ public class HUD : UIAnimator
         _resumeButton.onClick.AddListener(ToggleMenu);
 
         _returnAfterDeathButton.onClick.AddListener(() => ChangeScene("MainMenu"));
+        _restartAfterDeathButton.onClick.AddListener(() => ChangeScene("Main World Scene"));
     }
 
     protected override void Update()
@@ -151,6 +152,10 @@ public class HUD : UIAnimator
         Cursor.lockState = !screenActive ? CursorLockMode.None : CursorLockMode.Locked;
         boat.GetComponent<BoatEquipments>().canUseWeapons = screenActive;
         boat.GetComponentInChildren<RotateCamera>().inUpgradeMenu = !screenActive;
+
+        Camera boatCamera = boat.GetComponentInChildren<Camera>();
+        boatCamera.transform.parent = null;
+        Destroy(boat.GetComponentInChildren<RotateCamera>());
     }
 
     public void ShowMessage(string message, float time = 1.5f)

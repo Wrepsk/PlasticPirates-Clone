@@ -10,15 +10,14 @@ public class Damagable : MonoBehaviour
     public float MaxHealth { get; set; } = 100;
     public float Health { get; set; }
     [field: SerializeField]
-    public float Armor { get; set; } = 100;
+    public float Armor { get; set; } = 0;
     [field: SerializeField]
-    public float DefaultSpeed { get; set; } = 5.0f;
+    public float DefaultSpeed { get; set; } = 100.0f;
 
     //Actors and Helpers
     public event Action OnDeath;
     public event Action<float> HealthChanged;
     public bool IsDead => Health <= 0;
-    //public SimpleBuoyantObject simpleBuoyantObject;
     
 
     //Smoke/Fire/Bubbles Animations
@@ -34,9 +33,17 @@ public class Damagable : MonoBehaviour
     public AudioClip fireSound;
     public AudioClip bubbleSound;
 
+    //Trash manager for spawning after death
+    public TrashManager trashManager; //assigned at start
+    public int trashDropAmount { get; set; } = 5;
+    private float objectHeigth;
+
     protected virtual void Start()
     {
-        Debug.Log(MaxHealth);
+        trashManager = FindObjectsOfType<TrashManager>()[0];
+        objectHeigth = gameObject.GetComponentsInChildren<MeshRenderer>()[0].bounds.size.y;
+        if (objectHeigth < 1) objectHeigth = 10;
+        
         Health = MaxHealth;
         alive = true;
     }
@@ -74,10 +81,12 @@ public class Damagable : MonoBehaviour
 
     public void DealDamage(float damage)
     {
-        Health = Mathf.Max(0f, Health - damage);
+        float _damage = (damage * (100f - Armor)) / 100f;
+
+        Health = Mathf.Max(0f, Health - _damage);
         Debug.Log("health left: " + Health);
 
-        if (damage <= 0) OnDeath?.Invoke();
+        if (Health <= 0 & alive) OnDeath?.Invoke();
         HealthChanged?.Invoke(Health);
     }
 
@@ -85,7 +94,14 @@ public class Damagable : MonoBehaviour
     {
         transform.position -= new Vector3(0, 1 * Time.deltaTime, 0);
 
-        if (transform.position.y < -5) Destroy(gameObject);
+        if (transform.position.y < -Mathf.Max(objectHeigth, 4))
+        {
+            trashManager.SpawnRandomTrashWithinCube(new Vector2(transform.position.x, transform.position.z),
+                    new Vector3(10, 0, 5), 1, trashDropAmount, 10);
+            Debug.Log("Trash spawn function went through");
+            Destroy(gameObject);
+        }
+        
     }
 
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UpgradeButton : MonoBehaviour
@@ -14,14 +15,20 @@ public class UpgradeButton : MonoBehaviour
 
     public bool isPurchased = false;
 
+    public AudioSource audioSource;
+    public AudioClip hoverClip;
+    public AudioClip clickClip;
+
     private void Awake()
     {
         this.GetComponent<Button>().onClick.AddListener(UpdateUpgradeMenuVariable);
+        AddHoverEvents(this.GetComponent<Button>());
         oldLineColor = lineToNextUpgrade.color;
     }
 
     void UpdateUpgradeMenuVariable()
     {
+        audioSource.PlayOneShot(clickClip, 0.35f);
         upgradeMenu.selectedUpgradeButton = this.GetComponent<Button>();
     }
 
@@ -45,5 +52,18 @@ public class UpgradeButton : MonoBehaviour
                 lineToNextUpgrade.color = oldLineColor;
             }
         }
+    }
+
+    private void AddHoverEvents(Button button)
+    {
+        EventTrigger trigger = button.gameObject.GetComponent<EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = button.gameObject.AddComponent<EventTrigger>();
+        }
+
+        EventTrigger.Entry entryEnter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
+        entryEnter.callback.AddListener((data) => { if (this.GetComponent<Button>().interactable == true) { audioSource.PlayOneShot(hoverClip, 0.15f); } });
+        trigger.triggers.Add(entryEnter);
     }
 }

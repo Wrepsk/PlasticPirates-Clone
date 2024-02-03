@@ -16,5 +16,16 @@ public class TrashBehaviour : MonoBehaviour
         Transform meshTransform = gameObject.transform.GetChild(0);
         meshTransform.localPosition = trash.GetBuoyancy();
         meshTransform.localRotation = trash.GetBuoyancyRotation();
+
+        if (trash.rising)
+        {
+            gameObject.transform.position += new Vector3(0, trash.manager.riseSpeed, 0);
+            trash.position.y += trash.manager.riseSpeed;
+            if (trash.position.y > -(trash.manager.meshes[trash.meshType].bounds.size.y / 2))
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, -(trash.manager.meshes[trash.meshType].bounds.size.y / 2), gameObject.transform.position.z);
+                trash.rising = false;
+            }
+        }
     }
 }
