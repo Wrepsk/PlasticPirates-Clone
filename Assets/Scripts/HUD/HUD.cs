@@ -8,12 +8,21 @@ public class HUD : UIAnimator
     public static HUD instance;
 
     public bool HudActive => _menu.activeSelf;
+    //public bool DeathScreenActive => _deathScreen.activeSelf;
+
+    
 
     // Menu
     [SerializeField] private GameObject _menu;
     [SerializeField] private Button _resumeButton;
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _quitButton;
+
+    // Death screen
+    [SerializeField] private GameObject _deathScreen;
+    [SerializeField] private Button _restartAfterDeathButton;
+    [SerializeField] private Button _returnAfterDeathButton;
+    private bool _deathIsToggled = false;
 
     // Overlay message
     [SerializeField] private GameObject _message;
@@ -50,6 +59,8 @@ public class HUD : UIAnimator
 
         _quitButton.onClick.AddListener(() => ChangeScene("MainMenu"));
         _resumeButton.onClick.AddListener(ToggleMenu);
+
+        _returnAfterDeathButton.onClick.AddListener(() => ChangeScene("MainMenu"));
     }
 
     protected override void Update()
@@ -59,6 +70,10 @@ public class HUD : UIAnimator
         if (Input.GetKeyDown(KeyCode.Escape)) ToggleMenu();
 
         if (_menu.activeSelf) return;
+
+        if (boat.IsDead && !_deathIsToggled) ToggleDeathScreen();
+
+        if (_deathScreen.activeSelf) return;
 
 
         if(boat.inUpgradeIsland)
@@ -122,6 +137,20 @@ public class HUD : UIAnimator
         boat.GetComponentInChildren<RotateCamera>().inUpgradeMenu = !menuActive;
 
         _cross.SetActive(menuActive);
+    }
+
+    public void ToggleDeathScreen()
+    {
+        _deathIsToggled = true;
+        bool screenActive = _deathScreen.activeSelf;
+
+        if (screenActive) HideElement(_deathScreen);
+        else ShowElement(_deathScreen);
+
+        Cursor.visible = !screenActive;
+        Cursor.lockState = !screenActive ? CursorLockMode.None : CursorLockMode.Locked;
+        boat.GetComponent<BoatEquipments>().canUseWeapons = screenActive;
+        boat.GetComponentInChildren<RotateCamera>().inUpgradeMenu = !screenActive;
     }
 
     public void ShowMessage(string message, float time = 1.5f)
