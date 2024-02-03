@@ -1171,6 +1171,7 @@ MonoBehaviour:
   audioSource: {fileID: 8334890336535162744}
   fireSound: {fileID: 8300000, guid: 239e1a976d6f9d249bb3e418f06bf40a, type: 3}
   bubbleSound: {fileID: 8300000, guid: bb8790fc33c352c4993abccf2ef8354b, type: 3}
+  trashManager: {fileID: 0}
   playerObject: {fileID: 0}
   agent: {fileID: 0}
   isAggroed: 0
@@ -1178,6 +1179,7 @@ MonoBehaviour:
   healthbarComplete: {fileID: 9125233715462191189}
   healthbarDeath: {fileID: 824880873104624701}
   alarm: {fileID: 8300000, guid: 5bc0ac3dbf8598e44b17789fd5cda293, type: 3}
+  alarmPlayed: 0
   alarmVolume: 2
   destination: {x: 0, y: 0, z: 0}
   turnspeed: 5
@@ -1535,7 +1537,7 @@ GameObject:
   - component: {fileID: 5515386663126228900}
   - component: {fileID: 1116488761746798133}
   - component: {fileID: 2271799059921149086}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: EnemyIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
