@@ -794,6 +794,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3025170241802819867, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3025170241802819867, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: Increases speed to 20.
+      objectReference: {fileID: 0}
     - target: {fileID: 3694078537108503674, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: clickClip
@@ -809,6 +819,16 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1912413731}
+    - target: {fileID: 4254749601111791696, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254749601111791696, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: Increases speed to 100.
+      objectReference: {fileID: 0}
     - target: {fileID: 5179902836702765095, guid: e787c88fc60ed94f28b28faef6f26cb7,
         type: 3}
       propertyPath: clickClip
@@ -943,6 +963,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945791702875664391, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945791702875664391, guid: e787c88fc60ed94f28b28faef6f26cb7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: Increases speed to 50.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1433,7 +1463,7 @@ PrefabInstance:
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -54.64
       objectReference: {fileID: 0}
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
@@ -1443,7 +1473,7 @@ PrefabInstance:
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -23.88
       objectReference: {fileID: 0}
     - target: {fileID: 749989032555114031, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
@@ -1487,17 +1517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
-      propertyPath: maxSpeed
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
-        type: 3}
-      propertyPath: acceleration
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 7944242713565959894, guid: 99e70b2bbdd841246a8c5b9620151153,
-        type: 3}
-      propertyPath: steeringStrength
+      propertyPath: <DefaultSpeed>k__BackingField
       value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
