@@ -977,7 +977,7 @@ GameObject:
   - component: {fileID: 7172402691866064105}
   - component: {fileID: 8868222673578112730}
   - component: {fileID: 1108110449174248876}
-  m_Layer: 9
+  m_Layer: 15
   m_Name: PlayerIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1623,12 +1623,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5799577022288838327}
   - {fileID: 7034318605361613284}
   - {fileID: 7491173504903220285}
   - {fileID: 398455966397153537}
   - {fileID: 449587778948646236}
   - {fileID: 5362976711370709376}
+  - {fileID: 5799577022288838327}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8879828171275767134
@@ -1679,6 +1679,7 @@ MonoBehaviour:
   audioSource: {fileID: 8226011301528252935}
   fireSound: {fileID: 8300000, guid: 239e1a976d6f9d249bb3e418f06bf40a, type: 3}
   bubbleSound: {fileID: 8300000, guid: bb8790fc33c352c4993abccf2ef8354b, type: 3}
+  trashManager: {fileID: 0}
   movementInput: {x: 0, y: 0}
   inUpgradeIsland: 1
   motorAudioSource: {fileID: 4606063554608518765}
