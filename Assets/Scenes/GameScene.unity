@@ -1264,6 +1264,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2121316870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &813025703 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 328599476391838948, guid: 99e70b2bbdd841246a8c5b9620151153,
+    type: 3}
+  m_PrefabInstance: {fileID: 1743403126}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &813790968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,6 +1405,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6440322541461252216, guid: 55a35b27c6d82409f8ed157bf32ea8c3,
+        type: 3}
+      propertyPath: BoatColl
+      value: 
+      objectReference: {fileID: 1743403129}
+    - target: {fileID: 6440322541461252216, guid: 55a35b27c6d82409f8ed157bf32ea8c3,
+        type: 3}
+      propertyPath: TrashDropPosition
+      value: 
+      objectReference: {fileID: 813025703}
     - target: {fileID: 6899966383291868961, guid: 55a35b27c6d82409f8ed157bf32ea8c3,
         type: 3}
       propertyPath: autoGenerate
@@ -2405,6 +2421,12 @@ PrefabInstance:
 --- !u!4 &1743403127 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8541935757540456716, guid: 99e70b2bbdd841246a8c5b9620151153,
+    type: 3}
+  m_PrefabInstance: {fileID: 1743403126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1743403129 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2770240206055113096, guid: 99e70b2bbdd841246a8c5b9620151153,
     type: 3}
   m_PrefabInstance: {fileID: 1743403126}
   m_PrefabAsset: {fileID: 0}

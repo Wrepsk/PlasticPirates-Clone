@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -106,6 +105,8 @@ public class TrashManager : MonoBehaviour
     private LinkedList<Trash> trashList = new LinkedList<Trash>();
     private Matrix4x4[] instData;
 
+    public event System.Action<Trash> OnTrashCollected;
+
     public Trash CreateTrash(Vector3 position, int meshType = -1, bool rising = false)
     {
         Trash trash = new Trash();
@@ -127,6 +128,7 @@ public class TrashManager : MonoBehaviour
 
     public void CollectTrash(Trash trash)
     {
+        OnTrashCollected?.Invoke(trash);
         StatsManager.instance.CollectedTrash += 1;
         RemoveTrash(trash);
     }
