@@ -1580,11 +1580,51 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2237f72fb24107f45864aa8aef947e70, type: 2}
+    - target: {fileID: 4575457740727523804, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4865157536613362750, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e9e84f9ec363ed8458d42131efa5d4dd, type: 2}
+    - target: {fileID: 4987861851067637550, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: TrailModule.mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987861851067637550, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: ShapeModule.angle
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987861851067637550, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: TrailModule.textureScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987861851067637550, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: TrailModule.textureScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987861851067637550, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: TrailModule.lifetime.scalar
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987861851067637550, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: TrailModule.minVertexDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987861851067637550, guid: 99e70b2bbdd841246a8c5b9620151153,
+        type: 3}
+      propertyPath: TrailModule.widthOverTrail.scalar
+      value: 0.06
+      objectReference: {fileID: 0}
     - target: {fileID: 5035502818741382607, guid: 99e70b2bbdd841246a8c5b9620151153,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
