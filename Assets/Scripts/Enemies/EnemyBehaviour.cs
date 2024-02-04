@@ -166,7 +166,10 @@ public class EnemyBehaviour : Damagable
             }
         }
 
-        isAggroed = diffVector.magnitude < aggroRange;
+        if(Health != MaxHealth)
+            isAggroed = true;
+        else
+            isAggroed = diffVector.magnitude < aggroRange;
 
 
         //recalibrates destination if player moves
