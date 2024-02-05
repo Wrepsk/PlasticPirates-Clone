@@ -9,8 +9,10 @@ public class TrashBehaviour : MonoBehaviour
     void OnTriggerEnter(Collider collision)
     {
         // 8 is the layer for player boat colliders
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8 && StatsManager.instance.CollectedTrash <= 25) {
             TrashManager.instance.CollectTrash(trash);
+
+        }
     }
 
     void Update()

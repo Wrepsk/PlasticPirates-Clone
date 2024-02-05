@@ -5,14 +5,14 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     //Spawn Position Helpersor
-    public float minSpawnDistance = 70f;
+    public float minSpawnDistance = 80f;
     public float maxSpawnDistance = 150f;
     public GameObject playerObject;
     private Vector3 playerPos;
 
     // Define size of Waves
-    public int enemyGroupCount = 3;
-    public int enemyGroupSize = 2;
+    public int enemyGroupCount = 6;
+    public int enemyGroupSize = 1;
     public int enemyGroupRadius = 10;
 
     // Counters
