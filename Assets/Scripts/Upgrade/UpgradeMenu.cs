@@ -61,6 +61,10 @@ public class UpgradeMenu : MonoBehaviour
                 {	
                     playerBoat.Health = playerBoat.MaxHealth;
                 }
+                else if(statName == "DefaultSpeed")
+                {
+                    playerBoat.GetComponent<BoatMovement>().acceleration += 50;
+                }
 
                 playerBoat.DealDamage(0);
                 selectedUpgradeButton.interactable = false;

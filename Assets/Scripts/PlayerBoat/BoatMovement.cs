@@ -26,7 +26,7 @@ public class BoatMovement : Damagable
     [SerializeField] Transform motorPosition;
 
     [Header("Boat Control parameters")]
-    [SerializeField] float acceleration, maxSpeed, steeringStrength, maxAngularSpeed;
+    public float acceleration, maxSpeed, steeringStrength, maxAngularSpeed;
 
     [SerializeField] AnimationCurve massMult;
 
