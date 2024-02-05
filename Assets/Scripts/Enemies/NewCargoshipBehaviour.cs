@@ -178,19 +178,21 @@ public class NewCargoshipBehaviour : EnemyBehaviour
     private void SpawnTrashAtTheBack()
     {
         int type = UnityEngine.Random.Range(0, TrashManager.instance.meshPrefabs.Length);
-        
+
         Trash trash = TrashManager.instance.CreateTrash(trashPoint.transform.position, type);
         trash.ignoreDematerialize = true;
         GameObject spawnedTrash = trash.Materialize();
 
-        spawnedTrash.GetComponent<TrashBehaviour>().enabled = false;
+        //spawnedTrash.GetComponent<TrashBehaviour>().enabled = false;
+        spawnedTrash.GetComponent<TrashBehaviour>().spawnedByCargoShip = true;
         spawnedTrash.GetComponent<Rigidbody>().useGravity = true;
         spawnedTrash.GetComponent<Rigidbody>().drag = 0;
         spawnedTrash.GetComponent<Rigidbody>().mass = trashMass;
-        spawnedTrash.GetComponent<Rigidbody>().AddForce(new Vector3(0 , 0, throwForce));
-        StartCoroutine(EnableBuoyantObjectForTrash(spawnedTrash));
+        spawnedTrash.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, throwForce));
+        //StartCoroutine(EnableBuoyantObjectForTrash(spawnedTrash));
     }
 
+    /*
     IEnumerator EnableBuoyantObjectForTrash(GameObject spawnedTrash)
     {
         yield return new WaitForSeconds(timeBeforeEnablingSBO);
@@ -200,5 +202,6 @@ public class NewCargoshipBehaviour : EnemyBehaviour
         spawnedTrash.GetComponent<Rigidbody>().mass = 1f;
         spawnedTrash.transform.position = new Vector3(spawnedTrash.transform.position.x, 0, spawnedTrash.transform.position.z);
     }
+    */
 
 }

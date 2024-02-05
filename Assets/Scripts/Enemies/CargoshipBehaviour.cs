@@ -165,14 +165,16 @@ public class CargoshipBehaviour : Damagable
         trash.ignoreDematerialize = true;
         GameObject spawnedTrash = trash.Materialize();
 
-        spawnedTrash.GetComponent<TrashBehaviour>().enabled = false;
+        //spawnedTrash.GetComponent<TrashBehaviour>().enabled = false;
+        spawnedTrash.GetComponent<TrashBehaviour>().spawnedByCargoShip = true;
         spawnedTrash.GetComponent<Rigidbody>().useGravity = true;
         spawnedTrash.GetComponent<Rigidbody>().drag = 0;
         spawnedTrash.GetComponent<Rigidbody>().mass = trashMass;
-        spawnedTrash.GetComponent<Rigidbody>().AddForce(new Vector3(0 , 0, throwForce));
-        StartCoroutine(EnableBuoyantObjectForTrash(spawnedTrash));
+        spawnedTrash.GetComponent<Rigidbody>().AddForce(transform.right * throwForce);
+        //StartCoroutine(EnableBuoyantObjectForTrash(spawnedTrash));
     }
 
+    /*
     IEnumerator EnableBuoyantObjectForTrash(GameObject spawnedTrash)
     {
         yield return new WaitForSeconds(timeBeforeEnablingSBO);
@@ -182,5 +184,6 @@ public class CargoshipBehaviour : Damagable
         spawnedTrash.GetComponent<Rigidbody>().mass = 1f;
         spawnedTrash.transform.position = new Vector3(spawnedTrash.transform.position.x, 0, spawnedTrash.transform.position.z);
     }
+    */
 
 }
